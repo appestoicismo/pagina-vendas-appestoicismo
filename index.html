@@ -124,6 +124,11 @@
       position: relative;
     }
 
+    /* Fix para primeira seção - evita corte no topo */
+    section:first-of-type {
+      padding-top: calc(var(--space-lg) + 40px);
+    }
+
     /* Typography Mobile-First */
     h1 {
       font-size: var(--h1-size);
@@ -193,7 +198,7 @@
     /* Header Fixo Mobile Otimizado */
     .header-fixo {
       position: fixed;
-      top: -100px;
+      top: -120px;
       left: 0;
       right: 0;
       background: rgba(15, 23, 42, 0.95);
