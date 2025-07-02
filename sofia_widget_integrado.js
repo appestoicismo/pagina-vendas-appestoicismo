@@ -1,6 +1,6 @@
 /**
  * Sofia Widget - Assistente Estoica Inteligente
- * Versão: 2.3 - Integração Modular
+ * Versão: 2.4 - Correções de Bug e Melhorias
  * Para integrar em qualquer página web
  */
 
@@ -8,19 +8,22 @@
     'use strict';
 
     // ENDPOINT DA SOFIA (Railway)
-const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
+    const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
+    
     // CONFIGURAÇÕES PADRÃO
-        const defaultConfig = {
+    const defaultConfig = {
         primaryColor: '#667eea',
         secondaryColor: '#764ba2',
         position: 'bottom-right', // bottom-right, bottom-left, top-right, top-left
         welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica. Como posso te ajudar hoje?',
-        avatarUrl: 'Sofia_IA.png',
+        avatarUrl: './Sofia_IA.png',
         showAfterSeconds: 3,
         notificationDelay: 15000,
         exitIntentEnabled: true,
         mobileOptimized: true,
-        analytics: true
+        analytics: true,
+        fallbackAvatar: true,
+        apiTimeout: 10000
     };
 
     // CLASSE PRINCIPAL DO WIDGET
@@ -33,6 +36,7 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
             this.exitIntentShown = false;
             this.userScrolled = false;
             this.messageCount = 0;
+            this.apiConnected = false;
             
             this.init();
         }
@@ -42,9 +46,36 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
             this.createHTML();
             this.bindEvents();
             this.startBehaviors();
+            this.testApiConnection();
             
             if (this.config.analytics) {
                 this.trackEvent('widget_loaded');
+            }
+        }
+
+        // TESTE DE CONEXÃO COM API
+        async testApiConnection() {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ mensagem: 'teste' }),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                this.apiConnected = response.ok;
+                console.log('Sofia API Status:', this.apiConnected ? 'Conectada' : 'Desconectada');
+                
+            } catch (error) {
+                this.apiConnected = false;
+                console.warn('Sofia API não disponível:', error.message);
             }
         }
 
@@ -101,6 +132,20 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                     height: 40px;
                     border-radius: 50%;
                     object-fit: cover;
+                    border: 2px solid rgba(255,255,255,0.2);
+                }
+
+                .sofia-fallback-avatar {
+                    width: 40px;
+                    height: 40px;
+                    background: linear-gradient(135deg, ${this.config.primaryColor} 0%, ${this.config.secondaryColor} 100%);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 18px;
+                    font-weight: bold;
                     border: 2px solid rgba(255,255,255,0.2);
                 }
 
@@ -189,6 +234,21 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                     height: 50px;
                     border-radius: 50%;
                     object-fit: cover;
+                    margin-right: 15px;
+                    border: 2px solid rgba(255,255,255,0.2);
+                }
+
+                .sofia-fallback-avatar-large {
+                    width: 50px;
+                    height: 50px;
+                    background: rgba(255,255,255,0.2);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 22px;
+                    font-weight: bold;
                     margin-right: 15px;
                     border: 2px solid rgba(255,255,255,0.2);
                 }
@@ -420,6 +480,16 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                     transform: none;
                 }
 
+                .sofia-error-message {
+                    background: #fee;
+                    color: #c33;
+                    padding: 10px;
+                    border-radius: 10px;
+                    margin: 10px 0;
+                    font-size: 12px;
+                    border: 1px solid #fcc;
+                }
+
                 /* RESPONSIVO MOBILE */
                 @media (max-width: 480px) {
                     .sofia-chat-window {
@@ -436,7 +506,7 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                         border-radius: 15px 15px 0 0;
                     }
 
-                    .sofia-avatar {
+                    .sofia-avatar, .sofia-fallback-avatar-large {
                         width: 45px;
                         height: 45px;
                         margin-right: 12px;
@@ -479,7 +549,7 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                         height: 65px;
                     }
 
-                    .sofia-icon {
+                    .sofia-icon, .sofia-fallback-avatar {
                         width: 38px;
                         height: 38px;
                     }
@@ -556,6 +626,7 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
             `;
 
             const styleSheet = document.createElement('style');
+            styleSheet.setAttribute('data-sofia-widget', 'true');
             styleSheet.textContent = styles;
             document.head.appendChild(styleSheet);
         }
@@ -567,21 +638,33 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
             container.innerHTML = `
                 <!-- NOTIFICAÇÃO -->
                 <div class="sofia-notification" id="sofiaNotification">
-                    <button class="notification-close" onclick="window.sofiaWidget.hideNotification()">×</button>
+                    <button class="notification-close" onclick="window.sofiaWidget && window.sofiaWidget.hideNotification()">×</button>
                     <strong>👋 Precisa de ajuda?</strong><br>
                     Sou a Sofia e posso te ajudar com desenvolvimento estoico!
                 </div>
 
                 <!-- BUBBLE -->
                 <div class="sofia-bubble" id="sofiaBubble">
-                    <img src="${this.config.avatarUrl}" alt="Sofia" class="sofia-icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'width:40px;height:40px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:bold;\'>S</div>'">
+                    <img src="${this.config.avatarUrl}" 
+                         alt="Sofia" 
+                         class="sofia-icon" 
+                         style="display: none;"
+                         onload="this.style.display='block'" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="sofia-fallback-avatar" style="display: none;">S</div>
                 </div>
 
                 <!-- CHAT WINDOW -->
                 <div class="sofia-chat-window" id="sofiaChatWindow">
                     <div class="sofia-chat-header">
                         <div style="display: flex; align-items: center;">
-                            <img src="${this.config.avatarUrl}" alt="Sofia" class="sofia-avatar" onerror="this.style.display='none'">
+                            <img src="${this.config.avatarUrl}" 
+                                 alt="Sofia" 
+                                 class="sofia-avatar" 
+                                 style="display: none;"
+                                 onload="this.style.display='block'"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="sofia-fallback-avatar-large" style="display: none;">S</div>
                             <div class="sofia-info">
                                 <h3>Sofia</h3>
                                 <p><span class="sofia-online-dot"></span>Consultora Estoica • Online</p>
@@ -611,6 +694,7 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                             class="sofia-chat-input" 
                             id="sofiaChatInput" 
                             placeholder="Digite sua mensagem..."
+                            maxlength="500"
                         >
                         <button class="sofia-send-button" id="sofiaSendButton">➤</button>
                     </div>
@@ -622,8 +706,8 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                     <div class="sofia-exit-intent-modal">
                         <h3>✋ Espera aí!</h3>
                         <p>Antes de sair, que tal conversar com a Sofia? Ela pode esclarecer suas dúvidas sobre o estoicismo em apenas alguns minutos!</p>
-                        <button class="sofia-exit-button" onclick="window.sofiaWidget.openChatFromExit()">Conversar com Sofia</button>
-                        <button class="sofia-exit-button secondary" onclick="window.sofiaWidget.closeExitIntent()">Continuar navegando</button>
+                        <button class="sofia-exit-button" onclick="window.sofiaWidget && window.sofiaWidget.openChatFromExit()">Conversar com Sofia</button>
+                        <button class="sofia-exit-button secondary" onclick="window.sofiaWidget && window.sofiaWidget.closeExitIntent()">Continuar navegando</button>
                     </div>
                 </div>
                 ` : ''}
@@ -635,18 +719,33 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
         // VINCULAR EVENTOS
         bindEvents() {
             // Bubble click
-            document.getElementById('sofiaBubble').addEventListener('click', () => this.toggleChat());
+            const bubble = document.getElementById('sofiaBubble');
+            if (bubble) {
+                bubble.addEventListener('click', () => this.toggleChat());
+            }
             
             // Close button
-            document.querySelector('.sofia-close-chat').addEventListener('click', () => this.toggleChat());
+            const closeButton = document.querySelector('.sofia-close-chat');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => this.toggleChat());
+            }
             
             // Send button
-            document.getElementById('sofiaSendButton').addEventListener('click', () => this.sendMessage());
+            const sendButton = document.getElementById('sofiaSendButton');
+            if (sendButton) {
+                sendButton.addEventListener('click', () => this.sendMessage());
+            }
             
             // Enter key
-            document.getElementById('sofiaChatInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') this.sendMessage();
-            });
+            const chatInput = document.getElementById('sofiaChatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+            }
 
             // Exit intent
             if (this.config.exitIntentEnabled) {
@@ -668,13 +767,24 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                     }
                 }, 2000);
             });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // ESC para fechar chat
+                if (e.key === 'Escape' && this.chatOpen) {
+                    this.toggleChat();
+                }
+            });
         }
 
         // INICIAR COMPORTAMENTOS
         startBehaviors() {
             // Mostrar bubble
             setTimeout(() => {
-                document.getElementById('sofiaBubble').classList.add('show');
+                const bubble = document.getElementById('sofiaBubble');
+                if (bubble) {
+                    bubble.classList.add('show');
+                }
             }, this.config.showAfterSeconds * 1000);
 
             // Notificação por inatividade
@@ -685,165 +795,282 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
             }, this.config.notificationDelay);
         }
 
-        // MÉTODOS PÚBLICOS
+        // MÉTODOS PRINCIPAIS
         toggleChat() {
-    const chatWindow = document.getElementById('sofiaChatWindow');
-    const bubble     = document.getElementById('sofiaBubble');
+            const chatWindow = document.getElementById('sofiaChatWindow');
+            const bubble = document.getElementById('sofiaBubble');
 
-    this.hideNotification();
-    this.chatOpen = !this.chatOpen;
+            if (!chatWindow || !bubble) return;
 
-    if (this.chatOpen) {
-        chatWindow.classList.add('open');
-        bubble.classList.add('chat-open');
-        setTimeout(() => {
-            document.getElementById('sofiaChatInput').focus();
-        }, 300);
+            this.hideNotification();
+            this.chatOpen = !this.chatOpen;
 
-        if (this.config.analytics) this.trackEvent('chat_opened');
-    } else {
-        chatWindow.classList.remove('open');
-        bubble.classList.remove('chat-open');
+            if (this.chatOpen) {
+                chatWindow.classList.add('open');
+                bubble.classList.add('chat-open');
+                
+                setTimeout(() => {
+                    const input = document.getElementById('sofiaChatInput');
+                    if (input) input.focus();
+                }, 300);
 
-        if (this.config.analytics) this.trackEvent('chat_closed');
-    }
-}  // ← fim do novo toggleChat()
+                if (this.config.analytics) this.trackEvent('chat_opened');
+            } else {
+                chatWindow.classList.remove('open');
+                bubble.classList.remove('chat-open');
 
+                if (this.config.analytics) this.trackEvent('chat_closed');
+            }
+        }
 
-        // ---------- FIM DE toggleChat() ----------
-
-        /* ===================================================== *
-         *  MÉTODO: sendMessage
-         * ===================================================== */
         sendMessage() {
-            const input   = document.getElementById('sofiaChatInput');
+            const input = document.getElementById('sofiaChatInput');
+            if (!input) return;
+
             const message = input.value.trim();
 
             if (message && !this.isTyping) {
                 this.addMessage(message, 'user');
                 input.value = '';
-                this.simulateSofiaResponse(message);   // ← chama o método assíncrono
-            }
-        }   // ← fecha sendMessage()
+                this.simulateSofiaResponse(message);
+                this.messageCount++;
 
-        /* ===================================================== *
-         *  MÉTODO: simulateSofiaResponse  (agora FORA de sendMessage)
-         * ===================================================== */
-        async simulateSofiaResponse(userMessage) {
-            this.showTyping();
-            try {
-                const res = await fetch(API_URL, {
-                    method : 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body   : JSON.stringify({ mensagem: userMessage })
-                });
-                const data  = await res.json();
-                const reply = (data.resposta || 'Desculpe, algo deu errado.').trim();
-                this.addMessage(reply, 'sofia');
-            } catch (err) {
-                console.error(err);
-                this.addMessage(
-                    'Ops! Não consegui me conectar. Tente novamente em instantes.',
-                    'sofia'
-                );
-            } finally {
-                this.hideTyping();
-            }
-        }
-    
-        showTyping() {
-            this.isTyping = true;
-            const indicator = document.getElementById('sofiaTypingIndicator');
-            const sendButton = document.getElementById('sofiaSendButton');
-            
-            indicator.classList.add('show');
-            sendButton.disabled = true;
-            
-            setTimeout(() => {
-                document.getElementById('sofiaChatMessages').scrollTop = document.getElementById('sofiaChatMessages').scrollHeight;
-            }, 100);
-        }
-
-        hideTyping() {
-            this.isTyping = false;
-            const indicator = document.getElementById('sofiaTypingIndicator');
-            const sendButton = document.getElementById('sofiaSendButton');
-            
-            indicator.classList.remove('show');
-            sendButton.disabled = false;
-        }
-
-        showNotification() {
-            if (this.notificationShown || this.chatOpen) return;
-            
-            const notification = document.getElementById('sofiaNotification');
-            notification.classList.add('show');
-            this.notificationShown = true;
-
-            setTimeout(() => {
-                this.hideNotification();
-            }, 8000);
-        }
-
-        hideNotification() {
-            const notification = document.getElementById('sofiaNotification');
-            if (notification) {
-                notification.classList.remove('show');
-            }
-        }
-
-        showExitIntent() {
-            if (this.exitIntentShown || !this.config.exitIntentEnabled) return;
-            
-            const overlay = document.getElementById('sofiaExitIntentOverlay');
-            if (overlay) {
-                overlay.classList.add('show');
-                this.exitIntentShown = true;
-                
                 if (this.config.analytics) {
-                    this.trackEvent('exit_intent_shown');
+                    this.trackEvent('message_sent', { message_count: this.messageCount });
                 }
             }
         }
 
-        closeExitIntent() {
-            const overlay = document.getElementById('sofiaExitIntentOverlay');
-            if (overlay) {
-                overlay.classList.remove('show');
-            }
-        }
-
-        openChatFromExit() {
-            this.closeExitIntent();
-            this.toggleChat();
+        async simulateSofiaResponse(userMessage) {
+            this.showTyping();
             
-            if (this.config.analytics) {
-                this.trackEvent('chat_opened_from_exit_intent');
-            }
-        }
+            try {
+                // Verificar se API está disponível
+                if (!this.apiConnected) {
+                    await this.testApiConnection();
+                }
 
-        // MÉTODOS AUXILIARES
-        getPositionStyles() {
-            const positions = {
-                'bottom-right': 'bottom: 30px; right: 30px;',
-                'bottom-left': 'bottom: 30px; left: 30px;',
-                'top-right': 'top: 30px; right: 30px;',
-                'top-left': 'top: 30px; left: 30px;'
-            };
-            return positions[this.config.position] || positions['bottom-right'];
-        }
+                if (!this.apiConnected) {
+                    throw new Error('API não disponível');
+                }
 
-        getNotificationPosition() {
-            const positions = {
-                'bottom-right': 'bottom: 120px; right: 30px;',
-                'bottom-left': 'bottom: 120px; left: 30px;',
-                'top-right': 'top: 120px; right: 30px;',
-                'top-left': 'top: 120px; left: 30px;'
-            };
-            return positions[this.config.position] || positions['bottom-right'];
-        }
+                // Criar controller para timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), this.config.apiTimeout);
 
-        getChatPosition() {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ mensagem: userMessage }),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                const reply = data.resposta || data.message || 'Desculpe, não consegui processar sua mensagem.';
+
+                // Simular tempo de digitação mais realista
+                const typingTime = Math.min(Math.max(reply.length * 50, 1000), 3000);
+                
+                setTimeout(() => {
+                    this.addMessage(reply, 'sofia');
+                    this.hideTyping();
+                }, typingTime);
+
+            } catch (error) {
+               console.error('Erro na API Sofia:', error);
+               
+               let errorMessage = 'Desculpe, estou com dificuldades técnicas no momento. ';
+               
+               if (error.name === 'AbortError') {
+                   errorMessage = 'A resposta está demorando muito. Tente uma pergunta mais simples.';
+               } else if (error.message.includes('HTTP')) {
+                   errorMessage = 'Servidor temporariamente indisponível. Tente novamente em alguns instantes.';
+               } else if (!navigator.onLine) {
+                   errorMessage = 'Parece que você está sem internet. Verifique sua conexão.';
+               } else {
+                   errorMessage += 'Tente novamente em alguns instantes.';
+               }
+
+               setTimeout(() => {
+                   this.addMessage(errorMessage, 'sofia');
+                   this.hideTyping();
+               }, 1000);
+               
+               // Tentar reconectar
+               setTimeout(() => {
+                   this.testApiConnection();
+               }, 5000);
+           }
+       }
+
+       addMessage(content, sender = 'sofia') {
+           const messages = document.getElementById('sofiaChatMessages');
+           if (!messages) return;
+
+           const time = new Date().toLocaleTimeString('pt-BR', {
+               hour: '2-digit',
+               minute: '2-digit'
+           });
+
+           // Sanitizar conteúdo para evitar XSS
+           const sanitizedContent = this.sanitizeHtml(content);
+
+           // Criar elemento da mensagem
+           const msgDiv = document.createElement('div');
+           msgDiv.className = `sofia-message ${sender}`;
+           msgDiv.innerHTML = `<div class="sofia-message-content">${sanitizedContent}</div>`;
+
+           // Criar elemento do horário
+           const timeDiv = document.createElement('div');
+           timeDiv.className = 'sofia-message-time';
+           timeDiv.textContent = time;
+
+           // Adicionar ao container
+           messages.appendChild(msgDiv);
+           messages.appendChild(timeDiv);
+
+           // Auto-scroll suave
+           setTimeout(() => {
+               messages.scrollTop = messages.scrollHeight;
+           }, 100);
+
+           // Remover mensagens antigas se houver muitas (performance)
+           const allMessages = messages.querySelectorAll('.sofia-message');
+           if (allMessages.length > 50) {
+               allMessages[0].remove();
+               allMessages[1].remove(); // Remove também o timestamp
+           }
+       }
+
+       sanitizeHtml(text) {
+           const div = document.createElement('div');
+           div.textContent = text;
+           return div.innerHTML;
+       }
+
+       showTyping() {
+           this.isTyping = true;
+           const indicator = document.getElementById('sofiaTypingIndicator');
+           const sendButton = document.getElementById('sofiaSendButton');
+           const chatInput = document.getElementById('sofiaChatInput');
+           
+           if (indicator) indicator.classList.add('show');
+           if (sendButton) sendButton.disabled = true;
+           if (chatInput) chatInput.disabled = true;
+           
+           setTimeout(() => {
+               const messages = document.getElementById('sofiaChatMessages');
+               if (messages) {
+                   messages.scrollTop = messages.scrollHeight;
+               }
+           }, 100);
+       }
+
+       hideTyping() {
+           this.isTyping = false;
+           const indicator = document.getElementById('sofiaTypingIndicator');
+           const sendButton = document.getElementById('sofiaSendButton');
+           const chatInput = document.getElementById('sofiaChatInput');
+           
+           if (indicator) indicator.classList.remove('show');
+           if (sendButton) sendButton.disabled = false;
+           if (chatInput) chatInput.disabled = false;
+       }
+
+       showNotification() {
+           if (this.notificationShown || this.chatOpen) return;
+           
+           const notification = document.getElementById('sofiaNotification');
+           if (notification) {
+               notification.classList.add('show');
+               this.notificationShown = true;
+
+               // Auto-hide após 8 segundos
+               setTimeout(() => {
+                   this.hideNotification();
+               }, 8000);
+
+               if (this.config.analytics) {
+                   this.trackEvent('notification_shown');
+               }
+           }
+       }
+
+       hideNotification() {
+           const notification = document.getElementById('sofiaNotification');
+           if (notification) {
+               notification.classList.remove('show');
+           }
+       }
+
+       showExitIntent() {
+           if (this.exitIntentShown || !this.config.exitIntentEnabled) return;
+           
+           const overlay = document.getElementById('sofiaExitIntentOverlay');
+           if (overlay) {
+               overlay.classList.add('show');
+               this.exitIntentShown = true;
+               
+               if (this.config.analytics) {
+                   this.trackEvent('exit_intent_shown');
+               }
+
+               // Auto-hide após 10 segundos
+               setTimeout(() => {
+                   this.closeExitIntent();
+               }, 10000);
+           }
+       }
+
+       closeExitIntent() {
+           const overlay = document.getElementById('sofiaExitIntentOverlay');
+           if (overlay) {
+               overlay.classList.remove('show');
+           }
+       }
+
+       openChatFromExit() {
+           this.closeExitIntent();
+           if (!this.chatOpen) {
+               this.toggleChat();
+           }
+           
+           if (this.config.analytics) {
+               this.trackEvent('chat_opened_from_exit_intent');
+           }
+       }
+
+       // MÉTODOS AUXILIARES DE POSICIONAMENTO
+       getPositionStyles() {
+           const positions = {
+               'bottom-right': 'bottom: 30px; right: 30px;',
+               'bottom-left': 'bottom: 30px; left: 30px;',
+               'top-right': 'top: 30px; right: 30px;',
+               'top-left': 'top: 30px; left: 30px;'
+           };
+           return positions[this.config.position] || positions['bottom-right'];
+       }
+
+       getNotificationPosition() {
+           const positions = {
+               'bottom-right': 'bottom: 120px; right: 30px;',
+               'bottom-left': 'bottom: 120px; left: 30px;',
+               'top-right': 'top: 120px; right: 30px;',
+               'top-left': 'top: 120px; left: 30px;'
+           };
+           return positions[this.config.position] || positions['bottom-right'];
+       }
+
+       getChatPosition() {
            const positions = {
                'bottom-right': 'bottom: 120px; right: 30px;',
                'bottom-left': 'bottom: 120px; left: 30px;',
@@ -891,22 +1118,31 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
        }
 
        trackEvent(eventName, properties = {}) {
-           if (typeof gtag !== 'undefined') {
-               gtag('event', eventName, {
-                   event_category: 'sofia_widget',
-                   ...properties
-               });
+           try {
+               // Google Analytics 4
+               if (typeof gtag !== 'undefined') {
+                   gtag('event', eventName, {
+                       event_category: 'sofia_widget',
+                       event_label: 'user_interaction',
+                       ...properties
+                   });
+               }
+               
+               // Facebook Pixel
+               if (typeof fbq !== 'undefined') {
+                   fbq('trackCustom', 'SofiaWidget_' + eventName, properties);
+               }
+
+               // Console log para debug
+               if (this.config.analytics) {
+                   console.log('Sofia Analytics:', eventName, properties);
+               }
+           } catch (error) {
+               console.warn('Erro no tracking:', error);
            }
-           
-           // Também pode integrar com outros analytics
-           if (typeof fbq !== 'undefined') {
-               fbq('trackCustom', 'SofiaWidget_' + eventName, properties);
-           }
-           
-           console.log('Sofia Analytics:', eventName, properties);
        }
 
-       // MÉTODOS PÚBLICOS PARA INTEGRAÇÃO
+       // MÉTODOS PÚBLICOS PARA INTEGRAÇÃO EXTERNA
        open() {
            if (!this.chatOpen) {
                this.toggleChat();
@@ -919,25 +1155,78 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
            }
        }
 
-       sendMessageProgrammatically(message) {
-           if (this.chatOpen) {
-               this.addMessage(message, 'sofia');
+       sendMessageProgrammatically(message, sender = 'sofia') {
+           if (message && typeof message === 'string') {
+               this.addMessage(message, sender);
            }
        }
 
        updateConfig(newConfig) {
-           this.config = { ...this.config, ...newConfig };
+           if (typeof newConfig === 'object') {
+               this.config = { ...this.config, ...newConfig };
+               console.log('Configuração atualizada:', this.config);
+           }
+       }
+
+       getStatus() {
+           return {
+               chatOpen: this.chatOpen,
+               isTyping: this.isTyping,
+               messageCount: this.messageCount,
+               apiConnected: this.apiConnected,
+               notificationShown: this.notificationShown,
+               exitIntentShown: this.exitIntentShown
+           };
+       }
+
+       resetChat() {
+           const messages = document.getElementById('sofiaChatMessages');
+           if (messages) {
+               messages.innerHTML = `
+                   <div class="sofia-message sofia">
+                       <div class="sofia-message-content">${this.config.welcomeMessage}</div>
+                   </div>
+                   <div class="sofia-message-time">Agora</div>
+                   <div class="sofia-typing-indicator" id="sofiaTypingIndicator">
+                       <div class="sofia-typing-dots">
+                           <span></span>
+                           <span></span>
+                           <span></span>
+                       </div>
+                   </div>
+               `;
+           }
+           
+           this.messageCount = 0;
+           this.isTyping = false;
+           
+           if (this.config.analytics) {
+               this.trackEvent('chat_reset');
+           }
        }
 
        destroy() {
-           const container = document.querySelector('.sofia-widget-container');
-           if (container) {
-               container.remove();
-           }
-           
-           const styles = document.querySelector('style[data-sofia-widget]');
-           if (styles) {
-               styles.remove();
+           try {
+               // Remover container
+               const container = document.querySelector('.sofia-widget-container');
+               if (container) {
+                   container.remove();
+               }
+               
+               // Remover estilos
+               const styles = document.querySelector('style[data-sofia-widget]');
+               if (styles) {
+                   styles.remove();
+               }
+
+               // Limpar referências globais
+               if (window.sofiaWidget === this) {
+                   window.sofiaWidget = null;
+               }
+
+               console.log('Sofia Widget removido com sucesso');
+           } catch (error) {
+               console.error('Erro ao remover Sofia Widget:', error);
            }
        }
    }
@@ -948,7 +1237,7 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
        
        init: function(config = {}) {
            if (this.instance) {
-               console.warn('Sofia Widget já foi inicializado');
+               console.warn('Sofia Widget já foi inicializado. Use SofiaWidget.destroy() para remover primeiro.');
                return this.instance;
            }
            
@@ -975,6 +1264,14 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
            if (this.instance) this.instance.close();
        },
 
+       reset: function() {
+           if (this.instance) this.instance.resetChat();
+       },
+
+       status: function() {
+           return this.instance ? this.instance.getStatus() : null;
+       },
+
        destroy: function() {
            if (this.instance) {
                this.instance.destroy();
@@ -991,21 +1288,24 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                primaryColor: '#2d3748',
                secondaryColor: '#4a5568',
                showAfterSeconds: 5,
-               exitIntentEnabled: false
+               exitIntentEnabled: false,
+               notificationDelay: 20000
            },
            
            energetic: {
                primaryColor: '#e53e3e',
                secondaryColor: '#dd6b20',
                showAfterSeconds: 1,
-               notificationDelay: 5000
+               notificationDelay: 5000,
+               exitIntentEnabled: true
            },
            
            professional: {
                primaryColor: '#3182ce',
                secondaryColor: '#2b6cb0',
                showAfterSeconds: 10,
-               exitIntentEnabled: true
+               exitIntentEnabled: true,
+               notificationDelay: 30000
            },
 
            estoic: {
@@ -1013,57 +1313,216 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
                secondaryColor: '#764ba2',
                welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica. Como posso te ajudar a desenvolver sua mente através da filosofia estoica?',
                showAfterSeconds: 3,
-               exitIntentEnabled: true
+               exitIntentEnabled: true,
+               notificationDelay: 15000,
+               analytics: true
+           },
+
+           mobile: {
+               primaryColor: '#667eea',
+               secondaryColor: '#764ba2',
+               showAfterSeconds: 2,
+               exitIntentEnabled: false,
+               notificationDelay: 10000,
+               mobileOptimized: true
+           }
+       },
+
+       // Utilitários
+       utils: {
+           isMobile: function() {
+               return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+           },
+           
+           isTablet: function() {
+               return /iPad|Android/i.test(navigator.userAgent) && !/Mobile/i.test(navigator.userAgent);
+           },
+           
+           getRecommendedPreset: function() {
+               if (this.isMobile()) return 'mobile';
+               return 'estoic';
            }
        }
    };
 
    // AUTO-INICIALIZAÇÃO SE HOUVER CONFIGURAÇÃO GLOBAL
    if (typeof window.sofiaConfig !== 'undefined') {
+       console.log('Inicializando Sofia Widget com configuração global:', window.sofiaConfig);
        window.SofiaWidget.init(window.sofiaConfig);
+   }
+
+   // INICIALIZAÇÃO AUTOMÁTICA INTELIGENTE
+   if (typeof window.sofiaAutoInit !== 'undefined' && window.sofiaAutoInit) {
+       const recommendedPreset = window.SofiaWidget.utils.getRecommendedPreset();
+       console.log('Auto-inicializando Sofia Widget com preset:', recommendedPreset);
+       window.SofiaWidget.init(window.SofiaWidget.presets[recommendedPreset]);
    }
 
 })();
 
-// EXEMPLOS DE USO:
+// EXPORTAÇÃO PARA MÓDULOS (se necessário)
+if (typeof module !== 'undefined' && module.exports) {
+   module.exports = window.SofiaWidget;
+}
+
+// ====================================================================
+// EXEMPLOS DE USO E DOCUMENTAÇÃO
+// ====================================================================
+
 /*
 
-// USO BÁSICO:
+// ============================================
+// USO BÁSICO
+// ============================================
+
+// Inicialização simples
 SofiaWidget.init();
 
-// USO CUSTOMIZADO:
-SofiaWidget.init({
-   primaryColor: '#667eea',
-   position: 'bottom-left',
-   welcomeMessage: 'Olá! Como posso ajudar?',
-   avatarUrl: 'path/to/sofia.png'
-});
-
-// USO COM PRESET:
+// Inicialização com preset recomendado
 SofiaWidget.init(SofiaWidget.presets.estoic);
 
-// CONTROLE PROGRAMÁTICO:
-SofiaWidget.open();  // Abre o chat
-SofiaWidget.close(); // Fecha o chat
+// ============================================
+// USO CUSTOMIZADO
+// ============================================
 
-// INTEGRAÇÃO COM ANALYTICS:
+SofiaWidget.init({
+   primaryColor: '#667eea',
+   secondaryColor: '#764ba2',
+   position: 'bottom-right',
+   welcomeMessage: 'Olá! Como posso ajudar com estoicismo?',
+   avatarUrl: './images/sofia-avatar.png',
+   showAfterSeconds: 2,
+   notificationDelay: 10000,
+   exitIntentEnabled: true,
+   analytics: true
+});
+
+// ============================================
+// CONTROLE PROGRAMÁTICO
+// ============================================
+
+// Abrir chat
+SofiaWidget.open();
+
+// Fechar chat
+SofiaWidget.close();
+
+// Verificar status
+console.log(SofiaWidget.status());
+
+// Resetar conversa
+SofiaWidget.reset();
+
+// Enviar mensagem programaticamente
+window.sofiaWidget.sendMessageProgrammatically('Mensagem automática', 'sofia');
+
+// Destruir widget
+SofiaWidget.destroy();
+
+// ============================================
+// CONFIGURAÇÃO VIA HTML
+// ============================================
+
+// Adicione antes do script do widget:
+<script>
+window.sofiaConfig = {
+   primaryColor: '#667eea',
+   position: 'bottom-left',
+   welcomeMessage: 'Olá! Precisa de ajuda?'
+};
+</script>
+
+// Ou para auto-inicialização:
+<script>
+window.sofiaAutoInit = true; // Usa preset recomendado automaticamente
+</script>
+
+// ============================================
+// INTEGRAÇÃO COM ANALYTICS
+// ============================================
+
 SofiaWidget.init({
    analytics: true,
    primaryColor: '#667eea'
 });
 
-// MÚLTIPLAS CONFIGURAÇÕES:
+// Eventos rastreados automaticamente:
+// - widget_loaded
+// - chat_opened
+// - chat_closed
+// - message_sent
+// - notification_shown
+// - exit_intent_shown
+// - chat_opened_from_exit_intent
+
+// ============================================
+// DETECÇÃO AUTOMÁTICA DE DISPOSITIVO
+// ============================================
+
+// Verificar se é mobile
+if (SofiaWidget.utils.isMobile()) {
+   SofiaWidget.init(SofiaWidget.presets.mobile);
+} else {
+   SofiaWidget.init(SofiaWidget.presets.professional);
+}
+
+// Ou usar preset recomendado automaticamente
+const preset = SofiaWidget.utils.getRecommendedPreset();
+SofiaWidget.init(SofiaWidget.presets[preset]);
+
+// ============================================
+// CONFIGURAÇÃO AVANÇADA
+// ============================================
+
 SofiaWidget.init({
+   // Cores e visual
    primaryColor: '#667eea',
    secondaryColor: '#764ba2',
    position: 'bottom-right',
-   welcomeMessage: 'Precisa de ajuda com estoicismo?',
-   showAfterSeconds: 2,
-   notificationDelay: 10000,
+   
+   // Conteúdo
+   welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica. Como posso te ajudar hoje?',
+   avatarUrl: './Sofia_IA.png',
+   
+   // Comportamento
+   showAfterSeconds: 3,
+   notificationDelay: 15000,
    exitIntentEnabled: true,
+   apiTimeout: 10000,
+   
+   // Funcionalidades
    mobileOptimized: true,
    analytics: true,
-   avatarUrl: 'Sofia_IA.png'
+   fallbackAvatar: true
 });
+
+// ============================================
+// TRATAMENTO DE ERROS
+// ============================================
+
+// O widget já trata automaticamente:
+// - Falhas na API
+// - Timeout de conexão
+// - Perda de internet
+// - Imagens não encontradas
+// - Errors de JavaScript
+
+// Para debug, verifique o console do navegador
+
+// ============================================
+// PERSONALIZAÇÃO VIA CSS
+// ============================================
+
+// Você pode sobrescrever estilos específicos:
+<style>
+.sofia-bubble {
+   width: 80px !important;
+   height: 80px !important;
+}
+
+.sofia-message.sofia .sofia-message-content {
+   background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%) !important;
+}
+</style>
 
 */
