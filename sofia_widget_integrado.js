@@ -687,61 +687,70 @@ const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
 
         // MÉTODOS PÚBLICOS
         toggleChat() {
-            const chatWindow = document.getElementById('sofiaChatWindow');
-            const bubble = document.getElementById('sofiaBubble');
-            
-            this.hideNotification();
-            this.chatOpen = !this.chatOpen;
-            
-            if (this.chatOpen) {
-                chatWindow.classList.add('open');
-                bubble.classList.add('chat-open');
-                setTimeout(() => {
-                    document.getElementById('sofiaChatInput').focus();
-                }, 300);
-                
-                if (this.config.analytics) {
-                    this.trackEvent('chat_opened');
-                }
-            } else {
-                chatWindow.classList.remove('open');
-                bubble.classList.remove('chat-open');
-                
-                if (this.config.analytics) {
-                    this.trackEvent('chat_closed');
-                }
-            }
-        }
+    const chatWindow = document.getElementById('sofiaChatWindow');
+    const bubble     = document.getElementById('sofiaBubble');
 
+    this.hideNotification();
+    this.chatOpen = !this.chatOpen;
+
+    if (this.chatOpen) {
+        chatWindow.classList.add('open');
+        bubble.classList.add('chat-open');
+        setTimeout(() => {
+            document.getElementById('sofiaChatInput').focus();
+        }, 300);
+
+        if (this.config.analytics) this.trackEvent('chat_opened');
+    } else {
+        chatWindow.classList.remove('open');
+        bubble.classList.remove('chat-open');
+
+        if (this.config.analytics) this.trackEvent('chat_closed');
+    }
+}  // ← fim do novo toggleChat()
+
+
+        // ---------- FIM DE toggleChat() ----------
+
+        /* ===================================================== *
+         *  MÉTODO: sendMessage
+         * ===================================================== */
         sendMessage() {
-            const input = document.getElementById('sofiaChatInput');
+            const input   = document.getElementById('sofiaChatInput');
             const message = input.value.trim();
-            
+
             if (message && !this.isTyping) {
                 this.addMessage(message, 'user');
                 input.value = '';
-                }
+                this.simulateSofiaResponse(message);   // ← chama o método assíncrono
+            }
+        }   // ← fecha sendMessage()
+
+        /* ===================================================== *
+         *  MÉTODO: simulateSofiaResponse  (agora FORA de sendMessage)
+         * ===================================================== */
         async simulateSofiaResponse(userMessage) {
-    this.showTyping();
-    try {
-        const res = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mensagem: userMessage })
-        });
-        const data  = await res.json();
-        const reply = (data.resposta || "Desculpe, algo deu errado.").trim();
-        this.addMessage(reply, "sofia");
-    } catch (err) {
-        console.error(err);
-        this.addMessage(
-            "Ops! Não consegui me conectar. Tente novamente em instantes.",
-            "sofia"
-        );
-    } finally {
-        this.hideTyping();
-    }
-}
+            this.showTyping();
+            try {
+                const res = await fetch(API_URL, {
+                    method : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body   : JSON.stringify({ mensagem: userMessage })
+                });
+                const data  = await res.json();
+                const reply = (data.resposta || 'Desculpe, algo deu errado.').trim();
+                this.addMessage(reply, 'sofia');
+            } catch (err) {
+                console.error(err);
+                this.addMessage(
+                    'Ops! Não consegui me conectar. Tente novamente em instantes.',
+                    'sofia'
+                );
+            } finally {
+                this.hideTyping();
+            }
+        }
+    
         showTyping() {
             this.isTyping = true;
             const indicator = document.getElementById('sofiaTypingIndicator');
