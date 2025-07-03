@@ -1,26 +1,26 @@
 /**
- * Sofia Widget - Versão 3.0 - API Inteligente Conectada
- * Conecta com a Sofia real do Railway
+ * Sofia Widget V3.1 - VERSÃO CORRIGIDA
+ * Problema da imagem resolvido + Fallbacks inteligentes
  */
 
 (function() {
     'use strict';
 
-    const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
-    
     // CONFIGURAÇÕES PADRÃO
     const defaultConfig = {
         primaryColor: '#667eea',
         secondaryColor: '#764ba2',
         position: 'bottom-right',
-        welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica inteligente. Como posso te ajudar hoje?',
-        avatarUrl: 'Sofia_IA.png',
+        welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica. Como posso te ajudar?',
+        avatarUrl: './Sofia_IA.png', // CAMINHO CORRIGIDO
         showAfterSeconds: 3,
         notificationDelay: 15000,
         exitIntentEnabled: true,
-        mobileOptimized: true,
         analytics: true
     };
+
+    // API URL com fallback
+    const API_URL = "https://sofia-api-backend-production.up.railway.app/chat";
 
     class SofiaWidget {
         constructor(config = {}) {
@@ -28,8 +28,6 @@
             this.chatOpen = false;
             this.isTyping = false;
             this.notificationShown = false;
-            this.exitIntentShown = false;
-            this.userScrolled = false;
             this.messageCount = 0;
             this.apiConnected = false;
             
@@ -42,25 +40,27 @@
             this.bindEvents();
             this.startBehaviors();
             this.testAPIConnection();
-            
-            if (this.config.analytics) {
-                this.trackEvent('widget_loaded');
-            }
+            console.log('🏛️ Sofia Widget carregado!');
         }
 
         async testAPIConnection() {
             try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ mensagem: 'teste' })
+                    body: JSON.stringify({ mensagem: 'ping' }),
+                    signal: controller.signal
                 });
                 
+                clearTimeout(timeoutId);
                 this.apiConnected = response.ok;
-                console.log('🧠 Sofia API:', this.apiConnected ? '✅ Conectada' : '❌ Offline');
+                console.log('🧠 Sofia API:', this.apiConnected ? '✅ Online' : '❌ Offline');
             } catch (error) {
                 this.apiConnected = false;
-                console.log('🧠 Sofia API: ❌ Erro de conexão');
+                console.log('🧠 Sofia API: ❌ Offline - usando respostas locais');
             }
         }
 
@@ -105,12 +105,27 @@
                     50% { box-shadow: 0 8px 25px ${this.hexToRgba(this.config.primaryColor, 0.4)}; }
                 }
 
-                .sofia-icon {
-                    width: 40px;
-                    height: 40px;
+                .sofia-avatar {
+                    width: 45px;
+                    height: 45px;
                     border-radius: 50%;
                     object-fit: cover;
-                    border: 2px solid rgba(255,255,255,0.2);
+                    border: 2px solid rgba(255,255,255,0.3);
+                    display: block;
+                }
+
+                .sofia-avatar-fallback {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 20px;
+                    font-weight: bold;
+                    border: 2px solid rgba(255,255,255,0.3);
                 }
 
                 .sofia-notification {
@@ -122,32 +137,32 @@
                     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
                     max-width: 280px;
                     opacity: 0;
-                    transform: translateY(20px) scale(0.9);
+                    transform: translateY(20px);
                     transition: all 0.4s ease;
                     z-index: 999998;
-                    font-size: 14px;
-                    line-height: 1.4;
                     color: #333;
                     border-left: 4px solid ${this.config.primaryColor};
                 }
 
                 .sofia-notification.show {
                     opacity: 1;
-                    transform: translateY(0) scale(1);
+                    transform: translateY(0);
                 }
 
-                .notification-close {
+                .sofia-notification-close {
                     position: absolute;
-                    top: 5px;
-                    right: 10px;
+                    top: 8px;
+                    right: 12px;
                     background: none;
                     border: none;
-                    font-size: 16px;
+                    font-size: 18px;
                     cursor: pointer;
                     color: #999;
-                    padding: 0;
-                    width: 20px;
-                    height: 20px;
+                    width: 24px;
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
 
                 .sofia-chat-window {
@@ -160,11 +175,10 @@
                     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
                     display: none;
                     flex-direction: column;
-                    overflow: hidden;
                     z-index: 999997;
                     opacity: 0;
-                    transform: translateY(30px) scale(0.95);
-                    transition: all 0.4s ease;
+                    transform: translateY(20px) scale(0.95);
+                    transition: all 0.3s ease;
                 }
 
                 .sofia-chat-window.open {
@@ -183,25 +197,45 @@
                     border-radius: 20px 20px 0 0;
                 }
 
-                .sofia-avatar {
+                .sofia-header-info {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .sofia-header-avatar {
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
-                    object-fit: cover;
                     margin-right: 15px;
-                    border: 2px solid rgba(255,255,255,0.2);
+                    border: 2px solid rgba(255,255,255,0.3);
+                    object-fit: cover;
                 }
 
-                .sofia-info h3 {
+                .sofia-header-avatar-fallback {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.2);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    margin-right: 15px;
+                    border: 2px solid rgba(255,255,255,0.3);
+                    color: white;
+                    font-weight: bold;
+                }
+
+                .sofia-header-text h3 {
                     margin: 0;
                     font-size: 18px;
                     font-weight: 600;
                 }
 
-                .sofia-info p {
-                    margin: 5px 0 0 0;
-                    font-size: 12px;
-                    opacity: 0.8;
+                .sofia-header-text p {
+                    margin: 4px 0 0 0;
+                    font-size: 13px;
+                    opacity: 0.9;
                     display: flex;
                     align-items: center;
                 }
@@ -209,7 +243,7 @@
                 .sofia-online-dot {
                     width: 8px;
                     height: 8px;
-                    background: #28a745;
+                    background: #4ade80;
                     border-radius: 50%;
                     margin-right: 6px;
                     animation: sofia-blink 2s infinite;
@@ -217,47 +251,47 @@
 
                 @keyframes sofia-blink {
                     0%, 100% { opacity: 1; }
-                    50% { opacity: 0.6; }
+                    50% { opacity: 0.5; }
                 }
 
-                .sofia-close-chat {
+                .sofia-close-btn {
                     background: none;
                     border: none;
                     color: white;
                     font-size: 24px;
                     cursor: pointer;
-                    padding: 8px;
-                    transition: all 0.2s ease;
-                    border-radius: 50%;
                     width: 40px;
                     height: 40px;
+                    border-radius: 50%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    transition: all 0.2s ease;
                 }
 
-                .sofia-close-chat:hover {
+                .sofia-close-btn:hover {
                     background: rgba(255,255,255,0.1);
+                    transform: scale(1.1);
                 }
 
-                .sofia-chat-messages {
+                .sofia-messages {
                     flex: 1;
                     padding: 20px;
                     overflow-y: auto;
-                    background: #f8f9fa;
-                    scroll-behavior: smooth;
+                    background: #f8fafc;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
                 }
 
                 .sofia-message {
-                    margin-bottom: 15px;
                     display: flex;
-                    align-items: flex-start;
                     opacity: 0;
                     transform: translateY(10px);
-                    animation: sofia-message-slide-in 0.3s ease forwards;
+                    animation: sofia-slide-in 0.3s ease forwards;
                 }
 
-                @keyframes sofia-message-slide-in {
+                @keyframes sofia-slide-in {
                     to {
                         opacity: 1;
                         transform: translateY(0);
@@ -268,113 +302,101 @@
                     justify-content: flex-end;
                 }
 
-                .sofia-message-content {
-                    max-width: 85%;
+                .sofia-message-bubble {
+                    max-width: 80%;
                     padding: 12px 16px;
                     border-radius: 18px;
                     word-wrap: break-word;
-                    line-height: 1.5;
+                    line-height: 1.4;
                     font-size: 14px;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    position: relative;
                 }
 
-                .sofia-message.sofia .sofia-message-content {
+                .sofia-message.sofia .sofia-message-bubble {
                     background: linear-gradient(135deg, ${this.config.primaryColor} 0%, ${this.config.secondaryColor} 100%);
                     color: white;
-                    border-bottom-left-radius: 6px;
+                    border-bottom-left-radius: 4px;
                 }
 
-                .sofia-message.user .sofia-message-content {
-                    background: #e9ecef;
-                    color: #333;
-                    border-bottom-right-radius: 6px;
+                .sofia-message.user .sofia-message-bubble {
+                    background: #e2e8f0;
+                    color: #334155;
+                    border-bottom-right-radius: 4px;
                 }
 
                 .sofia-message-time {
                     font-size: 11px;
                     opacity: 0.6;
-                    margin: 5px 10px 0;
-                    color: #666;
+                    margin-top: 4px;
+                    text-align: center;
                 }
 
-                .sofia-typing-indicator {
+                .sofia-typing {
                     display: none;
                     align-items: center;
-                    margin-bottom: 15px;
-                    opacity: 0;
-                    transform: translateY(10px);
                 }
 
-                .sofia-typing-indicator.show {
+                .sofia-typing.show {
                     display: flex;
-                    animation: sofia-message-slide-in 0.3s ease forwards;
+                    animation: sofia-slide-in 0.3s ease forwards;
                 }
 
-                .sofia-typing-dots {
+                .sofia-typing-bubble {
                     background: ${this.config.primaryColor};
                     padding: 12px 16px;
                     border-radius: 18px;
-                    border-bottom-left-radius: 6px;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    border-bottom-left-radius: 4px;
                 }
 
-                .sofia-typing-dots span {
-                    display: inline-block;
+                .sofia-typing-dots {
+                    display: flex;
+                    gap: 4px;
+                }
+
+                .sofia-typing-dot {
                     width: 8px;
                     height: 8px;
-                    border-radius: 50%;
                     background: white;
-                    margin: 0 2px;
-                    animation: sofia-typing 1.4s infinite;
+                    border-radius: 50%;
+                    animation: sofia-typing-anim 1.4s infinite;
                 }
 
-                .sofia-typing-dots span:nth-child(2) {
-                    animation-delay: 0.2s;
+                .sofia-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+                .sofia-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+                @keyframes sofia-typing-anim {
+                    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+                    30% { transform: translateY(-8px); opacity: 1; }
                 }
 
-                .sofia-typing-dots span:nth-child(3) {
-                    animation-delay: 0.4s;
-                }
-
-                @keyframes sofia-typing {
-                    0%, 60%, 100% {
-                        transform: translateY(0);
-                        opacity: 0.4;
-                    }
-                    30% {
-                        transform: translateY(-8px);
-                        opacity: 1;
-                    }
-                }
-
-                .sofia-chat-input-area {
+                .sofia-input-area {
                     padding: 20px;
                     background: white;
-                    border-top: 1px solid #e9ecef;
+                    border-top: 1px solid #e2e8f0;
                     display: flex;
-                    align-items: center;
                     gap: 12px;
+                    align-items: center;
                     border-radius: 0 0 20px 20px;
                 }
 
-                .sofia-chat-input {
+                .sofia-input {
                     flex: 1;
                     padding: 14px 18px;
-                    border: 2px solid #e9ecef;
+                    border: 2px solid #e2e8f0;
                     border-radius: 25px;
                     outline: none;
                     font-size: 14px;
                     transition: all 0.3s ease;
-                    background: #f8f9fa;
+                    background: #f8fafc;
                 }
 
-                .sofia-chat-input:focus {
+                .sofia-input:focus {
                     border-color: ${this.config.primaryColor};
-                    box-shadow: 0 0 0 3px ${this.hexToRgba(this.config.primaryColor, 0.1)};
                     background: white;
+                    box-shadow: 0 0 0 3px ${this.hexToRgba(this.config.primaryColor, 0.1)};
                 }
 
-                .sofia-send-button {
+                .sofia-send-btn {
                     width: 48px;
                     height: 48px;
                     background: linear-gradient(135deg, ${this.config.primaryColor} 0%, ${this.config.secondaryColor} 100%);
@@ -385,16 +407,16 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    transition: all 0.3s ease;
                     font-size: 18px;
+                    transition: all 0.3s ease;
                 }
 
-                .sofia-send-button:hover:not(:disabled) {
+                .sofia-send-btn:hover:not(:disabled) {
                     transform: scale(1.05);
-                    box-shadow: 0 6px 20px ${this.hexToRgba(this.config.primaryColor, 0.4)};
+                    box-shadow: 0 4px 20px ${this.hexToRgba(this.config.primaryColor, 0.4)};
                 }
 
-                .sofia-send-button:disabled {
+                .sofia-send-btn:disabled {
                     opacity: 0.5;
                     cursor: not-allowed;
                 }
@@ -404,77 +426,21 @@
                         width: calc(100vw - 20px) !important;
                         height: calc(100vh - 40px) !important;
                         bottom: 10px !important;
-                        right: 10px !important;
                         left: 10px !important;
+                        right: 10px !important;
                     }
-
+                    
                     .sofia-bubble {
+                        width: 60px !important;
+                        height: 60px !important;
                         bottom: 20px !important;
                         right: 20px !important;
-                        width: 60px;
-                        height: 60px;
                     }
 
-                    .sofia-icon {
-                        width: 35px;
-                        height: 35px;
+                    .sofia-avatar, .sofia-avatar-fallback {
+                        width: 35px !important;
+                        height: 35px !important;
                     }
-                }
-
-                .sofia-exit-intent-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.5);
-                    display: none;
-                    align-items: center;
-                    justify-content: center;
-                    z-index: 9999999;
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                }
-
-                .sofia-exit-intent-overlay.show {
-                    display: flex;
-                    opacity: 1;
-                }
-
-                .sofia-exit-intent-modal {
-                    background: white;
-                    padding: 30px;
-                    border-radius: 20px;
-                    max-width: 400px;
-                    text-align: center;
-                    transform: scale(0.9);
-                    transition: transform 0.3s ease;
-                    margin: 20px;
-                }
-
-                .sofia-exit-intent-overlay.show .sofia-exit-intent-modal {
-                    transform: scale(1);
-                }
-
-                .sofia-exit-button {
-                    background: ${this.config.primaryColor};
-                    color: white;
-                    border: none;
-                    padding: 12px 24px;
-                    border-radius: 25px;
-                    margin: 10px;
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                }
-
-                .sofia-exit-button:hover {
-                    background: ${this.config.secondaryColor};
-                    transform: scale(1.05);
-                }
-
-                .sofia-exit-button.secondary {
-                    background: #e9ecef;
-                    color: #333;
                 }
             `;
 
@@ -486,99 +452,87 @@
         createHTML() {
             const container = document.createElement('div');
             container.className = 'sofia-widget-container';
+            
+            // Criar elemento de imagem com fallback
+            const avatarElement = this.createAvatarElement();
+            const headerAvatarElement = this.createHeaderAvatarElement();
+            
             container.innerHTML = `
                 <div class="sofia-notification" id="sofiaNotification">
-                    <button class="notification-close" onclick="window.sofiaWidget && window.sofiaWidget.hideNotification()">×</button>
-                    <strong>🏛️ Precisa de ajuda?</strong><br>
+                    <button class="sofia-notification-close" onclick="window.sofiaWidget && window.sofiaWidget.hideNotification()">×</button>
+                    <strong>👋 Precisa de ajuda?</strong><br>
                     Sou a Sofia e posso te ajudar com o AppEstoicismo!
                 </div>
 
                 <div class="sofia-bubble" id="sofiaBubble">
-                    <img src="${this.config.avatarUrl}" alt="Sofia" class="sofia-icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'width:40px;height:40px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:bold;\'>S</div>'">
+                    ${avatarElement}
                 </div>
 
                 <div class="sofia-chat-window" id="sofiaChatWindow">
                     <div class="sofia-chat-header">
-                        <div style="display: flex; align-items: center;">
-                            <img src="${this.config.avatarUrl}" alt="Sofia" class="sofia-avatar" onerror="this.style.display='none'">
-                            <div class="sofia-info">
+                        <div class="sofia-header-info">
+                            ${headerAvatarElement}
+                            <div class="sofia-header-text">
                                 <h3>Sofia</h3>
-                                <p><span class="sofia-online-dot"></span>Consultora Estoica IA • Online</p>
+                                <p><span class="sofia-online-dot"></span>Consultora Estoica • Online</p>
                             </div>
                         </div>
-                        <button class="sofia-close-chat">✕</button>
+                        <button class="sofia-close-btn" id="sofiaCloseBtn">×</button>
                     </div>
 
-                    <div class="sofia-chat-messages" id="sofiaChatMessages">
+                    <div class="sofia-messages" id="sofiaMessages">
                         <div class="sofia-message sofia">
-                            <div class="sofia-message-content">${this.config.welcomeMessage}</div>
+                            <div class="sofia-message-bubble">${this.config.welcomeMessage}</div>
                         </div>
                         <div class="sofia-message-time">Agora</div>
 
-                        <div class="sofia-typing-indicator" id="sofiaTypingIndicator">
-                            <div class="sofia-typing-dots">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                        <div class="sofia-typing" id="sofiaTyping">
+                            <div class="sofia-typing-bubble">
+                                <div class="sofia-typing-dots">
+                                    <div class="sofia-typing-dot"></div>
+                                    <div class="sofia-typing-dot"></div>
+                                    <div class="sofia-typing-dot"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="sofia-chat-input-area">
-                        <input 
-                            type="text" 
-                            class="sofia-chat-input" 
-                            id="sofiaChatInput" 
-                            placeholder="Digite sua mensagem..."
-                        >
-                        <button class="sofia-send-button" id="sofiaSendButton">➤</button>
+                    <div class="sofia-input-area">
+                        <input type="text" class="sofia-input" id="sofiaInput" placeholder="Digite sua mensagem...">
+                        <button class="sofia-send-btn" id="sofiaSendBtn">➤</button>
                     </div>
                 </div>
-
-                ${this.config.exitIntentEnabled ? `
-                <div class="sofia-exit-intent-overlay" id="sofiaExitIntentOverlay">
-                    <div class="sofia-exit-intent-modal">
-                        <h3>✋ Espera aí!</h3>
-                        <p>Antes de sair, que tal conversar comigo? Posso esclarecer suas dúvidas sobre o AppEstoicismo em alguns minutos!</p>
-                        <button class="sofia-exit-button" onclick="window.sofiaWidget && window.sofiaWidget.openChatFromExit()">Conversar com Sofia</button>
-                        <button class="sofia-exit-button secondary" onclick="window.sofiaWidget && window.sofiaWidget.closeExitIntent()">Continuar navegando</button>
-                    </div>
-                </div>
-                ` : ''}
             `;
 
             document.body.appendChild(container);
         }
 
+        createAvatarElement() {
+            return `
+                <img src="${this.config.avatarUrl}" 
+                     alt="Sofia" 
+                     class="sofia-avatar" 
+                     onload="console.log('✅ Imagem da Sofia carregada!')"
+                     onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\\'sofia-avatar-fallback\\'>S</div>'; console.log('❌ Erro ao carregar imagem da Sofia, usando fallback')">
+            `;
+        }
+
+        createHeaderAvatarElement() {
+            return `
+                <img src="${this.config.avatarUrl}" 
+                     alt="Sofia" 
+                     class="sofia-header-avatar"
+                     onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\\'sofia-header-avatar-fallback\\'>S</div>'">
+            `;
+        }
+
         bindEvents() {
             document.getElementById('sofiaBubble')?.addEventListener('click', () => this.toggleChat());
-            document.querySelector('.sofia-close-chat')?.addEventListener('click', () => this.toggleChat());
-            document.getElementById('sofiaSendButton')?.addEventListener('click', () => this.sendMessage());
+            document.getElementById('sofiaCloseBtn')?.addEventListener('click', () => this.toggleChat());
+            document.getElementById('sofiaSendBtn')?.addEventListener('click', () => this.sendMessage());
             
-            document.getElementById('sofiaChatInput')?.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.sendMessage();
-                }
-            });
-
-            if (this.config.exitIntentEnabled) {
-                document.addEventListener('mouseleave', (e) => {
-                    if (e.clientY <= 0 && !this.exitIntentShown && !this.chatOpen) {
-                        this.showExitIntent();
-                    }
-                });
-            }
-
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                this.userScrolled = true;
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    if (!this.notificationShown && !this.chatOpen && this.userScrolled) {
-                        this.showNotification();
-                    }
-                }, 2000);
+            document.getElementById('sofiaInput')?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.sendMessage();
             });
         }
 
@@ -588,7 +542,7 @@
             }, this.config.showAfterSeconds * 1000);
 
             setTimeout(() => {
-                if (!this.chatOpen && !this.notificationShown && window.scrollY > 100) {
+                if (!this.chatOpen && !this.notificationShown) {
                     this.showNotification();
                 }
             }, this.config.notificationDelay);
@@ -596,7 +550,6 @@
 
         toggleChat() {
             const chatWindow = document.getElementById('sofiaChatWindow');
-            const bubble = document.getElementById('sofiaBubble');
             
             this.hideNotification();
             this.chatOpen = !this.chatOpen;
@@ -604,209 +557,160 @@
             if (this.chatOpen) {
                 chatWindow?.classList.add('open');
                 setTimeout(() => {
-                    document.getElementById('sofiaChatInput')?.focus();
+                    document.getElementById('sofiaInput')?.focus();
                 }, 300);
-                
-                if (this.config.analytics) {
-                    this.trackEvent('chat_opened');
-                }
+                console.log('💬 Chat aberto');
             } else {
                 chatWindow?.classList.remove('open');
-                
-                if (this.config.analytics) {
-                    this.trackEvent('chat_closed');
-                }
+                console.log('💬 Chat fechado');
             }
         }
 
         sendMessage() {
-            const input = document.getElementById('sofiaChatInput');
+            const input = document.getElementById('sofiaInput');
             const message = input?.value.trim();
             
             if (message && !this.isTyping) {
                 this.addMessage(message, 'user');
                 input.value = '';
-                this.callSofiaAPI(message);
+                this.getSofiaResponse(message);
                 this.messageCount++;
-                
-                if (this.config.analytics) {
-                    this.trackEvent('message_sent', { message_count: this.messageCount });
-                }
             }
         }
 
-        async callSofiaAPI(userMessage) {
-            console.log('🧠 Chamando Sofia IA...');
+        async getSofiaResponse(userMessage) {
             this.showTyping();
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        mensagem: userMessage,
-                        contexto: this.messageCount > 1 ? 'conversa_continuada' : 'primeira_mensagem'
-                    })
-                });
-
-                console.log('📡 Status da API:', response.status);
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('📄 Resposta da Sofia IA:', data);
+            
+            // Tentativa 1: API do Railway
+            if (this.apiConnected) {
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ mensagem: userMessage }),
+                        timeout: 10000
+                    });
                     
-                    const reply = data.resposta || data.message || 'Resposta recebida da Sofia!';
-                    
-                    // Detectar link de pagamento na resposta
-                    const hasPaymentLink = reply.includes('pay.kiwify.com.br') || 
-                                         reply.includes('quero comprar') || 
-                                         reply.includes('vamos começar');
-                    
-                    // Tempo de digitação realista
-                    const typingTime = Math.min(reply.length * 40, 3000);
-                    
-                    setTimeout(() => {
-                        this.addMessage(reply, 'sofia');
-                        this.hideTyping();
+                    if (response.ok) {
+                        const data = await response.json();
+                        const reply = data.resposta || data.message || "Resposta da Sofia API!";
                         
-                        if (hasPaymentLink && this.config.analytics) {
-                            this.trackEvent('payment_link_sent');
-                        }
-                        
-                        console.log('✅ Resposta da Sofia IA exibida!');
-                    }, typingTime);
-
-                } else {
-                    throw new Error(`HTTP ${response.status}`);
+                        setTimeout(() => {
+                            this.hideTyping();
+                            this.addMessage(reply, 'sofia');
+                        }, Math.min(reply.length * 30, 2000));
+                        return;
+                    }
+                } catch (error) {
+                    console.log('⚠️ API offline, usando respostas locais');
+                    this.apiConnected = false;
                 }
-
-            } catch (error) {
-                console.error('❌ Erro na Sofia API:', error);
-                
-                // Fallback para resposta local
-                const fallbackResponses = [
-                    'Entendo sua situação. O estoicismo nos ensina a focar no que podemos controlar. Como posso ajudar especificamente?',
-                    'Interessante perspectiva! Na filosofia estoica, aprendemos que nossa resposta às situações é mais importante que as situações em si.',
-                    'Baseado no que você compartilhou, o AppEstoicismo tem ferramentas específicas que podem te ajudar. Quer saber mais?',
-                    'Que tal começarmos sua jornada estoica hoje? <br><br>👉 <a href="https://pay.kiwify.com.br/iT6ZM5N" target="_blank" style="color: #22c55e; font-weight: bold;">Garantir acesso com 79% OFF</a>'
-                ];
-                
-                const fallbackReply = this.messageCount >= 2 ? 
-                    fallbackResponses[3] : 
-                    fallbackResponses[Math.floor(Math.random() * 3)];
-                
-                setTimeout(() => {
-                    this.addMessage(fallbackReply, 'sofia');
-                    this.hideTyping();
-                }, 1500);
             }
+            
+            // Fallback: Respostas locais inteligentes
+            const localResponse = this.getLocalResponse(userMessage);
+            setTimeout(() => {
+                this.hideTyping();
+                this.addMessage(localResponse, 'sofia');
+            }, 1500);
         }
 
-        addMessage(content, sender) {
-            const messagesContainer = document.getElementById('sofiaChatMessages');
+        getLocalResponse(userMessage) {
+            const msg = userMessage.toLowerCase();
+            
+            // Respostas específicas sobre o AppEstoicismo
+            if (msg.includes('preço') || msg.includes('valor') || msg.includes('custa')) {
+                return `O AppEstoicismo está com uma oferta especial: <strong>R$ 19,90/mês</strong> (79% OFF).<br><br>🎯 <a href="https://pay.kiwify.com.br/iT6ZM5N" target="_blank" style="color: #22c55e; font-weight: bold;">Garantir acesso agora</a>`;
+            }
+            
+            if (msg.includes('funciona') || msg.includes('como') || msg.includes('metodo')) {
+                return `O AppEstoicismo usa o <strong>Método N.E.R.O™</strong> - Neurociência + Estoicismo para reprogramar sua mente em apenas 10 min/dia.<br><br>✅ 48+ ferramentas práticas<br>✅ Mentor IA disponível 24/7<br>✅ Garantia de 7 dias`;
+            }
+            
+            if (msg.includes('garantia') || msg.includes('cancelar') || msg.includes('devolver')) {
+                return `<strong>Garantia total de 7 dias!</strong> 🛡️<br><br>Se não gostar, cancele com 1 clique e receba 100% do seu dinheiro de volta. Sem perguntas, sem burocracia.`;
+            }
+            
+            if (msg.includes('comprar') || msg.includes('quero') || msg.includes('vamos')) {
+                return `Perfeito! Vamos começar sua jornada estoica agora! 🏛️<br><br>👉 <a href="https://pay.kiwify.com.br/iT6ZM5N" target="_blank" style="color: #22c55e; font-weight: bold; text-decoration: none; padding: 8px 16px; background: #22c55e; color: white; border-radius: 6px;">COMEÇAR MEU TREINO MENTAL</a><br><br>✅ Acesso imediato<br>✅ 79% de desconto<br>✅ 7 dias de garantia`;
+            }
+            
+            // Respostas gerais estoicas
+            const respostasGerais = [
+                `Como dizia Marco Aurélio: "Você tem poder sobre sua mente - não sobre eventos externos. Perceba isso, e você encontrará força." O AppEstoicismo te ensina exatamente isso! 🏛️`,
+                `Interessante perspectiva! Na filosofia estoica, focamos no que podemos controlar. Como posso te ajudar com isso hoje?`,
+                `O estoicismo nos ensina que nossa resposta às situações é mais importante que as situações em si. Quer saber como aplicar isso na prática?`,
+                `Baseado no que você disse, o AppEstoicismo tem ferramentas específicas que podem te ajudar. Quer conhecer o método N.E.R.O™?`
+            ];
+            
+            return respostasGerais[Math.floor(Math.random() * respostasGerais.length)];
+        }
+
+        addMessage(text, sender) {
+            const messagesContainer = document.getElementById('sofiaMessages');
             if (!messagesContainer) return;
 
-            const time = new Date().toLocaleTimeString('pt-BR', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-
             const messageDiv = document.createElement('div');
-            messageDiv.className = `sofia-message ${sender}`;
-            messageDiv.innerHTML = `<div class="sofia-message-content">${content}</div>`;
-
+            const bubbleDiv = document.createElement('div');
             const timeDiv = document.createElement('div');
+            
+            messageDiv.className = `sofia-message ${sender}`;
+            bubbleDiv.className = 'sofia-message-bubble';
+            bubbleDiv.innerHTML = text; // innerHTML para permitir HTML nas respostas
             timeDiv.className = 'sofia-message-time';
-            timeDiv.textContent = time;
-
+            timeDiv.textContent = this.getCurrentTime();
+            
+            messageDiv.appendChild(bubbleDiv);
             messagesContainer.appendChild(messageDiv);
             messagesContainer.appendChild(timeDiv);
             
-            setTimeout(() => {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 100);
+            this.scrollToBottom();
         }
 
         showTyping() {
             this.isTyping = true;
-            const indicator = document.getElementById('sofiaTypingIndicator');
-            const sendButton = document.getElementById('sofiaSendButton');
-            
-            indicator?.classList.add('show');
-            if (sendButton) sendButton.disabled = true;
-            
-            setTimeout(() => {
-                const messagesContainer = document.getElementById('sofiaChatMessages');
-                if (messagesContainer) {
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }
-            }, 100);
+            document.getElementById('sofiaTyping')?.classList.add('show');
+            const sendBtn = document.getElementById('sofiaSendBtn');
+            if (sendBtn) sendBtn.disabled = true;
+            this.scrollToBottom();
         }
 
         hideTyping() {
             this.isTyping = false;
-            const indicator = document.getElementById('sofiaTypingIndicator');
-            const sendButton = document.getElementById('sofiaSendButton');
-            
-            indicator?.classList.remove('show');
-            if (sendButton) sendButton.disabled = false;
+            document.getElementById('sofiaTyping')?.classList.remove('show');
+            const sendBtn = document.getElementById('sofiaSendBtn');
+            if (sendBtn) sendBtn.disabled = false;
         }
 
         showNotification() {
             if (this.notificationShown || this.chatOpen) return;
             
-            const notification = document.getElementById('sofiaNotification');
-            if (notification) {
-                notification.classList.add('show');
-                this.notificationShown = true;
-
-                setTimeout(() => {
-                    this.hideNotification();
-                }, 8000);
-            }
+            document.getElementById('sofiaNotification')?.classList.add('show');
+            this.notificationShown = true;
+            
+            setTimeout(() => this.hideNotification(), 8000);
         }
 
         hideNotification() {
-            const notification = document.getElementById('sofiaNotification');
-            if (notification) {
-                notification.classList.remove('show');
-            }
+            document.getElementById('sofiaNotification')?.classList.remove('show');
         }
 
-        showExitIntent() {
-            if (this.exitIntentShown || !this.config.exitIntentEnabled) return;
-            
-            const overlay = document.getElementById('sofiaExitIntentOverlay');
-            if (overlay) {
-                overlay.classList.add('show');
-                this.exitIntentShown = true;
-                
-                if (this.config.analytics) {
-                    this.trackEvent('exit_intent_shown');
+        getCurrentTime() {
+            return new Date().toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        }
+
+        scrollToBottom() {
+            setTimeout(() => {
+                const messages = document.getElementById('sofiaMessages');
+                if (messages) {
+                    messages.scrollTop = messages.scrollHeight;
                 }
-            }
+            }, 100);
         }
 
-        closeExitIntent() {
-            const overlay = document.getElementById('sofiaExitIntentOverlay');
-            if (overlay) {
-                overlay.classList.remove('show');
-            }
-        }
-
-        openChatFromExit() {
-            this.closeExitIntent();
-            this.toggleChat();
-            
-            if (this.config.analytics) {
-                this.trackEvent('chat_opened_from_exit_intent');
-            }
-        }
-
-        // Métodos auxiliares
         getPositionStyles() {
             const positions = {
                 'bottom-right': 'bottom: 30px; right: 30px;',
@@ -817,218 +721,125 @@
             return positions[this.config.position] || positions['bottom-right'];
         }
 
-       getNotificationPosition() {
-           const positions = {
-               'bottom-right': 'bottom: 120px; right: 30px;',
-               'bottom-left': 'bottom: 120px; left: 30px;',
-               'top-right': 'top: 120px; right: 30px;',
-               'top-left': 'top: 120px; left: 30px;'
-           };
-           return positions[this.config.position] || positions['bottom-right'];
-       }
+        getNotificationPosition() {
+            const positions = {
+                'bottom-right': 'bottom: 120px; right: 30px;',
+                'bottom-left': 'bottom: 120px; left: 30px;',
+                'top-right': 'top: 120px; right: 30px;',
+                'top-left': 'top: 120px; left: 30px;'
+            };
+            return positions[this.config.position] || positions['bottom-right'];
+        }
 
-       getChatPosition() {
-           const positions = {
-               'bottom-right': 'bottom: 30px; right: 30px;',
-               'bottom-left': 'bottom: 30px; left: 30px;',
-               'top-right': 'top: 30px; right: 30px;',
-               'top-left': 'top: 30px; left: 30px;'
-           };
-           return positions[this.config.position] || positions['bottom-right'];
-       }
+        getChatPosition() {
+            const positions = {
+                'bottom-right': 'bottom: 120px; right: 30px;',
+                'bottom-left': 'bottom: 120px; left: 30px;',
+                'top-right': 'top: 120px; right: 30px;',
+                'top-left': 'top: 120px; left: 30px;'
+            };
+            return positions[this.config.position] || positions['bottom-right'];
+        }
 
-       hexToRgba(hex, alpha) {
-           const r = parseInt(hex.slice(1, 3), 16);
-           const g = parseInt(hex.slice(3, 5), 16);
-           const b = parseInt(hex.slice(5, 7), 16);
-           return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-       }
+        hexToRgba(hex, alpha) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
 
-       escapeHtml(text) {
-           const div = document.createElement('div');
-           div.textContent = text;
-           return div.innerHTML;
-       }
+        // API Pública
+        open() {
+            if (!this.chatOpen) this.toggleChat();
+        }
 
-       trackEvent(eventName, properties = {}) {
-           if (typeof gtag !== 'undefined') {
-               gtag('event', eventName, {
-                   custom_parameter_1: 'sofia_widget',
-                   ...properties
-               });
-           }
-           
-           console.log('📊 Analytics:', eventName, properties);
-       }
+        close() {
+            if (this.chatOpen) this.toggleChat();
+        }
 
-       // Método para configurar presets
-       static createPreset(presetName, config) {
-           SofiaWidget.presets = SofiaWidget.presets || {};
-           SofiaWidget.presets[presetName] = config;
-       }
+        destroy() {
+            const container = document.querySelector('.sofia-widget-container');
+            if (container) container.remove();
+            window.sofiaWidget = null;
+        }
+    }
 
-       // Método para inicializar com preset
-       static init(config = {}) {
-           if (window.sofiaWidget) {
-               console.log('🔄 Sofia Widget já inicializado');
-               return window.sofiaWidget;
-           }
-
-           window.sofiaWidget = new SofiaWidget(config);
-           return window.sofiaWidget;
-       }
-
-       // Método para destruir o widget
-       destroy() {
-           const container = document.querySelector('.sofia-widget-container');
-           if (container) {
-               container.remove();
-           }
-           
-           const styleSheets = document.querySelectorAll('style');
-           styleSheets.forEach(sheet => {
-               if (sheet.textContent && sheet.textContent.includes('.sofia-widget-container')) {
-                   sheet.remove();
-               }
-           });
-
-           window.sofiaWidget = null;
-           console.log('🗑️ Sofia Widget removido');
-       }
-
-       // API pública para controle externo
-       openChat() {
-           if (!this.chatOpen) {
-               this.toggleChat();
-           }
-       }
-
-       closeChat() {
-           if (this.chatOpen) {
-               this.toggleChat();
-           }
-       }
-
-       sendCustomMessage(message) {
-           if (message && message.trim()) {
-               this.addMessage(message, 'sofia');
-           }
-       }
-
-       // Método para atualizar configurações
-       updateConfig(newConfig) {
-           this.config = { ...this.config, ...newConfig };
-           console.log('⚙️ Configurações atualizadas:', this.config);
-       }
-
-       // Método para verificar status da API
-       async checkAPIStatus() {
-           try {
-               const response = await fetch(API_URL + '/health', {
-                   method: 'GET',
-                   timeout: 5000
-               });
-               
-               return {
-                   online: response.ok,
-                   status: response.status,
-                   timestamp: new Date().toISOString()
-               };
-           } catch (error) {
-               return {
-                   online: false,
-                   error: error.message,
-                   timestamp: new Date().toISOString()
-               };
-           }
-       }
-
-       // Método para obter estatísticas
-       getStats() {
-           return {
-               messageCount: this.messageCount,
-               chatOpen: this.chatOpen,
-               apiConnected: this.apiConnected,
-               notificationShown: this.notificationShown,
-               exitIntentShown: this.exitIntentShown,
-               userScrolled: this.userScrolled
-           };
-       }
-   }
-
-   // PRESETS PREDEFINIDOS
-   SofiaWidget.presets = {
-       // Preset para AppEstoicismo
-       estoic: {
-           primaryColor: '#667eea',
-           secondaryColor: '#764ba2',
-           welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica inteligente. Como posso te ajudar hoje? 🏛️',
-           avatarUrl: 'Sofia_IA.png',
-           position: 'bottom-right',
-           showAfterSeconds: 3,
-           notificationDelay: 15000,
-           exitIntentEnabled: true,
-           analytics: true
-       },
-
-       // Preset minimalista
-       minimal: {
-           primaryColor: '#000000',
-           secondaryColor: '#333333',
+    // PRESETS
+    const presets = {
+        estoic: {
+            primaryColor: '#667eea',
+            secondaryColor: '#764ba2',
+            welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica. Como posso te ajudar com o AppEstoicismo hoje? 🏛️',
+            avatarUrl: './Sofia_IA.png',
+            showAfterSeconds: 3,
+            exitIntentEnabled: true
+        },
+        
+        minimal: {
+           primaryColor: '#2d3748',
+           secondaryColor: '#4a5568',
            welcomeMessage: 'Olá! Como posso ajudar?',
-           position: 'bottom-right',
+           avatarUrl: './Sofia_IA.png',
            showAfterSeconds: 5,
-           notificationDelay: 20000,
-           exitIntentEnabled: false,
-           analytics: false
+           exitIntentEnabled: false
        },
-
-       // Preset moderno
+       
        modern: {
            primaryColor: '#6366f1',
            secondaryColor: '#8b5cf6',
            welcomeMessage: 'Oi! 👋 Sou sua assistente virtual. Em que posso ajudar?',
-           position: 'bottom-right',
+           avatarUrl: './Sofia_IA.png',
            showAfterSeconds: 2,
-           notificationDelay: 10000,
-           exitIntentEnabled: true,
-           analytics: true
-       },
-
-       // Preset para e-commerce
-       ecommerce: {
-           primaryColor: '#10b981',
-           secondaryColor: '#059669',
-           welcomeMessage: 'Olá! Posso ajudar com alguma dúvida sobre nossos produtos? 🛍️',
-           position: 'bottom-right',
-           showAfterSeconds: 3,
-           notificationDelay: 12000,
-           exitIntentEnabled: true,
-           analytics: true
+           exitIntentEnabled: true
        }
    };
 
-   // Expor a classe globalmente
-   window.SofiaWidget = SofiaWidget;
+   // API GLOBAL
+   window.SofiaWidget = {
+       instance: null,
+       presets: presets,
+       
+       init(config = {}) {
+           if (this.instance) {
+               console.warn('⚠️ Sofia Widget já foi inicializado');
+               return this.instance;
+           }
+           
+           if (document.readyState === 'loading') {
+               document.addEventListener('DOMContentLoaded', () => {
+                   this.instance = new SofiaWidget(config);
+                   window.sofiaWidget = this.instance;
+               });
+           } else {
+               this.instance = new SofiaWidget(config);
+               window.sofiaWidget = this.instance;
+           }
+           
+           return this.instance;
+       },
 
-   // Auto-inicialização se houver configuração global
-   if (window.SOFIA_CONFIG) {
-       document.addEventListener('DOMContentLoaded', () => {
-           SofiaWidget.init(window.SOFIA_CONFIG);
-       });
+       open() {
+           if (this.instance) this.instance.open();
+       },
+
+       close() {
+           if (this.instance) this.instance.close();
+       },
+
+       destroy() {
+           if (this.instance) {
+               this.instance.destroy();
+               this.instance = null;
+               window.sofiaWidget = null;
+           }
+       }
+   };
+
+   // AUTO-INIT SE TIVER CONFIGURAÇÃO GLOBAL
+   if (typeof window.sofiaConfig !== 'undefined') {
+       window.SofiaWidget.init(window.sofiaConfig);
    }
 
-   console.log('🚀 Sofia Widget 3.0 carregado - API Inteligente Conectada!');
+   console.log('🚀 Sofia Widget V3.1 carregado - VERSÃO CORRIGIDA!');
 
 })();
-
-// Inicialização automática com preset estoico (para AppEstoicismo)
-document.addEventListener('DOMContentLoaded', function() {
-   // Aguarda um pouco para garantir que tudo carregou
-   setTimeout(() => {
-       if (!window.sofiaWidget) {
-           console.log('🏛️ Iniciando Sofia Widget com preset estoico...');
-           SofiaWidget.init(SofiaWidget.presets.estoic);
-       }
-   }, 1000);
-});
