@@ -12,7 +12,7 @@
         secondaryColor: '#764ba2',
         position: 'bottom-right',
         welcomeMessage: 'Olá! Sou a Sofia, sua consultora estoica. Como posso te ajudar?',
-        avatarUrl: './Sofia_IA.png', // CAMINHO CORRIGIDO
+        avatarUrl: 'Sofia_IA.png', // CAMINHO CORRIGIDO
         showAfterSeconds: 3,
         notificationDelay: 15000,
         exitIntentEnabled: true,
