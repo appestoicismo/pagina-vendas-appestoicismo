@@ -39,12 +39,17 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
             color: var(--cor-texto);
             min-height: 100vh;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -55,6 +60,22 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        /* ANIMAÇÕES SUAVES */
+        .screen-transition {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
         .quiz-header {
@@ -89,7 +110,7 @@
             background: linear-gradient(90deg, var(--cor-destaque), #34d399);
             height: 8px;
             border-radius: 4px;
-            transition: width 0.3s ease;
+            transition: width 0.8s ease;
             width: 0%;
         }
 
@@ -107,6 +128,12 @@
             margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .question-number {
@@ -127,18 +154,22 @@
             background: rgba(255, 255, 255, 0.08);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            padding: 15px 20px;
+            padding: 18px 20px;
             margin-bottom: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
         }
 
         .answer-option:hover {
             background: rgba(34, 197, 94, 0.1);
             border-color: var(--cor-destaque);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.2);
         }
 
         .answer-option.selected {
@@ -146,13 +177,15 @@
             border-color: var(--cor-destaque);
             color: var(--cor-principal);
             font-weight: 600;
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
         }
 
         .btn-next {
             background: linear-gradient(45deg, var(--cor-destaque), #34d399);
             color: var(--cor-principal);
             border: none;
-            padding: 15px 40px;
+            padding: 18px 40px;
             border-radius: 25px;
             font-size: 1.1rem;
             font-weight: 600;
@@ -162,6 +195,10 @@
             margin-top: 20px;
             opacity: 0.5;
             pointer-events: none;
+            min-height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-next.active {
@@ -194,12 +231,16 @@
             background: linear-gradient(45deg, var(--cor-destaque), #34d399);
             color: var(--cor-principal);
             border: none;
-            padding: 18px 50px;
+            padding: 20px 50px;
             border-radius: 30px;
             font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-height: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-start:hover {
@@ -240,17 +281,19 @@
             background: linear-gradient(45deg, #6b7280, #9ca3af);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 20px;
+            padding: 15px 35px;
+            border-radius: 25px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
             transition: all 0.3s ease;
+            min-height: 50px;
         }
 
         .btn-restart:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 114, 128, 0.3);
         }
 
         .loading-screen {
@@ -280,6 +323,269 @@
             display: none !important;
         }
 
+        /* ESTILOS RODA DA VIDA OTIMIZADOS */
+        .wheel-intro {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .wheel-intro h2 {
+            color: var(--cor-destaque);
+            margin-bottom: 20px;
+        }
+
+        .wheel-screen {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .wheel-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .wheel-area {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .wheel-area:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .wheel-area h4 {
+            color: var(--cor-destaque);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .rating-scale {
+            margin: 20px 0;
+        }
+
+        .wheel-slider {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .wheel-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--cor-destaque);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .wheel-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+        }
+
+        .wheel-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--cor-destaque);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        .area-description {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+
+        .btn-analyze {
+            background: linear-gradient(45deg, var(--cor-destaque), #34d399);
+            color: var(--cor-principal);
+            border: none;
+            padding: 20px 40px;
+            border-radius: 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+
+        .btn-analyze:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cor-texto);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .email-capture-final {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .form-container {
+            margin: 25px 0;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cor-texto);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-container input:focus {
+            outline: none;
+            border-color: var(--cor-destaque);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+        }
+
+        .form-container input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-container input.error {
+            border-color: var(--cor-urgente);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .error-message {
+            color: var(--cor-urgente);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .privacy-note {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+
+        .report-page {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copy-area {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-line;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--cor-texto);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            min-height: 45px;
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .loading-save {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .loading-save .spinner {
+            margin: 0 auto 25px auto;
+        }
+
+        .final-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--cor-destaque);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            font-weight: 500;
+        }
+
+        .success-checkmark {
+            color: var(--cor-destaque);
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        /* RESPONSIVIDADE MOBILE MELHORADA */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -290,19 +596,92 @@
             }
             
             .question-container {
-                padding: 20px;
+                padding: 25px 20px;
             }
             
             .question-title {
                 font-size: 1.2rem;
             }
+
+            .answer-option {
+                padding: 20px 18px;
+                font-size: 1rem;
+            }
+
+            .wheel-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .wheel-area {
+                padding: 20px;
+            }
+
+            .wheel-slider {
+                height: 10px;
+            }
+
+            .wheel-slider::-webkit-slider-thumb {
+                width: 28px;
+                height: 28px;
+            }
+
+            .btn-start, .btn-analyze, .btn-next {
+                font-size: 1.1rem;
+                padding: 18px 30px;
+            }
+
+            .form-container input {
+                padding: 16px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quiz-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .question-title {
+                font-size: 1.1rem;
+            }
+
+            .answer-option {
+                padding: 16px 15px;
+                font-size: 0.95rem;
+            }
+
+            .wheel-area h4 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* LOADING STATES MELHORADOS */
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid transparent;
+            border-top-color: var(--cor-principal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Tela Inicial -->
-        <div id="startScreen" class="start-screen">
+        <div id="startScreen" class="start-screen screen-transition">
             <div class="quiz-header">
                 <h2>🧠 Descubra Quem Você Realmente É</h2>
                 <p>Um quiz rápido que pode transformar sua vida</p>
@@ -363,21 +742,44 @@
                 </p>
             </div>
             
-            <!-- AJUSTE A URL ABAIXO PARA SUA PÁGINA DE VENDAS -->
             <button class="btn-start" onclick="window.location.href='https://pay.kiwify.com.br/nAeTa0z'">
                 🚀 SIM! Quero Conhecer o AppAutoconhecimento
             </button>
+        </div>
+
+        <!-- Tela da Roda da Vida -->
+        <div id="wheelOfLifeScreen" class="wheel-screen">
+            <div class="wheel-intro">
+                <h2>🎁 Liberamos Algo Especial Para Você</h2>
+                <p>Por você ter participado do nosso quiz, liberamos uma ferramenta simples, mas que traz uma <strong>poderosa tomada de consciência</strong>...</p>
+                <p>A <strong>Roda da Vida</strong> - usada por coaches e terapeutas para avaliar o equilíbrio de vida dos seus clientes.</p>
+                <p>São apenas 2 minutos e pode revelar insights valiosos sobre sua vida atual.</p>
+                
+                <button class="btn-start" onclick="startWheelOfLife()">
+                    🎡 Quero Fazer Minha Avaliação
+                </button>
+            </div>
         </div>
 
         <!-- Tela de Saída -->
         <div id="exitScreen" class="exit-screen">
             <h2 id="exitTitle"></h2>
             <p id="exitMessage"></p>
-            <button class="btn-restart" onclick="restartQuiz()">🔄 Tentar Novamente</button>
+            <button class="btn-restart" id="restartBtn" onclick="restartQuiz()">🔄 Tentar Novamente</button>
         </div>
     </div>
 
     <script>
+        // URL do Google Sheets - SUBSTITUA PELA SUA URL
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwbQu0d-ABbX7xKzSTDyUcefjHCex7YiOJS3WvnPcBiUPDdhwN2aXrcdswfniM27VAW/exec';
+
+        // Variáveis globais
+        let wheelData = {};
+        let averageScore = 0;
+        let lowAreas = [];
+        let stoppedAtQuestion = 0;
+        let isSubmitting = false;
+
         // Configuração do Quiz
         const questions = [
             {
@@ -437,166 +839,1056 @@
                     "🚀 Com certeza, é pouco tempo para tanto benefício",
                     "💎 Sim, qualquer tempo investido em mim vale a pena",
                     "🤔 Acho que sim, se realmente funcionar", 
-                    "⏰ Talvez, dependeria dos resultados",
-                    "❌ Não tenho tempo para isso"
-                ],
-                exitAnswers: [4],
-                exitMessage: "Entendemos que seu tempo é precioso. Quando estiver pronto para priorizar seu autoconhecimento, estaremos aqui."
-            },
-            {
-                number: 7,
-                title: "Você se considera maduro(a) o suficiente para se questionar internamente, refletir sobre o que acredita ser verdade e evoluir como pessoa?",
-                answers: [
-                    "💪 Sim, estou pronto(a) para me conhecer de verdade",
-                    "🌱 Acho que sim, quero crescer como pessoa",
-                    "🔄 Estou tentando, mas às vezes é difícil",
-                    "🤷 Talvez, ainda estou aprendendo a me questionar",
-                    "😰 Não sei se estou preparado(a) para isso"
-                ],
-                exitAnswers: [4],
-                exitMessage: "Que bom que você tem essa consciência! Quando se sentir pronto(a) para essa jornada de autoconhecimento, voltaremos a conversar."
-            },
-            {
-                number: 8,
-                title: "Você sabia que estudos científicos comprovam que apenas 15% das pessoas se conhecem verdadeiramente, mesmo que 95% acreditem que se conhecem bem?",
-                answers: [
-                    "😲 Nossa! Não sabia disso, faz muito sentido",
-                    "🤯 Interessante, eu provavelmente estou nos 85%",
-                    "📚 Já tinha ouvido algo parecido",
-                    "😎 Tenho certeza que me conheço bem",
-                    "🙄 Não acredito nesses estudos"
-                ],
-                exitAnswers: [4],
-                exitMessage: "Entendemos que nem todos confiam em pesquisas científicas. Caso mude de opinião sobre desenvolver seu autoconhecimento, estaremos aqui."
-            },
-            {
-                number: 9,
-                title: "Se existisse um App com as ferramentas que terapeutas usam em sessões de R$ 150 a R$ 350 — e você pudesse testar por 7 dias, sem risco de perder seu dinheiro, você toparia?",
-                answers: [
-                    "🚀 SIM! Quero conhecer esse App agora",
-                    "❌ Não tenho interesse no momento"
-                ],
-                exitAnswers: [1],
-                exitMessage: "Tudo bem! Respeitamos sua decisão. Se um dia quiser se conhecer melhor, estaremos aqui esperando por você."
-            }
-        ];
+                   "⏰ Talvez, dependeria dos resultados",
+                   "❌ Não tenho tempo para isso"
+               ],
+               exitAnswers: [4],
+               exitMessage: "Entendemos que seu tempo é precioso. Quando estiver pronto para priorizar seu autoconhecimento, estaremos aqui."
+           },
+           {
+               number: 7,
+               title: "Você se considera maduro(a) o suficiente para se questionar internamente, refletir sobre o que acredita ser verdade e evoluir como pessoa?",
+               answers: [
+                   "💪 Sim, estou pronto(a) para me conhecer de verdade",
+                   "🌱 Acho que sim, quero crescer como pessoa",
+                   "🔄 Estou tentando, mas às vezes é difícil",
+                   "🤷 Talvez, ainda estou aprendendo a me questionar",
+                   "😰 Não sei se estou preparado(a) para isso"
+               ],
+               exitAnswers: [4],
+               exitMessage: "Que bom que você tem essa consciência! Quando se sentir pronto(a) para essa jornada de autoconhecimento, voltaremos a conversar."
+           },
+           {
+               number: 8,
+               title: "Você sabia que estudos científicos comprovam que apenas 15% das pessoas se conhecem verdadeiramente, mesmo que 95% acreditem que se conhecem bem?",
+               answers: [
+                   "😲 Nossa! Não sabia disso, faz muito sentido",
+                   "🤯 Interessante, eu provavelmente estou nos 85%",
+                   "📚 Já tinha ouvido algo parecido",
+                   "😎 Tenho certeza que me conheço bem",
+                   "🙄 Não acredito nesses estudos"
+               ],
+               exitAnswers: [4],
+               exitMessage: "Entendemos que nem todos confiam em pesquisas científicas. Caso mude de opinião sobre desenvolver seu autoconhecimento, estaremos aqui."
+           },
+           {
+               number: 9,
+               title: "Se existisse um App com as ferramentas que terapeutas usam em sessões de R$ 150 a R$ 350 — e você pudesse testar por 7 dias, sem risco de perder seu dinheiro, você toparia?",
+               answers: [
+                   "🚀 SIM! Quero conhecer esse App agora",
+                   "❌ Não tenho interesse no momento"
+               ],
+               exitAnswers: [],
+               wheelFlow: [1]
+           }
+       ];
 
-        let currentQuestionIndex = 0;
-        let selectedAnswer = null;
+       let currentQuestionIndex = 0;
+       let selectedAnswer = null;
 
-        function startQuiz() {
-            document.getElementById('startScreen').classList.add('hidden');
-            document.getElementById('quizScreen').classList.remove('hidden');
-            
-            // Track Facebook event
-            fbq('track', 'Lead');
-            
-            showQuestion();
-        }
+       // FUNÇÕES PRINCIPAIS DO QUIZ
+       function startQuiz() {
+           hideAllScreens();
+           document.getElementById('quizScreen').classList.remove('hidden');
+           document.getElementById('quizScreen').classList.add('screen-transition');
+           
+           // Track Facebook event
+           fbq('track', 'Lead');
+           fbq('trackCustom', 'QuizStarted', {
+               timestamp: new Date().toISOString()
+           });
+           
+           showQuestion();
+           smoothScrollToTop();
+       }
 
-        function showQuestion() {
-            const question = questions[currentQuestionIndex];
-            
-            // Atualizar progresso
-            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-            
-            // Atualizar pergunta
-            document.getElementById('questionNumber').textContent = `PERGUNTA ${question.number}`;
-            document.getElementById('questionTitle').textContent = question.title;
-            
-            // Criar opções de resposta
-            const answersContainer = document.getElementById('answersContainer');
-            answersContainer.innerHTML = '';
-            
-            question.answers.forEach((answer, index) => {
-                const answerDiv = document.createElement('div');
-                answerDiv.className = 'answer-option';
-                answerDiv.textContent = answer;
-                answerDiv.onclick = () => selectAnswer(index);
-                answersContainer.appendChild(answerDiv);
-            });
-            
-            // Resetar seleção
-            selectedAnswer = null;
-            document.getElementById('nextBtn').classList.remove('active');
-            
-            // Atualizar texto do botão
-            if (currentQuestionIndex === questions.length - 1) {
-                document.getElementById('nextBtn').textContent = 'Ver Resultado';
-            } else {
-                document.getElementById('nextBtn').textContent = 'Próxima Pergunta';
-            }
-        }
+       function showQuestion() {
+           const question = questions[currentQuestionIndex];
+           
+           // Track pergunta específica
+           fbq('trackCustom', 'QuestionViewed', {
+               question_number: currentQuestionIndex + 1,
+               question_text: question.title.substring(0, 50)
+           });
+           
+           // Atualizar progresso com animação
+           const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+           setTimeout(() => {
+               document.getElementById('progressBar').style.width = progress + '%';
+           }, 100);
+           document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+           
+           // Atualizar pergunta
+           document.getElementById('questionNumber').textContent = `PERGUNTA ${question.number}`;
+           document.getElementById('questionTitle').textContent = question.title;
+           
+           // Criar opções de resposta com animação
+           const answersContainer = document.getElementById('answersContainer');
+           answersContainer.innerHTML = '';
+           
+           question.answers.forEach((answer, index) => {
+               const answerDiv = document.createElement('div');
+               answerDiv.className = 'answer-option';
+               answerDiv.textContent = answer;
+               answerDiv.onclick = () => selectAnswer(index);
+               answerDiv.style.animationDelay = `${index * 0.1}s`;
+               answersContainer.appendChild(answerDiv);
+           });
+           
+           // Resetar seleção
+           selectedAnswer = null;
+           document.getElementById('nextBtn').classList.remove('active');
+           
+           // Atualizar texto do botão
+           if (currentQuestionIndex === questions.length - 1) {
+               document.getElementById('nextBtn').textContent = 'Ver Resultado';
+           } else {
+               document.getElementById('nextBtn').textContent = 'Próxima Pergunta';
+           }
+       }
 
-        function selectAnswer(answerIndex) {
-            // Remover seleção anterior
-            document.querySelectorAll('.answer-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // Selecionar nova resposta
-            document.querySelectorAll('.answer-option')[answerIndex].classList.add('selected');
-            selectedAnswer = answerIndex;
-            
-            // Ativar botão next
-            document.getElementById('nextBtn').classList.add('active');
-        }
+       function selectAnswer(answerIndex) {
+           // Remover seleção anterior
+           document.querySelectorAll('.answer-option').forEach(option => {
+               option.classList.remove('selected');
+           });
+           
+           // Selecionar nova resposta com feedback visual
+           const selectedOption = document.querySelectorAll('.answer-option')[answerIndex];
+           selectedOption.classList.add('selected');
+           selectedAnswer = answerIndex;
+           
+           // Ativar botão next com animação
+           document.getElementById('nextBtn').classList.add('active');
+           
+           // Track resposta selecionada
+           fbq('trackCustom', 'AnswerSelected', {
+               question_number: currentQuestionIndex + 1,
+               answer_index: answerIndex,
+               answer_text: selectedOption.textContent.substring(0, 30)
+           });
+       }
 
-        function nextQuestion() {
-            if (selectedAnswer === null) return;
-            
-            const currentQuestion = questions[currentQuestionIndex];
-            
-            // Verificar se é resposta de saída
-            if (currentQuestion.exitAnswers && currentQuestion.exitAnswers.includes(selectedAnswer)) {
-                showExitScreen(currentQuestion.exitMessage);
-                return;
-            }
-            
-            // Se é a última pergunta e resposta é positiva
-            if (currentQuestionIndex === questions.length - 1 && selectedAnswer === 0) {
-                showLoadingThenResult();
-                return;
-            }
-            
-            // Próxima pergunta
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            }
-        }
+       function nextQuestion() {
+           if (selectedAnswer === null || isSubmitting) return;
+           
+           const currentQuestion = questions[currentQuestionIndex];
+           
+           // Verificar se é resposta de saída (não aplicável para pergunta 9)
+           if (currentQuestionIndex !== questions.length - 1 && currentQuestion.exitAnswers && currentQuestion.exitAnswers.includes(selectedAnswer)) {
+               showExitScreen(currentQuestion.exitMessage);
+               return;
+           }
+           
+           // Se é a última pergunta (9)
+           if (currentQuestionIndex === questions.length - 1) {
+               if (selectedAnswer === 0) {
+                   // Resposta SIM - vai para resultado/vendas
+                   showLoadingThenResult();
+               } else {
+                   // Resposta NÃO - vai para Roda da Vida
+                   showWheelOfLifeSurprise();
+               }
+               return;
+           }
+           
+           // Próxima pergunta
+           currentQuestionIndex++;
+           if (currentQuestionIndex < questions.length) {
+               showQuestion();
+           }
+       }
 
-        function showLoadingThenResult() {
-            document.getElementById('quizScreen').classList.add('hidden');
-            document.getElementById('loadingScreen').style.display = 'flex';
-            
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                document.getElementById('resultScreen').style.display = 'block';
-                
-                // Track Facebook conversion
-                fbq('track', 'CompleteRegistration');
-            }, 2000);
-        }
+       function showLoadingThenResult() {
+           hideAllScreens();
+           document.getElementById('loadingScreen').style.display = 'flex';
+           document.getElementById('loadingScreen').classList.add('screen-transition');
+           smoothScrollToTop();
+           
+           setTimeout(() => {
+               document.getElementById('loadingScreen').style.display = 'none';
+               document.getElementById('resultScreen').style.display = 'block';
+               document.getElementById('resultScreen').classList.add('screen-transition');
+               smoothScrollToTop();
+               
+               // Track Facebook conversion
+               fbq('track', 'CompleteRegistration');
+               fbq('trackCustom', 'QuizCompleted', {
+                   completion_type: 'direct_to_sales',
+                   questions_answered: questions.length
+               });
+           }, 2500);
+       }
 
-        function showExitScreen(message) {
-            document.getElementById('quizScreen').classList.add('hidden');
-            document.getElementById('exitScreen').style.display = 'block';
-            
-            document.getElementById('exitTitle').textContent = "Entendemos sua posição";
-            document.getElementById('exitMessage').textContent = message;
-        }
+       function showWheelOfLifeSurprise() {
+           hideAllScreens();
+           document.getElementById('wheelOfLifeScreen').style.display = 'block';
+           document.getElementById('wheelOfLifeScreen').classList.add('screen-transition');
+           smoothScrollToTop();
+           
+           // Track que rejeitou mas oferecemos alternativa
+           fbq('trackCustom', 'AppRejected_WheelOffered', {
+               funnel_stage: 'recovery_attempt',
+               engagement_level: 'medium',
+               questions_answered: questions.length
+           });
+       }
 
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            selectedAnswer = null;
-            
-            document.getElementById('exitScreen').style.display = 'none';
-            document.getElementById('resultScreen').style.display = 'none';
-            document.getElementById('startScreen').classList.remove('hidden');
-        }
-    </script>
+       // FUNÇÕES DA RODA DA VIDA
+       function startWheelOfLife() {
+           const wheelHTML = `
+               <div class="wheel-header">
+                   <h2>🎡 Avalie Seu Equilíbrio de Vida</h2>
+                   <p>Deslize os controles para avaliar cada área da sua vida de 1 a 10</p>
+               </div>
+               
+               <div class="wheel-container">
+                   <div class="wheel-area">
+                       <h4>💼 Carreira</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="carreira">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Como você avalia sua satisfação profissional?</p>
+                   </div>
+                   
+                   <div class="wheel-area">
+                       <h4>❤️ Relacionamentos</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="relacionamentos">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Como estão seus relacionamentos pessoais?</p>
+                   </div>
+                   
+                   <div class="wheel-area">
+                       <h4>💰 Finanças</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="financas">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Como está sua situação financeira?</p>
+                   </div>
+                   
+                   <div class="wheel-area">
+                       <h4>🏃 Saúde</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="saude">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Como está sua saúde física e mental?</p>
+                   </div>
+                   
+                   <div class="wheel-area">
+                       <h4>🎓 Desenvolvimento Pessoal</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="desenvolvimento">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Como está seu crescimento pessoal?</p>
+                   </div>
+                   
+                   <div class="wheel-area">
+                       <h4>🎯 Propósito</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="proposito">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Você tem clareza sobre seu propósito de vida?</p>
+                   </div>
+                   
+                   <div class="wheel-area">
+                       <h4>🎨 Lazer</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="lazer">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Como está seu tempo para diversão e hobbies?</p>
+                   </div>
+                   
+                   <div class="wheel-area">
+                       <h4>🏡 Ambiente</h4>
+                       <div class="rating-scale">
+                           <input type="range" min="1" max="10" value="5" class="wheel-slider" data-area="ambiente">
+                           <div class="scale-labels">
+                               <span>1</span><span>5</span><span>10</span>
+                           </div>
+                       </div>
+                       <p class="area-description">Como está seu ambiente físico e social?</p>
+                   </div>
+               </div>
+               
+               <button class="btn-analyze" onclick="analyzeWheelOfLife()">
+                   🔍 Analisar Minha Roda da Vida
+               </button>
+           `;
+           
+           document.getElementById('wheelOfLifeScreen').innerHTML = wheelHTML;
+           smoothScrollToTop();
+           
+           fbq('trackCustom', 'WheelOfLifeStarted', {
+               source: 'app_rejection_recovery',
+               conversion_potential: 'high'
+           });
+       }
+
+       function analyzeWheelOfLife() {
+           if (isSubmitting) return;
+           
+           wheelData = {};
+           let totalScore = 0;
+           lowAreas = [];
+           
+           // Coletar dados dos sliders
+           document.querySelectorAll('.wheel-slider').forEach(slider => {
+               const area = slider.dataset.area;
+               const value = parseInt(slider.value);
+               wheelData[area] = value;
+               totalScore += value;
+               
+               if (value <= 4) {
+                   lowAreas.push(area);
+               }
+           });
+           
+           averageScore = totalScore / 8;
+           
+           // Mostrar loading durante análise
+           document.querySelector('.btn-analyze').classList.add('btn-loading');
+           document.querySelector('.btn-analyze').textContent = 'Analisando...';
+           
+           setTimeout(() => {
+               showWheelResult();
+           }, 1500);
+       }
+
+       function showWheelResult() {
+           const insights = generateInsights();
+           const actionSteps = generateActionSteps();
+           
+           const resultHTML = `
+               <div class="wheel-result">
+                   <h3>🎯 Sua Roda da Vida Revelou Insights Importantes</h3>
+                   
+                   <div class="score-summary">
+                       <div class="average-score">
+                           <h4>Seu Equilíbrio Geral: ${averageScore.toFixed(1)}/10</h4>
+                           <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 5px; margin: 15px 0;">
+                               <div style="background: linear-gradient(90deg, var(--cor-destaque), #34d399); height: 20px; border-radius: 5px; width: ${averageScore * 10}%; transition: width 1s ease;"></div>
+                           </div>
+                       </div>
+                   </div>
+                   
+                   <div class="insights">
+                       <h4>💡 O que descobrimos:</h4>
+                       ${insights}
+                       
+                       ${lowAreas.length > 0 ? 
+                           `<p><strong>🔍 Áreas que mais precisam de atenção:</strong> ${lowAreas.join(', ')}</p>` : 
+                           '<p>🌟 Seu equilíbrio está bom, mas sempre há espaço para crescer ainda mais.</p>'
+                       }
+                   </div>
+                   
+                   <div class="revelation">
+                       <h4>💭 Sabe o que isso significa?</h4>
+                       <p>Você acabou de fazer exatamente o tipo de autoavaliação que o <strong>AppAutoconhecimento</strong> oferece - mas de forma muito mais profunda e estruturada.</p>
+                       
+                       <p>Se essa simples roda já te deu insights valiosos, imagina o que você descobrirá com:</p>
+                       <ul style="text-align: left; margin-left: 20px; line-height: 1.8;">
+                           <li>✅ Mapeamento completo dos seus valores pessoais</li>
+                           <li>✅ Análise detalhada do seu perfil comportamental</li>
+                           <li>✅ Descoberta do seu propósito de vida</li>
+                           <li>✅ Ferramentas para tomar decisões mais acertadas</li>
+                       </ul>
+                   </div>
+                   
+                   <div class="final-offer">
+                       <h4>🎁 Uma última oportunidade:</h4>
+                       <p>Já que você se interessou pelo autoconhecimento a ponto de avaliar sua vida aqui, que tal dar uma chance ao App completo?</p>
+                       <div style="background: rgba(34, 197, 94, 0.1); padding: 18px; border-radius: 12px; margin: 20px 0; border: 1px solid rgba(34, 197, 94, 0.3);">
+                           <p><strong>🛡️ Lembre-se:</strong> 7 dias de garantia total. Se não gostar, devolvemos 100% do seu dinheiro.</p>
+                       </div>
+                       
+                       <button class="btn-start" onclick="window.location.href='https://pay.kiwify.com.br/nAeTa0z'" style="margin-bottom: 15px;">
+                           🚀 Ok, vou experimentar o App por 7 dias
+                       </button>
+                       
+                       <button class="btn-secondary" onclick="showEmailCapture()">
+                           📧 Prefiro receber o relatório da minha Roda da Vida
+                       </button>
+                   </div>
+               </div>
+           `;
+           
+           document.getElementById('wheelOfLifeScreen').innerHTML = resultHTML;
+           smoothScrollToTop();
+           
+           // Track conversão potencial alta
+           fbq('trackCustom', 'WheelResultViewed', {
+               average_score: averageScore,
+               low_areas_count: lowAreas.length,
+               conversion_opportunity: 'second_chance',
+               likely_to_convert: averageScore < 6 ? 'high' : 'medium'
+           });
+       }
+
+       // FUNÇÕES DE CAPTURA DE EMAIL
+       function showEmailCapture() {
+           const emailHTML = `
+               <div class="email-capture-final">
+                   <h3>📊 Receba Seu Relatório Personalizado</h3>
+                   <p>Digite seus dados abaixo e enviaremos um relatório completo da sua Roda da Vida:</p>
+                   
+                   <div class="form-container">
+                       <input type="text" id="userName" placeholder="Seu nome completo" required>
+                       <div class="error-message" id="nameError">Por favor, digite seu nome</div>
+                       
+                       <input type="email" id="userEmail" placeholder="Seu melhor email" required>
+                       <div class="error-message" id="emailError">Por favor, digite um email válido</div>
+                       
+                       <button class="btn-start" onclick="generateReport()" id="generateBtn">
+                           📄 Gerar Meu Relatório
+                       </button>
+                   </div>
+                   
+                   <p class="privacy-note">*Não enviamos spam. Apenas seu relatório e eventualmente dicas valiosas de autoconhecimento.</p>
+               </div>
+           `;
+           
+           document.getElementById('wheelOfLifeScreen').innerHTML = emailHTML;
+           smoothScrollToTop();
+           
+           // Track captura de email como último recurso
+           fbq('trackCustom', 'EmailCaptureShown', {
+               source: 'wheel_completion',
+               funnel_stage: 'final_opportunity'
+           });
+       }
+
+       function generateReport() {
+           if (isSubmitting) return;
+           
+           const name = document.getElementById('userName').value.trim();
+           const email = document.getElementById('userEmail').value.trim();
+           
+           // Validação melhorada
+           let hasError = false;
+           
+           // Validar nome
+           if (!name || name.length < 2) {
+               showError('userName', 'nameError', 'Por favor, digite seu nome completo');
+               hasError = true;
+           } else {
+               hideError('userName', 'nameError');
+           }
+           
+           // Validar email
+           if (!email || !isValidEmail(email)) {
+               showError('userEmail', 'emailError', 'Por favor, digite um email válido');
+               hasError = true;
+           } else {
+               hideError('userEmail', 'emailError');
+           }
+           
+           if (hasError) return;
+           
+           // Mostrar loading
+           isSubmitting = true;
+           const btn = document.getElementById('generateBtn');
+           btn.classList.add('btn-loading');
+           btn.textContent = 'Gerando relatório...';
+           
+           // Mostrar tela de loading
+           document.querySelector('.email-capture-final').innerHTML = `
+               <div class="loading-save">
+                   <div class="spinner"></div>
+                   <h3>Salvando seus dados...</h3>
+                   <p>Gerando seu relatório personalizado</p>
+                   <p style="opacity: 0.7; margin-top: 15px;">Isso pode levar alguns segundos...</p>
+               </div>
+           `;
+           
+           // Salvar no Google Sheets
+           saveEmailLead(name, email);
+       }
+
+       function saveEmailLead(name, email) {
+           const leadData = {
+               nome: name,
+               email: email,
+               pontuacao_media: averageScore.toFixed(1),
+               areas_baixas: lowAreas.join(', '),
+               wheel_data: JSON.stringify(wheelData),
+               timestamp: new Date().toISOString(),
+               fonte: 'roda_da_vida_quiz'
+           };
+           
+           fetch(GOOGLE_SHEETS_URL, {
+               method: 'POST',
+               headers: {'Content-Type': 'application/json'},
+               body: JSON.stringify(leadData)
+           })
+           .then(response => {
+               if (!response.ok) {
+                   throw new Error('Erro na resposta do servidor');
+               }
+               return response.json();
+           })
+           .then(data => {
+               console.log('✅ Lead salvo com sucesso:', data);
+               showGeneratedReport(name, email);
+               
+               // Track Facebook
+               fbq('track', 'Lead', {
+                   content_name: 'wheel_of_life_report',
+                   value: 0,
+                   currency: 'BRL'
+               });
+               
+               fbq('trackCustom', 'EmailCaptured', {
+                   source: 'wheel_of_life_report',
+                   final_conversion: true,
+                   average_score: averageScore
+               });
+               
+               isSubmitting = false;
+           })
+           .catch(error => {
+               console.error('❌ Erro ao salvar lead:', error);
+               
+               // Mesmo com erro, mostra o relatório
+               showGeneratedReport(name, email);
+               
+               // Track erro mas ainda conversão
+               fbq('trackCustom', 'EmailCaptured', {
+                   source: 'wheel_of_life_report',
+                   final_conversion: true,
+                   save_error: true,
+                   average_score: averageScore
+               });
+               
+               isSubmitting = false;
+           });
+       }
+
+       function showGeneratedReport(name, email) {
+           const reportText = generateReportText();
+           
+           const reportHTML = `
+               <div class="report-page">
+                   <h2>📊 Relatório da Roda da Vida - ${name}</h2>
+                   <p><em>Gerado em ${new Date().toLocaleDateString('pt-BR')}</em></p>
+                   
+                   <div class="copy-area" id="reportContent">${reportText}</div>
+                   
+                   <div class="action-buttons" style="text-align: center; margin: 25px 0;">
+                       <button class="btn-copy" onclick="copyReport()">
+                           📋 Copiar Relatório
+                       </button>
+                       
+                       <button class="btn-start" onclick="window.location.href='https://pay.kiwify.com.br/nAeTa0z'">
+                           🚀 Ainda Quero Testar o App Completo
+                       </button>
+                   </div>
+                   
+                   <div class="final-message">
+                       <span class="success-checkmark">✅</span>
+                       <strong>Relatório pronto!</strong><br>
+                       Uma cópia foi enviada para <strong>${email}</strong><br>
+                       Você pode copiar o texto acima e colar onde quiser para consultar depois.
+                   </div>
+               </div>
+           `;
+           
+           document.getElementById('wheelOfLifeScreen').innerHTML = reportHTML;
+           smoothScrollToTop();
+       }
+
+       // FUNÇÕES DE UTILITÁRIO
+       function generateInsights() {
+           if (averageScore < 5) {
+               return '<p style="color: #fbbf24; font-weight: 500;">⚠️ Sua roda mostra um desbalanceamento significativo. Isso pode estar impactando sua qualidade de vida e bem-estar de forma importante. É hora de focar no que realmente importa.</p>';
+           } else if (averageScore < 6.5) {
+               return '<p style="color: #60a5fa; font-weight: 500;">🔄 Sua vida está em um ponto de transição. Há áreas sólidas, mas outras precisam de mais atenção para você alcançar seu potencial máximo.</p>';
+           } else if (averageScore < 8) {
+               return '<p style="color: var(--cor-destaque); font-weight: 500;">✅ Você tem uma base sólida! Sua vida está bem equilibrada, mas vemos algumas áreas que podem ser potencializadas para um resultado ainda melhor.</p>';
+           } else {
+               return '<p style="color: var(--cor-destaque); font-weight: 500;">🌟 Parabéns! Você tem um excelente equilíbrio de vida. Mesmo assim, sempre há espaço para refinamento e crescimento contínuo.</p>';
+           }
+       }
+
+       function generateActionSteps() {
+           if (lowAreas.length === 0) {
+               return `🚀 Próximos Passos Sugeridos:
+- Manter o equilíbrio atual conquistado
+- Buscar crescimento refinado em todas as áreas
+- Desenvolver maior autoconhecimento para decisões estratégicas
+- Focar em otimização e excelência`;
+           }
+           
+           const suggestions = {
+               'carreira': 'Definir objetivos profissionais claros e actionáveis',
+               'relacionamentos': 'Investir tempo de qualidade com pessoas importantes',
+               'financas': 'Criar um planejamento financeiro estruturado',
+               'saude': 'Estabelecer rotina de exercícios e cuidados pessoais',
+               'desenvolvimento': 'Dedicar tempo regular para aprendizado e crescimento',
+               'proposito': 'Refletir profundamente sobre valores e missão de vida',
+               'lazer': 'Reservar tempo sagrado para atividades prazerosas',
+               'ambiente': 'Organizar e melhorar seus espaços físicos e sociais'
+           };
+           
+           let steps = '🚀 Próximos Passos Sugeridos:\n';
+           lowAreas.forEach(area => {
+               steps += `• ${suggestions[area] || 'Trabalhar no desenvolvimento desta área'}\n`;
+           });
+           
+           return steps;
+       }
+
+       function generateReportText() {
+           const insights = generateInsights().replace(/<[^>]*>/g, '').replace(/⚠️|🔄|✅|🌟/g, '');
+           const actionSteps = generateActionSteps();
+           
+           return `🎯 MINHA RODA DA VIDA - ANÁLISE PESSOAL
+
+📈 Pontuação Geral: ${averageScore.toFixed(1)}/10
+
+📊 Avaliação Detalhada por Área:
+- Carreira: ${wheelData.carreira}/10
+- Relacionamentos: ${wheelData.relacionamentos}/10
+- Finanças: ${wheelData.financas}/10
+- Saúde: ${wheelData.saude}/10
+- Desenvolvimento Pessoal: ${wheelData.desenvolvimento}/10
+- Propósito: ${wheelData.proposito}/10
+- Lazer: ${wheelData.lazer}/10
+- Ambiente: ${wheelData.ambiente}/10
+
+💡 Insights Principais:
+${insights.trim()}
+
+🎯 Áreas Prioritárias para Desenvolvimento:
+${lowAreas.length > 0 ? lowAreas.join(', ') : 'Manter equilíbrio atual e buscar refinamento'}
+
+${actionSteps}
+
+💪 Conclusão:
+Este é apenas o primeiro passo da sua jornada de autoconhecimento. 
+Use essas informações como base para decisões mais conscientes e 
+direcionadas sobre sua vida.
+
+---
+Relatório gerado por: AppAutoconhecimento
+Data: ${new Date().toLocaleDateString('pt-BR')}
+Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
+       }
+
+       function copyReport() {
+           const reportText = document.getElementById('reportContent').innerText;
+           
+           if (navigator.clipboard && navigator.clipboard.writeText) {
+               navigator.clipboard.writeText(reportText).then(() => {
+                   showCopySuccess();
+               }).catch(() => {
+                   fallbackCopy(reportText);
+               });
+           } else {
+               fallbackCopy(reportText);
+           }
+       }
+
+       function fallbackCopy(text) {
+           const textArea = document.createElement('textarea');
+           textArea.value = text;
+           textArea.style.position = 'fixed';
+           textArea.style.opacity = '0';
+           document.body.appendChild(textArea);
+           textArea.focus();
+           textArea.select();
+           
+           try {
+               document.execCommand('copy');
+               showCopySuccess();
+           } catch (err) {
+               alert('Não foi possível copiar automaticamente. Por favor, selecione o texto e copie manualmente.');
+           }
+           
+           document.body.removeChild(textArea);
+       }
+
+       function showCopySuccess() {
+           const copyBtn = document.querySelector('.btn-copy');
+           const originalText = copyBtn.textContent;
+           copyBtn.textContent = '✅ Copiado!';
+           copyBtn.style.background = 'rgba(34, 197, 94, 0.3)';
+           copyBtn.style.borderColor = 'var(--cor-destaque)';
+           
+           setTimeout(() => {
+               copyBtn.textContent = originalText;
+               copyBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+               copyBtn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+           }, 2000);
+       }
+
+       function isValidEmail(email) {
+           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+           return emailRegex.test(email);
+       }
+
+       function showError(inputId, errorId, message) {
+           const input = document.getElementById(inputId);
+           const error = document.getElementById(errorId);
+           
+           input.classList.add('error');
+           error.textContent = message;
+           error.style.display = 'block';
+       }
+
+       function hideError(inputId, errorId) {
+           const input = document.getElementById(inputId);
+           const error = document.getElementById(errorId);
+           
+           input.classList.remove('error');
+           error.style.display = 'none';
+       }
+
+       function smoothScrollToTop() {
+           window.scrollTo({ 
+               top: 0, 
+               behavior: 'smooth' 
+           });
+       }
+
+       function hideAllScreens() {
+           document.getElementById('startScreen').classList.add('hidden');
+           document.getElementById('quizScreen').classList.add('hidden');
+           document.getElementById('resultScreen').style.display = 'none';
+           document.getElementById('wheelOfLifeScreen').style.display = 'none';
+           document.getElementById('exitScreen').style.display = 'none';
+           document.getElementById('loadingScreen').style.display = 'none';
+       }
+
+       // FUNÇÕES DE SAÍDA E REINÍCIO MELHORADAS
+       function showExitScreen(message) {
+           // Salvar onde parou ANTES de sair
+           stoppedAtQuestion = currentQuestionIndex;
+           
+           hideAllScreens();
+           document.getElementById('exitScreen').style.display = 'block';
+           document.getElementById('exitScreen').classList.add('screen-transition');
+           
+           document.getElementById('exitTitle').textContent = "Entendemos sua posição";
+           document.getElementById('exitMessage').textContent = message;
+           
+           // Atualizar texto do botão baseado em onde parou
+           const restartBtn = document.getElementById('restartBtn');
+           restartBtn.textContent = `🔄 Continuar da Pergunta ${stoppedAtQuestion + 1}`;
+           
+           smoothScrollToTop();
+           
+           // Track saída
+           fbq('trackCustom', 'QuizExit', {
+               exit_question: stoppedAtQuestion + 1,
+               exit_reason: 'negative_answer'
+           });
+       }
+
+       function restartQuiz() {
+           // NOVA LÓGICA: Continuar de onde parou, não do zero
+           if (stoppedAtQuestion > 0) {
+               // Voltar para onde parou
+               currentQuestionIndex = stoppedAtQuestion;
+               selectedAnswer = null;
+               
+               hideAllScreens();
+               document.getElementById('quizScreen').classList.remove('hidden');
+               document.getElementById('quizScreen').classList.add('screen-transition');
+               
+               // Mostrar a pergunta onde parou
+               showQuestion();
+               smoothScrollToTop();
+               
+               // Track retorno
+               fbq('trackCustom', 'QuizResumed', {
+                   resumed_from_question: stoppedAtQuestion + 1
+               });
+               
+               // Reset para próxima vez
+               stoppedAtQuestion = 0;
+           } else {
+               // Se não parou em nenhuma pergunta, começar do zero
+               currentQuestionIndex = 0;
+               selectedAnswer = null;
+               wheelData = {};
+               averageScore = 0;
+               lowAreas = [];
+               
+               hideAllScreens();
+               document.getElementById('startScreen').classList.remove('hidden');
+               document.getElementById('startScreen').classList.add('screen-transition');
+               smoothScrollToTop();
+               
+               // Track restart completo
+               fbq('trackCustom', 'QuizRestarted', {
+                   restart_type: 'complete'
+               });
+           }
+       }
+
+       // EVENTOS DE SCROLL E INTERAÇÃO
+       document.addEventListener('DOMContentLoaded', function() {
+           // Adicionar eventos para melhor UX
+           
+           // Detectar se usuário está tentando sair da página
+           let hasInteracted = false;
+           
+           document.addEventListener('click', function() {
+               hasInteracted = true;
+           });
+           
+           document.addEventListener('keydown', function() {
+               hasInteracted = true;
+           });
+           
+           // Exit intent tracking
+           document.addEventListener('mouseout', function(e) {
+               if (e.clientY <= 0 && hasInteracted) {
+                   // Usuário está tentando sair
+                   fbq('trackCustom', 'ExitIntent', {
+                       current_question: currentQuestionIndex + 1,
+                       has_wheel_data: Object.keys(wheelData).length > 0
+                   });
+               }
+           });
+           
+           // Tracking de tempo na página
+           let startTime = Date.now();
+           
+           window.addEventListener('beforeunload', function() {
+               const timeSpent = Math.round((Date.now() - startTime) / 1000);
+               fbq('trackCustom', 'TimeSpent', {
+                   seconds: timeSpent,
+                   questions_answered: currentQuestionIndex,
+                   completed_wheel: Object.keys(wheelData).length > 0
+               });
+           });
+           
+           // Auto-scroll suave para elementos focados
+           document.addEventListener('focusin', function(e) {
+               if (e.target.matches('input, button')) {
+                   setTimeout(() => {
+                       e.target.scrollIntoView({ 
+                           behavior: 'smooth', 
+                           block: 'center' 
+                       });
+                   }, 300);
+               }
+           });
+       });
+
+       // MELHORIAS DE PERFORMANCE E UX
+       
+       // Preload de próximas perguntas
+       function preloadQuestion(questionIndex) {
+           if (questionIndex < questions.length) {
+               const question = questions[questionIndex];
+               // Preload lógico - preparar dados da próxima pergunta
+               console.log(`Preloading question ${questionIndex + 1}`);
+           }
+       }
+
+       // Feedback visual melhorado para mobile
+       document.addEventListener('touchstart', function(e) {
+           if (e.target.classList.contains('answer-option')) {
+               e.target.style.transform = 'scale(0.98)';
+           }
+       });
+
+       document.addEventListener('touchend', function(e) {
+           if (e.target.classList.contains('answer-option')) {
+               setTimeout(() => {
+                   e.target.style.transform = '';
+               }, 150);
+           }
+       });
+
+       // Melhorar feedback dos sliders na roda da vida
+       document.addEventListener('input', function(e) {
+           if (e.target.classList.contains('wheel-slider')) {
+               const value = e.target.value;
+               const area = e.target.dataset.area;
+               
+               // Feedback visual em tempo real
+               e.target.style.background = `linear-gradient(to right, var(--cor-destaque) 0%, var(--cor-destaque) ${(value-1)*11.11}%, rgba(255,255,255,0.1) ${(value-1)*11.11}%, rgba(255,255,255,0.1) 100%)`;
+               
+               // Vibração no mobile (se disponível)
+               if (navigator.vibrate && value == 1 || value == 10) {
+                   navigator.vibrate(50);
+               }
+           }
+       });
+
+       // Keyboard navigation melhorada
+       document.addEventListener('keydown', function(e) {
+           // Enter para próxima pergunta
+           if (e.key === 'Enter' && selectedAnswer !== null) {
+               const nextBtn = document.getElementById('nextBtn');
+               if (nextBtn && nextBtn.classList.contains('active')) {
+                   nextQuestion();
+               }
+           }
+           
+           // Números 1-9 para selecionar respostas
+           if (e.key >= '1' && e.key <= '9') {
+               const answerIndex = parseInt(e.key) - 1;
+               const options = document.querySelectorAll('.answer-option');
+               if (options[answerIndex]) {
+                   selectAnswer(answerIndex);
+               }
+           }
+           
+           // Escape para voltar (em development)
+           if (e.key === 'Escape' && window.location.hostname === 'localhost') {
+               console.log('Debug: ESC pressed');
+           }
+       });
+
+       // Analytics e otimização contínua
+       function trackAdvancedMetrics() {
+           // Performance metrics
+           if (window.performance) {
+               const navigation = performance.getEntriesByType('navigation')[0];
+               fbq('trackCustom', 'PagePerformance', {
+                   load_time: Math.round(navigation.loadEventEnd - navigation.loadEventStart),
+                   dom_ready: Math.round(navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart)
+               });
+           }
+           
+           // Screen metrics
+           fbq('trackCustom', 'DeviceInfo', {
+               screen_width: window.screen.width,
+               screen_height: window.screen.height,
+               viewport_width: window.innerWidth,
+               viewport_height: window.innerHeight,
+               device_pixel_ratio: window.devicePixelRatio || 1,
+               is_mobile: window.innerWidth <= 768,
+               user_agent: navigator.userAgent.substring(0, 100)
+           });
+       }
+
+       // Executar analytics quando a página carregar
+       window.addEventListener('load', trackAdvancedMetrics);
+
+       // Proteção contra spam de cliques
+       let lastClickTime = 0;
+       function throttleClicks(func, delay = 300) {
+           return function(...args) {
+               const now = Date.now();
+               if (now - lastClickTime >= delay) {
+                   lastClickTime = now;
+                   return func.apply(this, args);
+               }
+           };
+       }
+
+       // Aplicar throttling aos botões principais
+       const originalNextQuestion = nextQuestion;
+       nextQuestion = throttleClicks(originalNextQuestion, 500);
+
+       const originalStartQuiz = startQuiz;
+       startQuiz = throttleClicks(originalStartQuiz, 1000);
+
+       // Error boundary - captura erros JavaScript
+       window.addEventListener('error', function(e) {
+           console.error('JavaScript Error:', e.error);
+           fbq('trackCustom', 'JavaScriptError', {
+               message: e.message.substring(0, 100),
+               filename: e.filename,
+               lineno: e.lineno,
+               current_screen: getCurrentScreen()
+           });
+       });
+
+       function getCurrentScreen() {
+           if (!document.getElementById('startScreen').classList.contains('hidden')) return 'start';
+           if (!document.getElementById('quizScreen').classList.contains('hidden')) return 'quiz';
+           if (document.getElementById('resultScreen').style.display !== 'none') return 'result';
+           if (document.getElementById('wheelOfLifeScreen').style.display !== 'none') return 'wheel';
+           if (document.getElementById('exitScreen').style.display !== 'none') return 'exit';
+           if (document.getElementById('loadingScreen').style.display !== 'none') return 'loading';
+           return 'unknown';
+       }
+
+       // Otimização final para SEO e acessibilidade
+       document.addEventListener('DOMContentLoaded', function() {
+           // Adicionar atributos de acessibilidade
+           const buttons = document.querySelectorAll('button');
+           buttons.forEach(button => {
+               if (!button.getAttribute('aria-label')) {
+                   button.setAttribute('aria-label', button.textContent.trim());
+               }
+           });
+           
+           // Melhorar contraste para usuários com dificuldades visuais
+           if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
+               document.body.style.setProperty('--cor-destaque', '#00ff00');
+               document.body.style.setProperty('--cor-principal', '#000000');
+           }
+           
+           // Respeitar preferência de animação reduzida
+           if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+               document.head.insertAdjacentHTML('beforeend', `
+                   <style>
+                       *, *::before, *::after {
+                           animation-duration: 0.01ms !important;
+                           animation-iteration-count: 1 !important;
+                           transition-duration: 0.01ms !important;
+                       }
+                   </style>
+               `);
+           }
+       });
+
+       // Log de debug (remover em produção)
+       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+           console.log('🎯 Quiz AppAutoconhecimento v2.0');
+           console.log('📊 Debug mode ativo');
+           console.log('🔗 Google Sheets URL configurada:', GOOGLE_SHEETS_URL ? '✅' : '❌');
+           
+           // Função helper para debug
+           window.debugQuiz = {
+               jumpToQuestion: (n) => {
+                   currentQuestionIndex = n - 1;
+                   showQuestion();
+               },
+               simulateWheelData: () => {
+                   wheelData = {
+                       carreira: 7, relacionamentos: 6, financas: 5,
+                       saude: 8, desenvolvimento: 6, proposito: 4,
+                       lazer: 3, ambiente: 7
+                   };
+                   averageScore = 5.75;
+                   lowAreas = ['proposito', 'lazer'];
+                   console.log('Dados da roda simulados:', wheelData);
+               },
+               testEmailCapture: () => {
+                   showEmailCapture();
+               }
+           };
+       }
+   </script>
 </body>
 </html>
