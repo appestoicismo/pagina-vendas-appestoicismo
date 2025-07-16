@@ -31,6 +31,7 @@
             --cor-texto: #ffffff;
             --cor-secundaria: #1e293b;
             --cor-hover: #16a34a;
+            --cor-dourado: #fbbf24;
         }
 
         * {
@@ -80,7 +81,7 @@
 
         .quiz-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .quiz-header h1 {
@@ -148,6 +149,14 @@
             font-weight: 600;
             margin-bottom: 25px;
             line-height: 1.4;
+        }
+
+        .question-objective {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #94a3b8;
         }
 
         .answer-option {
@@ -265,6 +274,344 @@
             padding: 30px;
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ESTILOS PARA PÁGINA DE REFORÇO */
+        .reinforcement-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.3rem;
+            color: var(--cor-dourado);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .validation-section {
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .validation-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .validation-list li {
+            padding: 12px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .validation-list li::before {
+            content: "✅";
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        .top-3-highlight {
+            background: linear-gradient(90deg, var(--cor-destaque), var(--cor-dourado));
+            color: var(--cor-principal);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .investment-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .investment-section h3 {
+            color: var(--cor-dourado);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .investment-list {
+            background: rgba(239, 68, 68, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--cor-urgente);
+            list-style: none;
+        }
+
+        .investment-list li {
+            padding: 8px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .investment-list li::before {
+            content: "💸";
+            margin-right: 10px;
+        }
+
+        .highlight-text {
+            color: var(--cor-urgente);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .app-comparison {
+            background: rgba(34, 197, 94, 0.1);
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 3px solid var(--cor-destaque);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .coffee-anchor {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(34, 197, 94, 0.1) 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            text-align: center;
+        }
+
+        .coffee-anchor h4 {
+            font-size: 1.5rem;
+            color: var(--cor-dourado);
+            margin-bottom: 15px;
+        }
+
+        .coffee-highlight {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            color: var(--cor-destaque);
+            font-weight: 600;
+        }
+
+        .coffee-reveal {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cor-dourado);
+            margin: 20px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .question-highlight {
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--cor-dourado);
+        }
+
+        .value-revelation {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 2px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .buildup {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .btn-reveal-price {
+            background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado));
+            color: var(--cor-principal);
+            border: none;
+            padding: 25px 50px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 25px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-reveal-price:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.5);
+        }
+
+        .hint {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            font-style: italic;
+            margin-top: 15px;
+        }
+
+        /* ESTILOS PARA PÁGINA DE CONSULTOR */
+        .consultor-page {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .smart-person {
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .exclusive-offer {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .exclusive-offer h3 {
+            color: var(--cor-dourado);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .exclusive-offer ul {
+            list-style: none;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .exclusive-offer li {
+            padding: 8px 0;
+            font-size: 1.1rem;
+        }
+
+        .process-steps {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .process-steps h4 {
+            color: var(--cor-destaque);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .step {
+            background: rgba(34, 197, 94, 0.1);
+            padding: 12px 18px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--cor-destaque);
+            font-weight: 500;
+        }
+
+        .important-info {
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .important-info h4 {
+            color: var(--cor-dourado);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--cor-dourado);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+        }
+
+        .schedule-note {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            font-style: italic;
+            margin: 15px 0;
+            color: var(--cor-dourado);
+        }
+
+        .urgency-note {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--cor-urgente);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            font-weight: 600;
+            color: var(--cor-urgente);
         }
 
         .exit-screen {
@@ -541,372 +888,399 @@
         }
 
         .btn-copy {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--cor-texto);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 25px;
-            border-radius: 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-right: 15px;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            min-height: 45px;
-        }
+           background: rgba(255, 255, 255, 0.2);
+           color: var(--cor-texto);
+           border: 1px solid rgba(255, 255, 255, 0.3);
+           padding: 12px 25px;
+           border-radius: 20px;
+           font-size: 1rem;
+           cursor: pointer;
+           margin-right: 15px;
+           margin-bottom: 10px;
+           transition: all 0.3s ease;
+           display: inline-flex;
+           align-items: center;
+           min-height: 45px;
+       }
 
-        .btn-copy:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
+       .btn-copy:hover {
+           background: rgba(255, 255, 255, 0.3);
+           transform: translateY(-2px);
+       }
 
-        .loading-save {
-            text-align: center;
-            padding: 50px;
-        }
+       .loading-save {
+           text-align: center;
+           padding: 50px;
+       }
 
-        .loading-save .spinner {
-            margin: 0 auto 25px auto;
-        }
+       .loading-save .spinner {
+           margin: 0 auto 25px auto;
+       }
 
-        .final-message {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid var(--cor-destaque);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 25px;
-            font-weight: 500;
-        }
+       .final-message {
+           background: rgba(34, 197, 94, 0.1);
+           border: 1px solid var(--cor-destaque);
+           border-radius: 12px;
+           padding: 20px;
+           margin-top: 25px;
+           font-weight: 500;
+       }
 
-        .success-checkmark {
-            color: var(--cor-destaque);
-            font-size: 1.2rem;
-            margin-right: 8px;
-        }
+       .success-checkmark {
+           color: var(--cor-destaque);
+           font-size: 1.2rem;
+           margin-right: 8px;
+       }
 
-        /* RESPONSIVIDADE MOBILE MELHORADA */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-          /* Responsividade dos cards de benefícios */
-    div[style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-    }
-            
-            .quiz-header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .question-container {
-                padding: 25px 20px;
-            }
-            
-            .question-title {
-                font-size: 1.2rem;
-            }
+       /* RESPONSIVIDADE MOBILE MELHORADA */
+       @media (max-width: 768px) {
+           .container {
+               padding: 15px;
+           }
+           
+           .reinforcement-page {
+               padding: 15px;
+           }
+           
+           .consultor-page {
+               padding: 15px;
+           }
+           
+           /* Responsividade dos cards de benefícios */
+           div[style*="grid-template-columns"] {
+               grid-template-columns: 1fr !important;
+               gap: 12px !important;
+           }
+           
+           .quiz-header h1 {
+               font-size: 1.8rem;
+           }
+           
+           .page-header h1 {
+               font-size: 2rem;
+           }
+           
+           .question-container {
+               padding: 25px 20px;
+           }
+           
+           .question-title {
+               font-size: 1.2rem;
+           }
 
-            .answer-option {
-                padding: 20px 18px;
-                font-size: 1rem;
-            }
+           .answer-option {
+               padding: 20px 18px;
+               font-size: 1rem;
+           }
 
-            .wheel-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+           .wheel-container {
+               grid-template-columns: 1fr;
+               gap: 20px;
+           }
 
-            .wheel-area {
-                padding: 20px;
-            }
+           .wheel-area {
+               padding: 20px;
+           }
 
-            .wheel-slider {
-                height: 10px;
-            }
+           .wheel-slider {
+               height: 10px;
+           }
 
-            .wheel-slider::-webkit-slider-thumb {
-                width: 28px;
-                height: 28px;
-            }
+           .wheel-slider::-webkit-slider-thumb {
+               width: 28px;
+               height: 28px;
+           }
 
-            .btn-start, .btn-analyze, .btn-next {
-                font-size: 1.1rem;
-                padding: 18px 30px;
-            }
+           .btn-start, .btn-analyze, .btn-next, .btn-reveal-price, .btn-whatsapp {
+               font-size: 1.1rem;
+               padding: 18px 30px;
+           }
 
-            .form-container input {
-                padding: 16px;
-                font-size: 1rem;
-            }
-        }
+           .form-container input {
+               padding: 16px;
+               font-size: 1rem;
+           }
 
-        @media (max-width: 480px) {
-            .quiz-header h1 {
-                font-size: 1.6rem;
-            }
+           .comparison-grid {
+               grid-template-columns: 1fr;
+               gap: 12px;
+           }
+       }
 
-            .question-title {
-                font-size: 1.1rem;
-            }
+       @media (max-width: 480px) {
+           .quiz-header h1 {
+               font-size: 1.6rem;
+           }
 
-            .answer-option {
-                padding: 16px 15px;
-                font-size: 0.95rem;
-            }
+           .page-header h1 {
+               font-size: 1.8rem;
+           }
 
-            .wheel-area h4 {
-                font-size: 1.1rem;
-            }
-        }
+           .question-title {
+               font-size: 1.1rem;
+           }
 
-        /* LOADING STATES MELHORADOS */
-        .btn-loading {
-            position: relative;
-            color: transparent !important;
-        }
+           .answer-option {
+               padding: 16px 15px;
+               font-size: 0.95rem;
+           }
 
-        .btn-loading::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 50%;
-            left: 50%;
-            margin-left: -10px;
-            margin-top: -10px;
-            border: 2px solid transparent;
-            border-top-color: var(--cor-principal);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-    </style>
+           .wheel-area h4 {
+               font-size: 1.1rem;
+           }
+       }
+
+       /* LOADING STATES MELHORADOS */
+       .btn-loading {
+           position: relative;
+           color: transparent !important;
+       }
+
+       .btn-loading::after {
+           content: '';
+           position: absolute;
+           width: 20px;
+           height: 20px;
+           top: 50%;
+           left: 50%;
+           margin-left: -10px;
+           margin-top: -10px;
+           border: 2px solid transparent;
+           border-top-color: var(--cor-principal);
+           border-radius: 50%;
+           animation: spin 1s linear infinite;
+       }
+   </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Tela Inicial -->
-        <div id="startScreen" class="start-screen screen-transition">
-    <div class="quiz-header">
-        <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 25px; opacity: 0.95;">
-            🧠 O problema nunca foi o trabalho, o parceiro, o dinheiro ou a rotina. O problema é o que você ainda não parou pra descobrir…
-        </p>
-        <h2 style="font-size: 2.2rem; color: var(--cor-destaque); margin-bottom: 30px;">
-            💥 ESTÁ PRONTO PARA OLHAR PARA O LUGAR CERTO?
-        </h2>
-    </div>
-    <button class="btn-start" onclick="startQuiz()">🚀 ESTOU PRONTO</button>
-</div>
+   <div class="container">
+       <!-- Tela Inicial -->
+       <div id="startScreen" class="start-screen screen-transition">
+           <div class="quiz-header">
+               <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 25px; opacity: 0.95;">
+                   🧠 O problema nunca foi o trabalho, o parceiro, o dinheiro ou a rotina. O problema é que você ainda não parou pra se conhecer…
+               </p>
+               <h2 style="font-size: 2.2rem; color: var(--cor-destaque); margin-bottom: 30px;">
+                   💥 ESTÁ PRONTO PARA OLHAR PARA O LUGAR CERTO?
+               </h2>
+           </div>
+           <button class="btn-start" onclick="startQuiz()">🚀 ESTOU PRONTO</button>
+       </div>
 
-        <!-- Tela de Loading -->
-        <div id="loadingScreen" class="loading-screen">
-            <div class="spinner"></div>
-            <h3>Analisando suas respostas...</h3>
-            <p>Preparando seu resultado personalizado</p>
-        </div>
+       <!-- Tela de Loading -->
+       <div id="loadingScreen" class="loading-screen">
+           <div class="spinner"></div>
+           <h3>Analisando suas respostas...</h3>
+           <p>Preparando seu resultado personalizado</p>
+       </div>
 
-        <!-- Quiz Principal -->
-        <div id="quizScreen" class="hidden">
-            <div class="quiz-header">
-                <h1>Quiz AppAutoconhecimento</h1>
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                    <div class="progress-text">
-                        Pergunta <span id="currentQuestion">1</span> de 9
-                    </div>
-                </div>
-            </div>
+       <!-- Quiz Principal -->
+       <div id="quizScreen" class="hidden">
+           <div class="quiz-header">
+               <div class="progress-container">
+                   <div class="progress-bar" id="progressBar"></div>
+                   <div class="progress-text">
+                       Pergunta <span id="currentQuestion">1</span> de 13
+                   </div>
+               </div>
+           </div>
 
-            <div class="question-container">
-                <div class="question-number" id="questionNumber">PERGUNTA 1</div>
-                <div class="question-title" id="questionTitle"></div>
-                <div id="answersContainer"></div>
-                <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Próxima Pergunta</button>
-            </div>
-        </div>
+           <div class="question-container">
+               <div class="question-number" id="questionNumber">PERGUNTA 1</div>
+               <div class="question-title" id="questionTitle"></div>
+               <div class="question-objective" id="questionObjective"></div>
+               <div id="answersContainer"></div>
+               <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Próxima Pergunta</button>
+           </div>
+       </div>
 
-        <!-- Tela de Resultado -->
-        <div id="resultScreen" class="result-screen">
-            <h2>🎉 Parabéns! Você está pronto para se conhecer melhor!</h2>
-            <div class="result-content">
-                <p style="font-size: 1.2rem; margin-bottom: 20px;">
-                    Suas respostas mostram que você tem potencial para uma transformação real através do autoconhecimento.
-                </p>
-                <p style="margin-bottom: 20px;">
-                    O <strong>AppAutoconhecimento</strong> reúne as mesmas ferramentas usadas em sessões de terapia que custam entre R$ 150 a R$ 350, mas você pode usar no seu tempo, no conforto de casa.
-                </p>
-                <div style="background: rgba(34, 197, 94, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                    <h3 style="color: var(--cor-destaque); margin-bottom: 20px; text-align: center;">✨ O que você vai descobrir:</h3>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin: 20px 0;">
-    <div style="background: rgba(34, 197, 94, 0.15); padding: 15px; border-radius: 8px; border-left: 4px solid var(--cor-destaque);">
-        <strong>🎯 Clareza total</strong><br>
-        <span style="opacity: 0.9; font-size: 0.95rem;">Sobre quem você é e o que realmente importa pra você</span>
-    </div>
-    <div style="background: rgba(34, 197, 94, 0.15); padding: 15px; border-radius: 8px; border-left: 4px solid var(--cor-destaque);">
-        <strong>🧠 Perfil completo</strong><br>
-        <span style="opacity: 0.9; font-size: 0.95rem;">Mental e emocional — com forças e armadilhas escondidas</span>
-    </div>
-    <div style="background: rgba(34, 197, 94, 0.15); padding: 15px; border-radius: 8px; border-left: 4px solid var(--cor-destaque);">
-        <strong>🎯 Objetivo definido</strong><br>
-        <span style="opacity: 0.9; font-size: 0.95rem;">Um objetivo de vida definido, com direção e propósito</span>
-    </div>
-    <div style="background: rgba(34, 197, 94, 0.15); padding: 15px; border-radius: 8px; border-left: 4px solid var(--cor-destaque);">
-        <strong>💪 Segurança total</strong><br>
-        <span style="opacity: 0.9; font-size: 0.95rem;">Pra dizer NÃO e tomar decisões sem culpa ou arrependimentos</span>
-    </div>
-    <div style="background: rgba(34, 197, 94, 0.15); padding: 15px; border-radius: 8px; border-left: 4px solid var(--cor-destaque);">
-        <strong>❤️ Relacionamentos leves</strong><br>
-        <span style="opacity: 0.9; font-size: 0.95rem;">Mais leves, com limites e autenticidade</span>
-    </div>
-    <div style="background: rgba(34, 197, 94, 0.15); padding: 15px; border-radius: 8px; border-left: 4px solid var(--cor-destaque);">
-        <strong>✨ E muito mais</strong><br>
-        <span style="opacity: 0.9; font-size: 0.95rem;">Muitas outras ferramentas de autoconhecimento</span>
-    </div>
-</div>
-                </div>
-                <p style="font-weight: 600; font-size: 1.1rem; color: var(--cor-destaque);">
-                    Apenas 15 minutos 1 ou 2 vezes por semana • Garantia de 7 dias • R$ 49,55/ano
-                </p>
-            </div>
-            
-            <button class="btn-start" onclick="window.location.href='https://pay.kiwify.com.br/nAeTa0z'">
-                🚀 SIM! Quero Conhecer o AppAutoconhecimento
-            </button>
-        </div>
+       <!-- Tela de Página de Reforço -->
+       <div id="reinforcementScreen" class="result-screen">
+           <!-- Conteúdo será inserido dinamicamente via JavaScript -->
+       </div>
 
-        <!-- Tela da Roda da Vida -->
-        <div id="wheelOfLifeScreen" class="wheel-screen">
-            <div class="wheel-intro">
-                <h2>🎁 Liberamos Algo Especial Para Você</h2>
-                <p>Por você ter participado do nosso quiz, liberamos uma ferramenta simples, mas que traz uma <strong>poderosa tomada de consciência</strong>...</p>
-                <p>A <strong>Roda da Vida</strong> - usada por coaches e terapeutas para avaliar o equilíbrio de vida dos seus clientes.</p>
-                <p>São apenas 2 minutos e pode revelar insights valiosos sobre sua vida atual.</p>
-                
-                <button class="btn-start" onclick="startWheelOfLife()">
-                    🎡 Quero Fazer Minha Avaliação
-                </button>
-            </div>
-        </div>
+       <!-- Tela de Consultor -->
+       <div id="consultorScreen" class="result-screen">
+           <!-- Conteúdo será inserido dinamicamente via JavaScript -->
+       </div>
 
-        <!-- Tela de Saída -->
-        <div id="exitScreen" class="exit-screen">
-            <h2 id="exitTitle"></h2>
-            <p id="exitMessage"></p>
-            <button class="btn-restart" id="restartBtn" onclick="restartQuiz()">🔄 Tentar Novamente</button>
-        </div>
-    </div>
+       <!-- Tela da Roda da Vida -->
+       <div id="wheelOfLifeScreen" class="wheel-screen">
+           <div class="wheel-intro">
+               <h2>⚠️ Antes de você sair...</h2>
+               <p>Posso te mostrar em <strong>menos de 1 minuto</strong> onde sua energia está vazando?</p>
+               <p style="color: var(--cor-destaque); font-weight: 600; margin-top: 20px;">
+                   É rápido. E pode mudar sua percepção de agora.
+               </p>
+               
+               <button class="btn-start" onclick="startWheelOfLife()">
+                   🎡 Mostrar onde estou perdendo energia
+               </button>
+           </div>
+       </div>
 
-    <script>
-        // URL do Google Sheets - SUBSTITUA PELA SUA URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwbQu0d-ABbX7xKzSTDyUcefjHCex7YiOJS3WvnPcBiUPDdhwN2aXrcdswfniM27VAW/exec';
+       <!-- Tela de Saída -->
+       <div id="exitScreen" class="exit-screen">
+           <h2 id="exitTitle"></h2>
+           <p id="exitMessage"></p>
+           <button class="btn-restart" id="restartBtn" onclick="restartQuiz()">🔄 Tentar Novamente</button>
+       </div>
+   </div>
 
-        // Variáveis globais
-        let wheelData = {};
-        let averageScore = 0;
-        let lowAreas = [];
-        let stoppedAtQuestion = 0;
-        let isSubmitting = false;
+   <script>
+       // URL do Google Sheets - SUBSTITUA PELA SUA URL
+       const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwbQu0d-ABbX7xKzSTDyUcefjHCex7YiOJS3WvnPcBiUPDdhwN2aXrcdswfniM27VAW/exec';
 
-        // Configuração do Quiz
-        const questions = [
-            {
-                number: 1,
-                title: "Homem ou mulher?",
-                answers: ["👨 Homem", "👩 Mulher"],
-                exitAnswers: []
-            },
-            {
-                number: 2,
-                title: "Qual sua faixa etária?",
-                answers: ["🎓 18-25 anos", "💼 26-35 anos", "🏡 36-45 anos", "👔 46-55 anos", "🎖️ 56+ anos"],
-                exitAnswers: []
-            },
-            {
-                number: 3,
-                title: "Se você descobrir quem você realmente é... valores pessoais, perfil comportamental, ter um objetivo que te dá ânimo em buscar todos os dias... entre outras ferramentas de autoconhecimento, isso mudaria sua vida?",
-                answers: ["✅ Sim, muito!", "❌ Acho que não."],
-                exitAnswers: [1],
-                exitMessage: "O AppAutoconhecimento não é para você nesse momento, mas deixamos uma opção de voltar."
-            },
-            {
-                number: 4,
-                title: "O que você mais admira nas pessoas?",
-                answers: [
-                    "🤝 Capacidade de se relacionar bem no trabalho",
-                    "🧘 Controle emocional", 
-                    "🎯 Saber o que quer da vida",
-                    "💰 Saber economizar dinheiro",
-                    "🎨 Ser criativo",
-                    "✨ Pessoas autênticas, que são elas mesmas",
-                    "💪 Quem toma decisões com segurança",
-                    "🔍 Pessoas que conhecem seus limites",
-                    "❤️ Pessoas que têm relacionamento amoroso saudável, respeitoso, de parceria"
-                ],
-                exitAnswers: []
-            },
-            {
-                number: 5,
-                title: "Você acha que uma pessoa que se conhece de verdade...",
-                answers: [
-                    "🌟 Vive melhor",
-                    "🍀 Tem mais sorte", 
-                    "🎯 Sabe escolher",
-                    "✅ Toma decisões mais acertadas",
-                    "💚 Se relaciona de forma mais saudável",
-                    "⚡ Desperdiça menos tempo e energia",
-                    "🤷 Não muda nada na vida"
-                ],
-                exitAnswers: [6],
-                exitMessage: "Tudo bem! O AppAutoconhecimento talvez não seja para você nesse momento, mas se mudar de ideia, pode voltar aqui."
-            },
-            {
-                number: 6,
-                title: "Você acha que vale a pena investir 15 minutos 1 ou 2 vezes por semana para se conhecer melhor?",
-                answers: [
-                    "🚀 Com certeza, é pouco tempo para tanto benefício",
-                    "💎 Sim, qualquer tempo investido em mim vale a pena",
-                    "🤔 Acho que sim, se realmente funcionar", 
-                   "⏰ Talvez, dependeria dos resultados",
-                   "❌ Não tenho tempo para isso"
+       // Variáveis globais
+       let wheelData = {};
+       let averageScore = 0;
+       let lowAreas = [];
+       let stoppedAtQuestion = 0;
+       let isSubmitting = false;
+       let selectedTimePeriod = '';
+
+       // CONFIGURAÇÃO DAS 13 PERGUNTAS DA DOCUMENTAÇÃO
+       const questions = [
+           {
+               number: 1,
+               title: "Qual seu gênero?",
+               objective: "",
+               answers: ["👨 Homem", "👩 Mulher", "🤷 Prefiro não dizer"],
+               exitAnswers: []
+           },
+           {
+               number: 2,
+               title: "Qual sua faixa etária?",
+               objective: "",
+               answers: ["🎓 18 a 24 anos", "💼 25 a 34 anos", "🏡 35 a 44 anos", "👔 45 a 54 anos", "🎖️ 55+"],
+               exitAnswers: []
+           },
+           {
+               number: 3,
+               title: "Você sente que tem algo errado na sua vida... mas não sabe exatamente o quê?",
+               answers: [
+                   "🔍 Sim, parece que algo tá fora do lugar e eu não entendo",
+                   "🤔 Já pensei nisso, mas nunca fui fundo",
+                   "✅ Eu até sei o que está errado, mas estou com dificuldade para ajustar",
+                   "❌ Não, tudo está sob controle"
                ],
-               exitAnswers: [4],
-               exitMessage: "Entendemos que seu tempo é precioso. Quando estiver pronto para priorizar seu autoconhecimento, estaremos aqui."
+               exitAnswers: [3],
+               exitMessage: "Que bom que você sente que tem controle sobre sua vida! Talvez o AppAutoconhecimento não seja necessário para você neste momento."
+           },
+           {
+               number: 4,
+               title: "Você sente que está apenas vivendo os dias… sem saber se está indo pro lugar certo?",
+               answers: [
+                   "😐 Sim, como um barco à deriva",
+                   "🌀 Às vezes, mas nem tenho tempo para pensar sobre isso",
+                   "✅ Não, me sinto no caminho certo! Porém, falta estratégia"
+               ],
+               exitAnswers: []
+           },
+           {
+               number: 5,
+               title: "Você acredita que a falta de autoconhecimento… pode estar te afastando da vida que você deseja?",
+               answers: [
+                   "💥 Sim, acho que esse é o verdadeiro problema",
+                   "🤷 Talvez, nunca tinha pensado nisso desse jeito",
+                   "❌ Não, isso não tem nada a ver"
+               ],
+               exitAnswers: [2],
+               exitMessage: "Entendemos sua perspectiva. O autoconhecimento pode não ser uma prioridade para você neste momento."
+           },
+           {
+               number: 6,
+               title: "Quantas decisões erradas você já tomou… por não saber o que realmente quer?",
+               answers: [
+                   "💸 Várias. E continuo repetindo algumas",
+                   "🤔 Algumas, mas ainda busco entender",
+                   "✅ Nenhuma. Sempre sei o que quero"
+               ],
+               exitAnswers: [2],
+               exitMessage: "Impressionante! Você parece ter uma clareza excepcional sobre suas decisões. Talvez não precise do que oferecemos."
            },
            {
                number: 7,
-               title: "Você se considera maduro(a) o suficiente para se questionar internamente, refletir sobre o que acredita ser verdade e evoluir como pessoa?",
+               title: "Quando você precisa fazer escolhas, você:",
+               objective: "",
                answers: [
-                   "💪 Sim, estou pronto(a) para me conhecer de verdade",
-                   "🌱 Acho que sim, quero crescer como pessoa",
-                   "🔄 Estou tentando, mas às vezes é difícil",
-                   "🤷 Talvez, ainda estou aprendendo a me questionar",
-                   "😰 Não sei se estou preparado(a) para isso"
+                   "🎯 Decide com base nos seus 5 valores pessoais",
+                   "⚡ Decide com base nas vantagens do momento",
+                   "👥 Decide com base no que os outros desejam"
                ],
-               exitAnswers: [4],
-               exitMessage: "Que bom que você tem essa consciência! Quando se sentir pronto(a) para essa jornada de autoconhecimento, voltaremos a conversar."
+               exitAnswers: []
            },
            {
                number: 8,
-               title: "Você sabia que estudos científicos comprovam que apenas 15% das pessoas se conhecem verdadeiramente, mesmo que 95% acreditem que se conhecem bem?",
+               title: "Quando seu dia começa...",
+               objective: "",
                answers: [
-                   "😲 Nossa! Não sabia disso, faz muito sentido",
-                   "🤯 Interessante, eu provavelmente estou nos 85%",
-                   "📚 Já tinha ouvido algo parecido",
-                   "😎 Tenho certeza que me conheço bem",
-                   "🙄 Não acredito nesses estudos"
+                   "❓ Não sei por onde começar",
+                   "😔 Sei o que preciso fazer, mas não faço",
+                   "🌊 Só acordo e deixo a vida me levar",
+                   "🤖 Cumpro obrigações que nem escolhi de forma consciente"
                ],
-               exitAnswers: [4],
-               exitMessage: "Entendemos que nem todos confiam em pesquisas científicas. Caso mude de opinião sobre desenvolver seu autoconhecimento, estaremos aqui."
+               exitAnswers: []
            },
            {
                number: 9,
-               title: "Se existisse um App com as ferramentas que terapeutas usam em sessões de R$ 150 a R$ 350 — e você pudesse testar por 7 dias, sem risco de perder seu dinheiro, você toparia?",
+               title: "Se alguém te perguntar sobre seus pontos fortes e fracos, você...",
+               objective: "",
                answers: [
-                   "🚀 SIM! Quero conhecer esse App agora",
-                   "❌ Não tenho interesse no momento"
+                   "🤷 Eu não faço ideia do que responder",
+                   "💭 Eu sinto quais são, mas ainda de forma inconsciente",
+                   "✅ Eu sei exatamente no que sou muito bom e muito ruim"
+               ],
+               exitAnswers: [2],
+               exitMessage: "Excelente! Você tem uma autopercepção muito desenvolvida. Talvez já tenha o autoconhecimento necessário."
+           },
+           {
+               number: 10,
+               title: "Quando a sua jornada nesse mundo estiver chegando ao fim... você quer olhar para trás e:",
+               objective: "",
+               answers: [
+                   "🌟 Saber que viveu de forma autêntica",
+                   "📜 Perceber que só seguiu um script que não foi você quem escreveu",
+                   "🏆 Sentir que deixou um legado e fez a diferença",
+                   "😰 Nem quero pensar sobre isso"
+               ],
+               exitAnswers: [3],
+               exitMessage: "Entendemos que nem todos querem refletir sobre esses temas profundos. Tudo bem!"
+           },
+           {
+               number: 11,
+               title: "Escolha um período para se imaginar no futuro:",
+               answers: [
+                   "📅 Daqui 1 ano",
+                   "📅 Daqui a 3 anos",
+                   "📅 Daqui a 5 anos",
+                   "📅 Daqui a 10 anos"
+               ],
+               exitAnswers: []
+           },
+           {
+               number: 12,
+               title: "", // Será preenchido dinamicamente
+               objective: "",
+               answers: [
+                   "😴 Cansado e estagnado",
+                   "😔 Arrependido de não ter começado hoje",
+                   "🤖 Vivendo no automático",
+                   "😊 Super feliz, pois minha vida está 'ok'"
+               ],
+               exitAnswers: [3],
+               exitMessage: "Que ótimo que você se sente satisfeito com sua vida atual! Talvez não precise mudar nada mesmo."
+           },
+           {
+               number: 13,
+               title: "Você quer continuar vivendo sem saber quem você é... ou está pronto para mudar isso hoje?",
+               answers: [
+                   "🔥 Chega! Quero mudar isso AGORA",
+                   "🤔 Quero mudar, mas preciso conhecer melhor esse método",
+                   "😔 Prefiro deixar pra depois"
                ],
                exitAnswers: [],
-               wheelFlow: [1]
+               finalQuestion: true
            }
        ];
 
@@ -947,7 +1321,24 @@
            
            // Atualizar pergunta
            document.getElementById('questionNumber').textContent = `PERGUNTA ${question.number}`;
-           document.getElementById('questionTitle').textContent = question.title;
+           
+           // Pergunta 12 precisa ser personalizada com o período selecionado
+           if (currentQuestionIndex === 11) {
+               const periods = ['1 ano', '3 anos', '5 anos', '10 anos'];
+               const selectedPeriod = periods[selectedTimePeriod] || '3 anos';
+               document.getElementById('questionTitle').textContent = `Imagine-se daqui a ${selectedPeriod}. Se você não fizer nada para mudar… como acha que estará?`;
+           } else {
+               document.getElementById('questionTitle').textContent = question.title;
+           }
+           
+           // Mostrar objetivo se existir
+           const objectiveElement = document.getElementById('questionObjective');
+           if (question.objective) {
+               objectiveElement.textContent = question.objective;
+               objectiveElement.style.display = 'block';
+           } else {
+               objectiveElement.style.display = 'none';
+           }
            
            // Criar opções de resposta com animação
            const answersContainer = document.getElementById('answersContainer');
@@ -985,6 +1376,11 @@
            selectedOption.classList.add('selected');
            selectedAnswer = answerIndex;
            
+           // Salvar período selecionado para pergunta 12
+           if (currentQuestionIndex === 10) {
+               selectedTimePeriod = answerIndex;
+           }
+           
            // Ativar botão next com animação
            document.getElementById('nextBtn').classList.add('active');
            
@@ -1001,19 +1397,22 @@
            
            const currentQuestion = questions[currentQuestionIndex];
            
-           // Verificar se é resposta de saída (não aplicável para pergunta 9)
+           // Verificar se é resposta de saída (exceto pergunta 13)
            if (currentQuestionIndex !== questions.length - 1 && currentQuestion.exitAnswers && currentQuestion.exitAnswers.includes(selectedAnswer)) {
                showExitScreen(currentQuestion.exitMessage);
                return;
            }
            
-           // Se é a última pergunta (9)
+           // Se é a última pergunta (13) - Pergunta final
            if (currentQuestionIndex === questions.length - 1) {
                if (selectedAnswer === 0) {
-                   // Resposta SIM - vai para resultado/vendas
-                   showLoadingThenResult();
+                   // "🔥 Chega! Quero mudar isso AGORA"
+                   showReinforcementPage();
+               } else if (selectedAnswer === 1) {
+                   // "🤔 Quero mudar, mas preciso conhecer melhor esse método"
+                   showConsultorPage();
                } else {
-                   // Resposta NÃO - vai para Roda da Vida
+                   // "😔 Prefiro deixar pra depois"
                    showWheelOfLifeSurprise();
                }
                return;
@@ -1026,25 +1425,216 @@
            }
        }
 
-       function showLoadingThenResult() {
+       // FUNÇÃO PARA PÁGINA DE REFORÇO
+       function showReinforcementPage() {
            hideAllScreens();
-           document.getElementById('loadingScreen').style.display = 'flex';
-           document.getElementById('loadingScreen').classList.add('screen-transition');
-           smoothScrollToTop();
            
-           setTimeout(() => {
-               document.getElementById('loadingScreen').style.display = 'none';
-               document.getElementById('resultScreen').style.display = 'block';
-               document.getElementById('resultScreen').classList.add('screen-transition');
-               smoothScrollToTop();
-               
-               // Track Facebook conversion
-               fbq('track', 'CompleteRegistration');
-               fbq('trackCustom', 'QuizCompleted', {
-                   completion_type: 'direct_to_sales',
-                   questions_answered: questions.length
-               });
-           }, 2500);
+           const reinforcementHTML = `
+               <div class="reinforcement-page">
+                   <!-- HEADER DE VALIDAÇÃO -->
+                   <div class="page-header">
+                       <h1>🎉 ESSA É A ATITUDE QUE MUDA VIDAS!</h1>
+                       <p class="subtitle">Você acabou de tomar a decisão que 97% das pessoas deixam "para depois" por anos...</p>
+                   </div>
+
+                   <!-- VALIDAÇÃO EMOCIONAL -->
+                   <div class="validation-section">
+                       <ul class="validation-list">
+                           <li>Você reconheceu que precisa de mudança</li>
+                           <li>Você decidiu agir HOJE, não "um dia"</li>
+                           <li>Você escolheu investir em si mesmo</li>
+                       </ul>
+                       <div class="top-3-highlight">
+                           🔥 Isso já te coloca no TOP 3% das pessoas!
+                       </div>
+                   </div>
+
+                   <!-- SEÇÃO DE INVESTIMENTO E ÂNCORA -->
+                   <div class="investment-section">
+                       <h3>💰 Quanto Vale Se Conhecer de Verdade?</h3>
+                       
+                       <div class="investment-comparison">
+                           <p>Muitas pessoas investem <strong>milhares</strong> em:</p>
+                           <ul class="investment-list">
+                               <li>Cursos de autoconhecimento: R$ 2.000 - R$ 5.000</li>
+                               <li>Sessões de coaching: R$ 200 - R$ 400 por sessão</li>
+                               <li>Livros e workshops: R$ 500 - R$ 1.500</li>
+                               <li>Retiros espirituais: R$ 1.000 - R$ 3.000</li>
+                           </ul>
+                           <p class="highlight-text">E ainda ficam sem respostas claras...</p>
+                       </div>
+                       
+                       <div class="daily-comparison">
+                           <h4>🤔 Pense nisso:</h4>
+                           <div class="comparison-grid">
+                               <div class="app-comparison">
+                                   📱 <strong>Netflix:</strong> R$ 55/mês para entretenimento
+                               </div>
+                               <div class="app-comparison">
+                                   💕 <strong>Apps de namoro:</strong> R$ 80/mês para encontrar alguém
+                               </div>
+                               <div class="app-comparison">
+                                   🍕 <strong>iFood:</strong> R$ 60/semana em delivery
+                               </div>
+                               <div class="app-comparison">
+                                   ☕ <Cafezinho:</strong> R$ 6/dia em café
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <!-- ÂNCORA DO CAFEZINHO -->
+                   <div class="coffee-anchor">
+                       <h4>☕ Uma pessoa que toma um cafezinho por dia gasta R$ 180 por mês...</h4>
+                       <p class="coffee-highlight">Para ter as ferramentas de autoconhecimento mais poderosas no seu smartphone:</p>
+                       <p class="coffee-reveal">Menos que 1 semana de café. Uma única vez.</p>
+                   </div>
+
+                   <div class="question-highlight">
+                       O que tem mais valor: 30 dias de cafeína ou uma vida inteira de clareza?
+                   </div>
+
+                   <!-- REVELAÇÃO DO VALOR -->
+                   <div class="value-revelation">
+                       <p class="buildup">Você terá tudo isso sistematizado, científico, no seu bolso...</p>
+                       <p class="buildup">Por muito menos do que imagina.</p>
+                       
+                       <button class="btn-reveal-price" onclick="goToCheckout()">
+                           💸 DESCOBRIR O VALOR REAL
+                       </button>
+                       
+                       <p class="hint">*Spoiler: você vai se surpreender</p>
+                   </div>
+               </div>
+           `;
+           
+           document.getElementById('reinforcementScreen').innerHTML = reinforcementHTML;
+           document.getElementById('reinforcementScreen').style.display = 'block';
+           document.getElementById('reinforcementScreen').classList.add('screen-transition');
+           
+           // Track Facebook
+           fbq('trackCustom', 'ReinforcementPageViewed', {
+               source: 'quiz_high_intent',
+               decision_confidence: 'high',
+               funnel_stage: 'pre_checkout'
+           });
+           
+           smoothScrollToTop();
+       }
+
+       // FUNÇÃO PARA PÁGINA DE CONSULTOR
+       function showConsultorPage() {
+           hideAllScreens();
+           
+           const consultorHTML = `
+               <div class="consultor-page">
+                   <h2>🎯 Perfeito! Você fez a pergunta certa</h2>
+                   
+                   <div class="smart-person">
+                       <p>Pessoas inteligentes como você sempre querem entender bem antes de decidir.</p>
+                       <p><strong>E isso é exatamente o que esperamos!</strong></p>
+                   </div>
+                   
+                   <div class="exclusive-offer">
+                       <h3>🔑 Acesso Antecipado Especial</h3>
+                       <p>Para pessoas como você, temos algo diferente:</p>
+                       <ul>
+                           <li>✅ <strong>3 dias de teste completo</strong></li>
+                           <li>✅ <strong>Acesso a todas as ferramentas</strong></li>
+                           <li>✅ <strong>Suporte direto via WhatsApp</strong></li>
+                           <li>✅ <strong>Zero compromisso</strong></li>
+                       </ul>
+                   </div>
+                   
+                   <div class="process-steps">
+                       <h4>📋 Como funciona:</h4>
+                       <div class="step">1️⃣ Clique no botão abaixo</div>
+                       <div class="step">2️⃣ Forneça um <strong>e-mail válido</strong> ao consultor</div>
+                       <div class="step">3️⃣ Receba seu acesso em até 24h <strong>no seu e-mail</strong></div>
+                       <div class="step">4️⃣ Teste por 3 dias completos</div>
+                   </div>
+                   
+                   <div class="important-info">
+                       <h4>📞 Informações Importantes:</h4>
+                       <div class="info-box">
+                           <p><strong>🕐 Horário de atendimento:</strong></p>
+                           <p>Segunda a Sexta, das 08h00 às 20h00</p>
+                       </div>
+                       <div class="info-box">
+                           <p><strong>📧 Requisitos para o teste:</strong></p>
+                           <p>Você deve fornecer um e-mail válido, pois é por onde receberá o acesso</p>
+                       </div>
+                   </div>
+                   
+                   <button class="btn-whatsapp" onclick="openWhatsApp()">
+                       💬 Deixar meu e-mail com um consultor
+                   </button>
+                   
+                   <div class="schedule-note">
+                       <p><em>💡 Se estiver fora do horário de atendimento, deixe sua mensagem que responderemos no próximo dia útil!</em></p>
+                   </div>
+                   
+                   <p class="urgency-note">
+                       ⏰ <strong>Atenção:</strong> Temos apenas 10 acessos de teste por dia. 
+                       Garanta o seu enquanto ainda temos disponibilidade.
+                   </p>
+               </div>
+           `;
+           
+           document.getElementById('consultorScreen').innerHTML = consultorHTML;
+           document.getElementById('consultorScreen').style.display = 'block';
+           document.getElementById('consultorScreen').classList.add('screen-transition');
+           
+           // Track Facebook
+           fbq('trackCustom', 'ConsultorPageViewed', {
+               source: 'quiz_hesitant_lead',
+               intent_level: 'medium_high',
+               lead_type: 'needs_consultation'
+           });
+           
+           smoothScrollToTop();
+       }
+
+       function goToCheckout() {
+           // Track tentativa de checkout
+           fbq('track', 'InitiateCheckout', {
+               content_name: 'app_autoconhecimento',
+               value: 47,
+               currency: 'BRL'
+           });
+           
+           fbq('trackCustom', 'CheckoutClick', {
+               source: 'reinforcement_page',
+               confidence_level: 'very_high'
+           });
+           
+           // Redirecionar para checkout
+           window.location.href = 'https://pay.kiwify.com.br/nAeTa0z';
+       }
+
+       function openWhatsApp() {
+           const message = "Oi! Vim do quiz de autoconhecimento e quero conhecer melhor o método. Gostaria de receber o acesso de teste de 3 dias. Meu e-mail é: [SEU_EMAIL_AQUI] 😊";
+           const whatsappURL = `https://wa.me/5519974010028?text=Ol%C3%A1%2C%20desejo%20um%20per%C3%ADodo%20de%20teste%20gratuito%20no%20AppAutoconhecimento%0AMeu%20nome%20%C3%A9%3A%20[SEU%20NOME]%0AMeu%20email%20%C3%A9%3A%20[SEU%20EMAIL]`;
+           
+           // Track conversão para WhatsApp
+           fbq('trackCustom', 'WhatsAppRedirect', {
+               source: 'quiz_hesitant_lead',
+               intent_level: 'medium_high',
+               lead_type: 'needs_consultation',
+               business_hours: isBusinessHours()
+           });
+           
+           window.open(whatsappURL, '_blank');
+       }
+
+      // Função para detectar se está no horário comercial
+       function isBusinessHours() {
+           const now = new Date();
+           const day = now.getDay(); // 0 = domingo, 1 = segunda...
+           const hour = now.getHours();
+           
+           // Segunda a sexta (1-5) das 8h às 20h
+           return (day >= 1 && day <= 5) && (hour >= 8 && hour < 20);
        }
 
        function showWheelOfLifeSurprise() {
@@ -1205,7 +1795,6 @@
 
        function showWheelResult() {
            const insights = generateInsights();
-           const actionSteps = generateActionSteps();
            
            const resultHTML = `
                <div class="wheel-result">
@@ -1458,37 +2047,8 @@
            }
        }
 
-       function generateActionSteps() {
-           if (lowAreas.length === 0) {
-               return `🚀 Próximos Passos Sugeridos:
-- Manter o equilíbrio atual conquistado
-- Buscar crescimento refinado em todas as áreas
-- Desenvolver maior autoconhecimento para decisões estratégicas
-- Focar em otimização e excelência`;
-           }
-           
-           const suggestions = {
-               'carreira': 'Definir objetivos profissionais claros e actionáveis',
-               'relacionamentos': 'Investir tempo de qualidade com pessoas importantes',
-               'financas': 'Criar um planejamento financeiro estruturado',
-               'saude': 'Estabelecer rotina de exercícios e cuidados pessoais',
-               'desenvolvimento': 'Dedicar tempo regular para aprendizado e crescimento',
-               'proposito': 'Refletir profundamente sobre valores e missão de vida',
-               'lazer': 'Reservar tempo sagrado para atividades prazerosas',
-               'ambiente': 'Organizar e melhorar seus espaços físicos e sociais'
-           };
-           
-           let steps = '🚀 Próximos Passos Sugeridos:\n';
-           lowAreas.forEach(area => {
-               steps += `• ${suggestions[area] || 'Trabalhar no desenvolvimento desta área'}\n`;
-           });
-           
-           return steps;
-       }
-
        function generateReportText() {
            const insights = generateInsights().replace(/<[^>]*>/g, '').replace(/⚠️|🔄|✅|🌟/g, '');
-           const actionSteps = generateActionSteps();
            
            return `🎯 MINHA RODA DA VIDA - ANÁLISE PESSOAL
 
@@ -1509,8 +2069,6 @@ ${insights.trim()}
 
 🎯 Áreas Prioritárias para Desenvolvimento:
 ${lowAreas.length > 0 ? lowAreas.join(', ') : 'Manter equilíbrio atual e buscar refinamento'}
-
-${actionSteps}
 
 💪 Conclusão:
 Este é apenas o primeiro passo da sua jornada de autoconhecimento. 
@@ -1602,7 +2160,8 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
        function hideAllScreens() {
            document.getElementById('startScreen').classList.add('hidden');
            document.getElementById('quizScreen').classList.add('hidden');
-           document.getElementById('resultScreen').style.display = 'none';
+           document.getElementById('reinforcementScreen').style.display = 'none';
+           document.getElementById('consultorScreen').style.display = 'none';
            document.getElementById('wheelOfLifeScreen').style.display = 'none';
            document.getElementById('exitScreen').style.display = 'none';
            document.getElementById('loadingScreen').style.display = 'none';
@@ -1662,6 +2221,7 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
                wheelData = {};
                averageScore = 0;
                lowAreas = [];
+               selectedTimePeriod = '';
                
                hideAllScreens();
                document.getElementById('startScreen').classList.remove('hidden');
@@ -1728,15 +2288,6 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
 
        // MELHORIAS DE PERFORMANCE E UX
        
-       // Preload de próximas perguntas
-       function preloadQuestion(questionIndex) {
-           if (questionIndex < questions.length) {
-               const question = questions[questionIndex];
-               // Preload lógico - preparar dados da próxima pergunta
-               console.log(`Preloading question ${questionIndex + 1}`);
-           }
-       }
-
        // Feedback visual melhorado para mobile
        document.addEventListener('touchstart', function(e) {
            if (e.target.classList.contains('answer-option')) {
@@ -1756,13 +2307,12 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
        document.addEventListener('input', function(e) {
            if (e.target.classList.contains('wheel-slider')) {
                const value = e.target.value;
-               const area = e.target.dataset.area;
                
                // Feedback visual em tempo real
                e.target.style.background = `linear-gradient(to right, var(--cor-destaque) 0%, var(--cor-destaque) ${(value-1)*11.11}%, rgba(255,255,255,0.1) ${(value-1)*11.11}%, rgba(255,255,255,0.1) 100%)`;
                
                // Vibração no mobile (se disponível)
-               if (navigator.vibrate && value == 1 || value == 10) {
+               if (navigator.vibrate && (value == 1 || value == 10)) {
                    navigator.vibrate(50);
                }
            }
@@ -1785,11 +2335,6 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
                if (options[answerIndex]) {
                    selectAnswer(answerIndex);
                }
-           }
-           
-           // Escape para voltar (em development)
-           if (e.key === 'Escape' && window.location.hostname === 'localhost') {
-               console.log('Debug: ESC pressed');
            }
        });
 
@@ -1852,7 +2397,8 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
        function getCurrentScreen() {
            if (!document.getElementById('startScreen').classList.contains('hidden')) return 'start';
            if (!document.getElementById('quizScreen').classList.contains('hidden')) return 'quiz';
-           if (document.getElementById('resultScreen').style.display !== 'none') return 'result';
+           if (document.getElementById('reinforcementScreen').style.display !== 'none') return 'reinforcement';
+           if (document.getElementById('consultorScreen').style.display !== 'none') return 'consultor';
            if (document.getElementById('wheelOfLifeScreen').style.display !== 'none') return 'wheel';
            if (document.getElementById('exitScreen').style.display !== 'none') return 'exit';
            if (document.getElementById('loadingScreen').style.display !== 'none') return 'loading';
@@ -1891,7 +2437,7 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
 
        // Log de debug (remover em produção)
        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-           console.log('🎯 Quiz AppAutoconhecimento v2.0');
+           console.log('🎯 Quiz AppAutoconhecimento v4.0 - 13 Perguntas + Páginas Customizadas');
            console.log('📊 Debug mode ativo');
            console.log('🔗 Google Sheets URL configurada:', GOOGLE_SHEETS_URL ? '✅' : '❌');
            
@@ -1911,8 +2457,29 @@ Ferramentas completas: https://pay.kiwify.com.br/nAeTa0z`;
                    lowAreas = ['proposito', 'lazer'];
                    console.log('Dados da roda simulados:', wheelData);
                },
+               testReinforcementPage: () => {
+                   showReinforcementPage();
+               },
+               testConsultorPage: () => {
+                   showConsultorPage();
+               },
                testEmailCapture: () => {
                    showEmailCapture();
+               },
+               showAllQuestions: () => {
+                   questions.forEach((q, i) => {
+                       console.log(`${i + 1}. ${q.title}`);
+                       console.log(`   Respostas: ${q.answers.join(', ')}`);
+                       console.log(`   Saídas: ${q.exitAnswers.join(', ')}`);
+                       console.log('---');
+                   });
+               },
+               testAllFlows: () => {
+                   console.log('🧪 Testando todos os fluxos:');
+                   console.log('1. debugQuiz.testReinforcementPage() - Página de reforço');
+                   console.log('2. debugQuiz.testConsultorPage() - Página de consultor');
+                   console.log('3. showWheelOfLifeSurprise() - Roda da vida');
+                   console.log('4. debugQuiz.simulateWheelData() - Simular dados da roda');
                }
            };
        }
