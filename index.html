@@ -1,1860 +1,3342 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz AppAutoconhecimento - Está Pronto Para Olhar Para o Lugar Certo?</title>
-  
-  <!-- Facebook Pixel Code -->
-  <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '706101819074980');
-      fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=706101819074980&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Facebook Pixel Code -->
-
-  <style>
-      :root {
-          --cor-principal: #0f172a;
-          --cor-destaque: #22c55e;
-          --cor-urgente: #ef4444;
-          --cor-texto: #ffffff;
-          --cor-secundaria: #1e293b;
-          --cor-hover: #16a34a;
-          --cor-dourado: #fbbf24;
-          --cor-azul: #3b82f6;
-      }
-
-      * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-      }
-
-      html {
-          scroll-behavior: smooth;
-      }
-
-      body {
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
-          color: var(--cor-texto);
-          min-height: 100vh;
-          line-height: 1.6;
-      }
-
-      .container {
-          max-width: 600px;
-          margin: 0 auto;
-          padding: 20px;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-      }
-
-      /* ANIMAÇÕES SUAVES */
-      .screen-transition {
-          animation: fadeInUp 0.6s ease-out;
-      }
-
-      @keyframes fadeInUp {
-          from { 
-              opacity: 0; 
-              transform: translateY(30px); 
-          }
-          to { 
-              opacity: 1; 
-              transform: translateY(0); 
-          }
-      }
-
-      /* ELEMENTOS DE UI CLAROS */
-      .clickable-button {
-          cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-      }
-
-      .clickable-button:hover {
-          transform: translateY(-3px);
-      }
-
-      .clickable-button:active {
-          transform: translateY(-1px);
-      }
-
-      .quiz-header {
-          text-align: center;
-          margin-bottom: 20px;
-      }
-
-      .quiz-header h1 {
-          font-size: 2.2rem;
-          font-weight: 700;
-          margin-bottom: 10px;
-          background: linear-gradient(45deg, var(--cor-destaque), #34d399);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-      }
-
-      .quiz-header p {
-          font-size: 1.1rem;
-          opacity: 0.9;
-          margin-bottom: 20px;
-      }
-
-      .progress-container {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
-          padding: 10px;
-          margin-bottom: 30px;
-      }
-
-      .progress-bar {
-          background: linear-gradient(90deg, var(--cor-destaque), #34d399);
-          height: 8px;
-          border-radius: 4px;
-          transition: width 0.8s ease;
-          width: 0%;
-      }
-
-      .progress-text {
-          text-align: center;
-          margin-top: 8px;
-          font-size: 0.9rem;
-          opacity: 0.8;
-      }
-
-      .question-container {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 15px;
-          padding: 30px;
-          margin-bottom: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          animation: slideIn 0.5s ease-out;
-      }
-
-      @keyframes slideIn {
-          from { transform: translateX(20px); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-      }
-
-      .question-number {
-          color: var(--cor-destaque);
-          font-size: 0.9rem;
-          font-weight: 600;
-          margin-bottom: 10px;
-      }
-
-      .question-title {
-          font-size: 1.4rem;
-          font-weight: 600;
-          margin-bottom: 25px;
-          line-height: 1.4;
-      }
-
-      .question-objective {
-          font-size: 0.9rem;
-          opacity: 0.7;
-          font-style: italic;
-          margin-bottom: 20px;
-          color: #94a3b8;
-      }
-
-      .answer-option {
-          background: rgba(255, 255, 255, 0.08);
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 18px 20px;
-          margin-bottom: 12px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-          min-height: 60px;
-          display: flex;
-          align-items: center;
-      }
-
-      .answer-option:hover {
-          background: rgba(34, 197, 94, 0.1);
-          border-color: var(--cor-destaque);
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(34, 197, 94, 0.2);
-      }
-
-      .answer-option.selected {
-          background: var(--cor-destaque);
-          border-color: var(--cor-destaque);
-          color: var(--cor-principal);
-          font-weight: 600;
-          transform: scale(1.02);
-          box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
-      }
-
-      .start-screen {
-          text-align: center;
-      }
-
-      .start-screen h2 {
-          font-size: 2rem;
-          margin-bottom: 20px;
-          color: var(--cor-destaque);
-      }
-
-      .start-screen p {
-          font-size: 1.1rem;
-          margin-bottom: 30px;
-          opacity: 0.9;
-      }
-
-      .btn-start {
-          background: linear-gradient(45deg, var(--cor-destaque), #34d399);
-          color: var(--cor-principal);
-          border: none;
-          padding: 20px 50px;
-          border-radius: 30px;
-          font-size: 1.2rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          min-height: 60px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-      }
-
-      .btn-start:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 15px 30px rgba(34, 197, 94, 0.4);
-      }
-
-      .result-screen {
-          text-align: center;
-          display: none;
-      }
-
-      .result-screen h2 {
-          font-size: 2.2rem;
-          margin-bottom: 25px;
-          color: var(--cor-destaque);
-      }
-
-      .result-content {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 15px;
-          padding: 30px;
-          margin-bottom: 30px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      /* PÁGINA DE RESULTADO - OFERTA PAGA */
-      .offer-page {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 20px;
-      }
-
-      .page-header {
-          text-align: center;
-          margin-bottom: 40px;
-          padding: 30px 20px;
-          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
-          border-radius: 20px;
-          border: 1px solid rgba(34, 197, 94, 0.3);
-      }
-
-      .page-header h1 {
-          font-size: 2.5rem;
-          font-weight: 800;
-          margin-bottom: 20px;
-          background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado));
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          line-height: 1.3;
-          word-wrap: break-word;
-          overflow-wrap: break-word;
-          hyphens: auto;
-      }
-
-      .page-header .subtitle {
-          font-size: 1.3rem;
-          color: var(--cor-dourado);
-          font-weight: 600;
-          margin-bottom: 25px;
-      }
-
-      /* PREVIEW DAS FERRAMENTAS */
-      .tools-showcase {
-          margin: 40px 0;
-          border-radius: 15px;
-          background: rgba(255, 255, 255, 0.05);
-          padding: 30px 20px;
-      }
-
-      .tools-showcase h3 {
-          text-align: center;
-          font-size: 1.8rem;
-          margin-bottom: 30px;
-          color: var(--cor-destaque);
-      }
-
-      .tools-preview-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows: auto auto;
-          gap: 15px;
-          margin: 30px 0;
-      }
-
-      .preview-card {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 15px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          cursor: pointer;
-          transition: all 0.3s ease;
-      }
-
-      .preview-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 25px rgba(34, 197, 94, 0.2);
-          border-color: var(--cor-destaque);
-      }
-
-      .main-preview {
-          grid-column: 1 / -1;
-          display: flex;
-          gap: 20px;
-          align-items: center;
-          padding: 20px;
-      }
-
-      .preview-image {
-          flex-shrink: 0;
-      }
-
-      .preview-image img {
-          width: 120px;
-          height: 120px;
-          object-fit: cover;
-          border-radius: 10px;
-          cursor: pointer;
-      }
-
-      .preview-content {
-          flex: 1;
-      }
-
-      .preview-content h4 {
-          color: var(--cor-destaque);
-          font-size: 1.3rem;
-          margin-bottom: 10px;
-      }
-
-      .preview-content p {
-          font-size: 1rem;
-          opacity: 0.9;
-          margin-bottom: 15px;
-      }
-
-      .preview-btn {
-          background: var(--cor-destaque);
-          color: var(--cor-principal);
-          border: none;
-          padding: 10px 20px;
-          border-radius: 20px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-      }
-
-      .preview-btn:hover {
-          background: var(--cor-hover);
-          transform: scale(1.05);
-      }
-
-      .preview-card h5 {
-          color: var(--cor-destaque);
-          font-size: 1rem;
-          margin: 10px 0 5px 0;
-      }
-
-      .preview-card p {
-          font-size: 0.85rem;
-          opacity: 0.8;
-      }
-
-      .preview-card:not(.main-preview) .preview-image img {
-          width: 100%;
-          height: 80px;
-          object-fit: cover;
-          border-radius: 8px;
-      }
-
-      .more-tools {
-          text-align: center;
-          margin: 25px 0;
-          padding: 20px;
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 12px;
-      }
-
-      .show-all-btn {
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--cor-texto);
-          border: 1px solid var(--cor-destaque);
-          padding: 12px 25px;
-          border-radius: 20px;
-          cursor: pointer;
-          margin-top: 10px;
-          transition: all 0.3s ease;
-      }
-
-      .show-all-btn:hover {
-          background: var(--cor-destaque);
-          color: var(--cor-principal);
-      }
-
-      /* MODAL DE PREVIEW */
-      .preview-modal {
-          display: none;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.9);
-          z-index: 1000;
-          padding: 20px;
-      }
-
-      .modal-content {
-          background: var(--cor-secundaria);
-          border-radius: 15px;
-          max-width: 600px;
-          margin: 50px auto;
-          position: relative;
-          border: 1px solid var(--cor-destaque);
-      }
-
-      .close-btn {
-          position: absolute;
-          top: 15px;
-          right: 20px;
-          background: none;
-          border: none;
-          color: var(--cor-texto);
-          font-size: 2rem;
-          cursor: pointer;
-          z-index: 1001;
-      }
-
-      .modal-image img {
-          width: 100%;
-          height: 300px;
-          object-fit: cover;
-          border-radius: 15px 15px 0 0;
-      }
-
-      .modal-info {
-          padding: 20px;
-      }
-
-      .modal-info h3 {
-          color: var(--cor-destaque);
-          margin-bottom: 15px;
-      }
-
-      /* LISTA EXPANDIDA */
-      .tools-grid-expanded {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 15px;
-          margin: 20px 0;
-      }
-
-      .tool-item {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 10px;
-          padding: 15px;
-          display: flex;
-          gap: 15px;
-          align-items: center;
-      }
-
-      .tool-mini-image img {
-          width: 50px;
-          height: 50px;
-          object-fit: cover;
-          border-radius: 8px;
-      }
-
-      .tool-info h6 {
-          color: var(--cor-destaque);
-          margin-bottom: 5px;
-      }
-
-      .tool-info p {
-          font-size: 0.9rem;
-          opacity: 0.8;
-      }
-
-      /* PRICING SECTION */
-      .pricing-section {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 15px;
-          padding: 40px 30px;
-          margin: 30px 0;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          text-align: center;
-      }
-
-      .price-highlight {
-          background: linear-gradient(90deg, var(--cor-destaque), var(--cor-dourado));
-          color: var(--cor-principal);
-          padding: 25px;
-          border-radius: 12px;
-          margin: 25px 0;
-          font-weight: 700;
-          font-size: 1.8rem;
-          position: relative;
-          overflow: hidden;
-      }
-
-      .price-highlight::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-          animation: shine 3s infinite;
-      }
-
-      @keyframes shine {
-          0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-          100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-      }
-
-      .value-proposition {
-          margin: 20px 0;
-          font-size: 1.1rem;
-          opacity: 0.9;
-      }
-
-      .benefit-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 20px;
-          margin: 30px 0;
-      }
-
-      .benefit-card {
-          background: rgba(34, 197, 94, 0.1);
-          border-radius: 15px;
-          padding: 25px;
-          border: 1px solid rgba(34, 197, 94, 0.3);
-          text-align: center;
-      }
-
-      .benefit-card .icon {
-          font-size: 2.5rem;
-          margin-bottom: 15px;
-          display: block;
-      }
-
-      .benefit-card h4 {
-          color: var(--cor-destaque);
-          margin-bottom: 15px;
-          font-size: 1.2rem;
-      }
-
-      .benefit-card p {
-          font-size: 1rem;
-          line-height: 1.5;
-          opacity: 0.9;
-      }
-
-      /* GUARANTEE SECTION */
-      .guarantee-section {
-          background: rgba(34, 197, 94, 0.1);
-          border: 2px solid var(--cor-destaque);
-          border-radius: 15px;
-          padding: 30px;
-          margin: 30px 0;
-          text-align: center;
-      }
-
-      .guarantee-icon {
-          font-size: 3rem;
-          margin-bottom: 15px;
-          display: block;
-      }
-
-      .guarantee-section h3 {
-          color: var(--cor-destaque);
-          font-size: 1.5rem;
-          margin-bottom: 15px;
-      }
-
-      .guarantee-section p {
-          font-size: 1.1rem;
-          margin-bottom: 15px;
-      }
-
-      .refund-link {
-          color: var(--cor-azul);
-          text-decoration: underline;
-          font-weight: 600;
-      }
-
-      .refund-link:hover {
-          color: #60a5fa;
-      }
-
-      /* CTA PRINCIPAL */
-      .cta-main {
-          background: linear-gradient(45deg, var(--cor-destaque), #34d399);
-          color: var(--cor-principal);
-          border: none;
-          padding: 25px 50px;
-          border-radius: 30px;
-          font-size: 1.4rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          margin: 20px 0;
-          text-decoration: none;
-          display: inline-block;
-          min-width: 300px;
-          position: relative;
-          overflow: hidden;
-      }
-
-      .cta-main:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 15px 35px rgba(34, 197, 94, 0.5);
-      }
-
-      .cta-main::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-          transition: left 0.5s;
-      }
-
-      .cta-main:hover::before {
-          left: 100%;
-      }
-
-      /* TELA DE ACOLHIMENTO */
-      .compassion-screen {
-          text-align: center;
-          padding: 30px;
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 15px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      .compassion-screen h2 {
-          color: var(--cor-destaque);
-          font-size: 2rem;
-          margin-bottom: 20px;
-      }
-
-      .compassion-screen p {
-          color: #ccc;
-          max-width: 600px;
-          margin: 16px auto;
-          font-size: 1.1rem;
-          line-height: 1.6;
-      }
-
-      .audio-player {
-          margin: 30px auto;
-          display: block;
-          width: 100%;
-          max-width: 400px;
-      }
-
-      .btn-secondary {
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--cor-texto);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          padding: 15px 30px;
-          border-radius: 20px;
-          font-size: 1rem;
-          cursor: pointer;
-          margin: 10px;
-          transition: all 0.3s ease;
-          min-height: 50px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-      }
-
-      .btn-secondary:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-      }
-
-      .exit-screen {
-          text-align: center;
-          display: none;
-          padding: 30px;
-      }
-
-      .exit-screen h2 {
-          color: var(--cor-urgente);
-          margin-bottom: 20px;
-      }
-
-      .btn-restart {
-          background: linear-gradient(45deg, #6b7280, #9ca3af);
-          color: white;
-          border: none;
-          padding: 15px 35px;
-          border-radius: 25px;
-          font-size: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          margin-top: 20px;
-          transition: all 0.3s ease;
-          min-height: 50px;
-      }
-
-      .btn-restart:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(107, 114, 128, 0.3);
-      }
-
-      .hidden {
-          display: none !important;
-      }
-
-      /* RESPONSIVIDADE MOBILE */
-      @media (max-width: 768px) {
-          .container {
-              padding: 15px;
-          }
-          
-          .offer-page {
-              padding: 15px;
-          }
-          
-          .quiz-header h1 {
-              font-size: 1.8rem;
-          }
-          
-          .page-header h1 {
-              font-size: 1.8rem !important;
-              line-height: 1.4;
-              padding: 0 10px;
-          }
-          
-          .page-header .subtitle {
-              font-size: 1.1rem;
-              line-height: 1.5;
-              padding: 0 10px;
-          }
-          
-          .question-container {
-              padding: 25px 20px;
-          }
-          
-          .question-title {
-              font-size: 1.2rem;
-          }
-
-          .answer-option {
-              padding: 20px 18px;
-              font-size: 1rem;
-          }
-
-          .btn-start, .cta-main {
-              font-size: 1.1rem;
-              padding: 18px 30px;
-              min-width: auto;
-          }
-
-          .benefit-grid {
-              grid-template-columns: 1fr;
-              gap: 15px;
-          }
-
-          .price-highlight {
-              font-size: 1.4rem;
-              padding: 20px 15px;
-              margin: 20px 0;
-          }
-          
-          .value-proposition {
-              font-size: 1rem;
-              line-height: 1.6;
-              text-align: left;
-          }
-          
-          .guarantee-section {
-              padding: 25px 15px;
-              text-align: left;
-          }
-          
-          .guarantee-section h3 {
-              font-size: 1.3rem;
-              text-align: center;
-              margin-bottom: 20px;
-          }
-          
-          .guarantee-section p {
-              font-size: 1rem;
-              line-height: 1.5;
-              margin-bottom: 12px;
-          }
-
-          .main-preview {
-              flex-direction: column;
-              text-align: center;
-          }
-          
-          .preview-image img {
-              width: 100px !important;
-              height: 100px !important;
-          }
-          
-          .tools-preview-grid {
-              grid-template-columns: 1fr;
-          }
-          
-          .main-preview {
-              grid-column: 1;
-          }
-          
-          .modal-content {
-              margin: 20px auto;
-          }
-          
-          .modal-image img {
-              height: 200px;
-          }
-      }
-
-      @media (max-width: 480px) {
-          .quiz-header h1 {
-              font-size: 1.6rem;
-          }
-
-          .page-header h1 {
-              font-size: 1.6rem !important;
-              word-break: break-word;
-          }
-
-          .question-title {
-              font-size: 1.1rem;
-          }
-
-          .answer-option {
-              padding: 16px 15px;
-              font-size: 0.95rem;
-          }
-
-          .cta-main {
-              min-width: 250px;
-          }
-      }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz AppAutoconhecimento - Está Pronto Para Olhar Para o Lugar Certo?</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '706101819074980');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=706101819074980&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <style>
+        :root {
+            --cor-principal: #0f172a;
+            --cor-destaque: #22c55e;
+            --cor-urgente: #ef4444;
+            --cor-texto: #ffffff;
+            --cor-secundaria: #1e293b;
+            --cor-hover: #16a34a;
+            --cor-dourado: #fbbf24;
+            --cor-azul: #3b82f6;
+            --cor-critico: #dc2626;
+            --cor-medio: #f59e0b;
+            --cor-bom: #10b981;
+            --cor-excelente: #059669;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
+            color: var(--cor-texto);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* ANIMAÇÕES SUAVES */
+        .screen-transition {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* ELEMENTOS DE UI CLAROS */
+        .clickable-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clickable-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .clickable-button:active {
+            transform: translateY(-1px);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quiz-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--cor-destaque), #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--cor-destaque), #34d399);
+            height: 8px;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+            width: 0%;
+            margin-bottom: 10px;
+        }
+
+        .progress-text {
+            font-size: 1rem;
+            opacity: 0.9;
+            color: var(--cor-dourado);
+            font-weight: 600;
+        }
+
+        .question-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .question-number {
+            color: var(--cor-destaque);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .question-objective {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #94a3b8;
+        }
+
+        .question-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .answer-option {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .answer-option:hover {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--cor-destaque);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.2);
+        }
+
+        .answer-option.selected {
+            background: var(--cor-destaque);
+            border-color: var(--cor-destaque);
+            color: var(--cor-principal);
+            font-weight: 600;
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        /* BOTÕES EMOCIONAIS DA RODA */
+        .emotional-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .emotional-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 1rem;
+            color: var(--cor-texto);
+            position: relative;
+            overflow: hidden;
+            min-height: 65px;
+            display: flex;
+            align-items: center;
+        }
+
+        .emotional-btn .emoji {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .emotional-btn .text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .emotional-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.2);
+        }
+
+        .emotional-btn.critical {
+            border-color: var(--cor-critico);
+        }
+
+        .emotional-btn.critical:hover {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: var(--cor-critico);
+        }
+
+        .emotional-btn.medium {
+            border-color: var(--cor-medio);
+        }
+
+        .emotional-btn.medium:hover {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--cor-medio);
+        }
+
+        .emotional-btn.good {
+            border-color: var(--cor-bom);
+        }
+
+        .emotional-btn.good:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--cor-bom);
+        }
+
+        .emotional-btn.excellent {
+            border-color: var(--cor-excelente);
+        }
+
+        .emotional-btn.excellent:hover {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: var(--cor-excelente);
+        }
+
+        .emotional-btn.selected {
+            background: var(--cor-destaque);
+            border-color: var(--cor-destaque);
+            color: var(--cor-principal);
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .emotional-btn.selected .emoji {
+            transform: scale(1.2);
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--cor-destaque);
+        }
+
+        .start-screen p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, var(--cor-destaque), #34d399);
+            color: var(--cor-principal);
+            border: none;
+            padding: 20px 50px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        .result-screen {
+            text-align: center;
+            display: none;
+        }
+
+        .result-screen h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--cor-destaque);
+        }
+
+        .result-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* RODA DA VIDA VISUAL */
+        .wheel-result {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .wheel-canvas-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        #wheelCanvas {
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .wheel-insights {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .insight-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--cor-destaque);
+        }
+
+        /* PERGUNTA PIVÔ */
+        .pivot-question {
+            display: none;
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--cor-urgente);
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pivot-question::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            animation: urgentPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes urgentPulse {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .pivot-question h2 {
+            font-size: 1.9rem;
+            margin-bottom: 25px;
+            color: var(--cor-urgente);
+            line-height: 1.3;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .pivot-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+        }
+
+        .areas-dropdown {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--cor-urgente);
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.1rem;
+            color: var(--cor-texto);
+            width: 100%;
+            margin-bottom: 25px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        .areas-dropdown option {
+            background: var(--cor-secundaria);
+            color: var(--cor-texto);
+            padding: 10px;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(45deg, var(--cor-urgente), #dc2626);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .confirm-btn.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        /* PERGUNTA DE DESCONFORTO */
+        .discomfort-question {
+            display: none;
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--cor-urgente);
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .discomfort-question h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--cor-urgente);
+            line-height: 1.3;
+        }
+
+        .reflection-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--cor-urgente);
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1rem;
+            color: var(--cor-texto);
+            width: 100%;
+            min-height: 120px;
+            margin-bottom: 25px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .reflection-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* OFERTA FINAL SUPER PERSUASIVA */
+        .final-offer {
+            display: none;
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(251, 191, 36, 0.2) 100%);
+            border-radius: 20px;
+            border: 3px solid var(--cor-dourado);
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-offer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .final-offer h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+        }
+
+        .offer-text {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            line-height: 1.5;
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+        }
+
+        .urgency-text {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--cor-urgente);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .urgency-text h3 {
+            color: var(--cor-urgente);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-main {
+            background: linear-gradient(45deg, var(--cor-destaque), #34d399);
+            color: var(--cor-principal);
+            border: none;
+            padding: 22px 45px;
+            border-radius: 25px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 350px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .cta-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-main:hover::before {
+            left: 100%;
+        }
+
+        .cta-main:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.5);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cor-texto);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* CAPTURA DE LEAD OTIMIZADA */
+        .lead-capture {
+            display: none;
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(34, 197, 94, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--cor-azul);
+            margin-top: 30px;
+        }
+
+        .lead-capture h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--cor-azul);
+        }
+
+        .value-reminder {
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--cor-destaque);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--cor-azul);
+        }
+
+        .form-group input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--cor-azul);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1rem;
+            color: var(--cor-texto);
+            width: 100%;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-copy, .btn-share {
+            background: var(--cor-azul);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy:hover, .btn-share:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* PÁGINA DE RESULTADO - OFERTA PAGA */
+        .offer-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.3rem;
+            color: var(--cor-dourado);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* PREVIEW DAS FERRAMENTAS */
+        .tools-showcase {
+            margin: 40px 0;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+        }
+
+        .tools-showcase h3 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--cor-destaque);
+        }
+
+        .tools-preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.2);
+            border-color: var(--cor-destaque);
+        }
+
+        .main-preview {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .preview-image {
+            flex-shrink: 0;
+        }
+
+        .preview-image img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .preview-content {
+            flex: 1;
+        }
+
+        .preview-content h4 {
+            color: var(--cor-destaque);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .preview-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .preview-btn {
+            background: var(--cor-destaque);
+            color: var(--cor-principal);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .preview-btn:hover {
+            background: var(--cor-hover);
+            transform: scale(1.05);
+        }
+
+        .preview-card h5 {
+            color: var(--cor-destaque);
+            font-size: 1rem;
+            margin: 10px 0 5px 0;
+        }
+
+        .preview-card p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .preview-card:not(.main-preview) .preview-image img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .more-tools {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .show-all-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cor-texto);
+            border: 1px solid var(--cor-destaque);
+            padding: 12px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .show-all-btn:hover {
+            background: var(--cor-destaque);
+            color: var(--cor-principal);
+        }
+
+        /* MODAL DE PREVIEW */
+        .preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--cor-secundaria);
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 50px auto;
+            position: relative;
+            border: 1px solid var(--cor-destaque);
+        }
+
+       .close-btn {
+           position: absolute;
+           top: 15px;
+           right: 20px;
+           background: none;
+           border: none;
+           color: var(--cor-texto);
+           font-size: 2rem;
+           cursor: pointer;
+           z-index: 1001;
+       }
+
+       .modal-image img {
+           width: 100%;
+           height: 300px;
+           object-fit: cover;
+           border-radius: 15px 15px 0 0;
+       }
+
+       .modal-info {
+           padding: 20px;
+       }
+
+       .modal-info h3 {
+           color: var(--cor-destaque);
+           margin-bottom: 15px;
+       }
+
+       /* LISTA EXPANDIDA */
+       .tools-grid-expanded {
+           display: grid;
+           grid-template-columns: 1fr;
+           gap: 15px;
+           margin: 20px 0;
+       }
+
+       .tool-item {
+           background: rgba(255, 255, 255, 0.05);
+           border-radius: 10px;
+           padding: 15px;
+           display: flex;
+           gap: 15px;
+           align-items: center;
+       }
+
+       .tool-mini-image img {
+           width: 50px;
+           height: 50px;
+           object-fit: cover;
+           border-radius: 8px;
+       }
+
+       .tool-info h6 {
+           color: var(--cor-destaque);
+           margin-bottom: 5px;
+       }
+
+       .tool-info p {
+           font-size: 0.9rem;
+           opacity: 0.8;
+       }
+
+       /* PRICING SECTION */
+       .pricing-section {
+           background: rgba(255, 255, 255, 0.05);
+           border-radius: 15px;
+           padding: 40px 30px;
+           margin: 30px 0;
+           border: 1px solid rgba(255, 255, 255, 0.1);
+           text-align: center;
+       }
+
+       .price-highlight {
+           background: linear-gradient(90deg, var(--cor-destaque), var(--cor-dourado));
+           color: var(--cor-principal);
+           padding: 25px;
+           border-radius: 12px;
+           margin: 25px 0;
+           font-weight: 700;
+           font-size: 1.8rem;
+           position: relative;
+           overflow: hidden;
+       }
+
+       .price-highlight::before {
+           content: '';
+           position: absolute;
+           top: -50%;
+           left: -50%;
+           width: 200%;
+           height: 200%;
+           background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+           animation: shine 3s infinite;
+       }
+
+       @keyframes shine {
+           0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+           100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+       }
+
+       .value-proposition {
+           margin: 20px 0;
+           font-size: 1.1rem;
+           opacity: 0.9;
+       }
+
+       .benefit-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+           gap: 20px;
+           margin: 30px 0;
+       }
+
+       .benefit-card {
+           background: rgba(34, 197, 94, 0.1);
+           border-radius: 15px;
+           padding: 25px;
+           border: 1px solid rgba(34, 197, 94, 0.3);
+           text-align: center;
+       }
+
+       .benefit-card .icon {
+           font-size: 2.5rem;
+           margin-bottom: 15px;
+           display: block;
+       }
+
+       .benefit-card h4 {
+           color: var(--cor-destaque);
+           margin-bottom: 15px;
+           font-size: 1.2rem;
+       }
+
+       .benefit-card p {
+           font-size: 1rem;
+           line-height: 1.5;
+           opacity: 0.9;
+       }
+
+       /* GUARANTEE SECTION */
+       .guarantee-section {
+           background: rgba(34, 197, 94, 0.1);
+           border: 2px solid var(--cor-destaque);
+           border-radius: 15px;
+           padding: 30px;
+           margin: 30px 0;
+           text-align: center;
+       }
+
+       .guarantee-icon {
+           font-size: 3rem;
+           margin-bottom: 15px;
+           display: block;
+       }
+
+       .guarantee-section h3 {
+           color: var(--cor-destaque);
+           font-size: 1.5rem;
+           margin-bottom: 15px;
+       }
+
+       .guarantee-section p {
+           font-size: 1.1rem;
+           margin-bottom: 15px;
+       }
+
+       .refund-link {
+           color: var(--cor-azul);
+           text-decoration: underline;
+           font-weight: 600;
+       }
+
+       .refund-link:hover {
+           color: #60a5fa;
+       }
+
+       /* TELA DE ACOLHIMENTO */
+       .compassion-screen {
+           text-align: center;
+           padding: 30px;
+           background: rgba(255, 255, 255, 0.05);
+           border-radius: 15px;
+           border: 1px solid rgba(255, 255, 255, 0.1);
+       }
+
+       .compassion-screen h2 {
+           color: var(--cor-destaque);
+           font-size: 2rem;
+           margin-bottom: 20px;
+       }
+
+       .compassion-screen p {
+           color: #ccc;
+           max-width: 600px;
+           margin: 16px auto;
+           font-size: 1.1rem;
+           line-height: 1.6;
+       }
+
+       .audio-player {
+           margin: 30px auto;
+           display: block;
+           width: 100%;
+           max-width: 400px;
+       }
+
+       .btn-secondary {
+           background: rgba(255, 255, 255, 0.1);
+           color: var(--cor-texto);
+           border: 1px solid rgba(255, 255, 255, 0.3);
+           padding: 15px 30px;
+           border-radius: 20px;
+           font-size: 1rem;
+           cursor: pointer;
+           margin: 10px;
+           transition: all 0.3s ease;
+           min-height: 50px;
+           display: inline-flex;
+           align-items: center;
+           justify-content: center;
+           text-decoration: none;
+       }
+
+       .btn-secondary:hover {
+           background: rgba(255, 255, 255, 0.2);
+           transform: translateY(-2px);
+       }
+
+       .exit-screen {
+           text-align: center;
+           display: none;
+           padding: 30px;
+       }
+
+       .exit-screen h2 {
+           color: var(--cor-urgente);
+           margin-bottom: 20px;
+       }
+
+       .btn-restart {
+           background: linear-gradient(45deg, #6b7280, #9ca3af);
+           color: white;
+           border: none;
+           padding: 15px 35px;
+           border-radius: 25px;
+           font-size: 1rem;
+           font-weight: 600;
+           cursor: pointer;
+           margin-top: 20px;
+           transition: all 0.3s ease;
+           min-height: 50px;
+       }
+
+       .btn-restart:hover {
+           transform: translateY(-2px);
+           box-shadow: 0 8px 20px rgba(107, 114, 128, 0.3);
+       }
+
+       .hidden {
+           display: none !important;
+       }
+
+       /* RESPONSIVIDADE MOBILE */
+       @media (max-width: 768px) {
+           .container {
+               padding: 15px;
+           }
+           
+           .offer-page {
+               padding: 15px;
+           }
+           
+           .quiz-header h1 {
+               font-size: 1.8rem;
+           }
+           
+           .page-header h1 {
+               font-size: 1.8rem !important;
+               line-height: 1.4;
+               padding: 0 10px;
+           }
+           
+           .page-header .subtitle {
+               font-size: 1.1rem;
+               line-height: 1.5;
+               padding: 0 10px;
+           }
+           
+           .question-container {
+               padding: 25px 20px;
+           }
+           
+           .question-title {
+               font-size: 1.2rem;
+           }
+
+           .answer-option {
+               padding: 20px 18px;
+               font-size: 1rem;
+           }
+
+           .emotional-btn {
+               padding: 15px 18px;
+               font-size: 0.95rem;
+           }
+
+           .emotional-btn .emoji {
+               font-size: 1.3rem;
+               margin-right: 12px;
+           }
+
+           .btn-start, .cta-main {
+               font-size: 1.1rem;
+               padding: 18px 30px;
+               min-width: auto;
+           }
+
+           .benefit-grid {
+               grid-template-columns: 1fr;
+               gap: 15px;
+           }
+
+           .price-highlight {
+               font-size: 1.4rem;
+               padding: 20px 15px;
+               margin: 20px 0;
+           }
+           
+           .value-proposition {
+               font-size: 1rem;
+               line-height: 1.6;
+               text-align: left;
+           }
+           
+           .guarantee-section {
+               padding: 25px 15px;
+               text-align: left;
+           }
+           
+           .guarantee-section h3 {
+               font-size: 1.3rem;
+               text-align: center;
+               margin-bottom: 20px;
+           }
+           
+           .guarantee-section p {
+               font-size: 1rem;
+               line-height: 1.5;
+               margin-bottom: 12px;
+           }
+
+           .main-preview {
+               flex-direction: column;
+               text-align: center;
+           }
+           
+           .preview-image img {
+               width: 100px !important;
+               height: 100px !important;
+           }
+           
+           .tools-preview-grid {
+               grid-template-columns: 1fr;
+           }
+           
+           .main-preview {
+               grid-column: 1;
+           }
+           
+           .modal-content {
+               margin: 20px auto;
+           }
+           
+           .modal-image img {
+               height: 200px;
+           }
+
+           .pivot-question h2,
+           .discomfort-question h2,
+           .final-offer h2 {
+               font-size: 1.5rem;
+           }
+
+           .offer-text {
+               font-size: 1.1rem;
+           }
+
+           .cta-main {
+               min-width: 300px;
+           }
+       }
+
+       @media (max-width: 480px) {
+           .quiz-header h1 {
+               font-size: 1.6rem;
+           }
+
+           .page-header h1 {
+               font-size: 1.6rem !important;
+               word-break: break-word;
+           }
+
+           .question-title {
+               font-size: 1.1rem;
+           }
+
+           .answer-option {
+               padding: 16px 15px;
+               font-size: 0.95rem;
+           }
+
+           .emotional-btn {
+               padding: 12px 15px;
+               font-size: 0.9rem;
+           }
+
+           .cta-main {
+               min-width: 250px;
+               font-size: 1.2rem;
+               padding: 18px 25px;
+           }
+
+           .pivot-question,
+           .discomfort-question,
+           .final-offer,
+           .lead-capture {
+               padding: 25px 20px;
+           }
+       }
+   </style>
 </head>
 <body>
-  <div class="container">
-      <!-- Tela Inicial -->
-      <div id="startScreen" class="start-screen screen-transition">
-          <div class="quiz-header">
-              <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 25px; opacity: 0.95;">
-                  🧠 O problema nunca foi o trabalho, o parceiro, o dinheiro ou a rotina. O problema é que você ainda não parou pra se conhecer…
-              </p>
-              <h2 style="font-size: 2.2rem; color: var(--cor-destaque); margin-bottom: 30px;">
-                  💥 ESTÁ PRONTO PARA OLHAR PARA O LUGAR CERTO?
-              </h2>
-          </div>
-          <button class="btn-start clickable-button" onclick="startQuiz()">🚀 ESTOU PRONTO</button>
-      </div>
+   <div class="container">
+       <!-- Tela Inicial -->
+       <div id="startScreen" class="start-screen screen-transition">
+           <div class="quiz-header">
+               <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 25px; opacity: 0.95;">
+                   🧠 O problema nunca foi o trabalho, o parceiro, o dinheiro ou a rotina. O problema é que você ainda não parou pra se conhecer…
+               </p>
+               <h2 style="font-size: 2.2rem; color: var(--cor-destaque); margin-bottom: 30px;">
+                   💥 ESTÁ PRONTO PARA OLHAR PARA O LUGAR CERTO?
+               </h2>
+           </div>
+           <button class="btn-start clickable-button" onclick="startQuiz()">🚀 ESTOU PRONTO</button>
+       </div>
 
-     <!-- Quiz Principal -->
-     <div id="quizScreen" class="hidden">
-         <div class="quiz-header">
-             <div class="progress-container">
-                 <div class="progress-bar" id="progressBar"></div>
-                 <div class="progress-text">
-                     Pergunta <span id="currentQuestion">1</span> de 13
-                 </div>
-             </div>
-         </div>
+       <!-- Quiz Principal -->
+       <div id="quizScreen" class="hidden">
+           <div class="quiz-header">
+               <div class="progress-container">
+                   <div class="progress-bar" id="progressBar"></div>
+                   <div class="progress-text">
+                       Pergunta <span id="currentQuestion">1</span> de 13
+                   </div>
+               </div>
+           </div>
 
-         <div class="question-container">
-             <div class="question-number" id="questionNumber">PERGUNTA 1</div>
-             <div class="question-title" id="questionTitle"></div>
-             <div class="question-objective" id="questionObjective"></div>
-             <div id="answersContainer"></div>
-         </div>
-     </div>
+           <div class="question-container">
+               <div class="question-number" id="questionNumber">PERGUNTA 1</div>
+               <div class="question-title" id="questionTitle"></div>
+               <div class="question-objective" id="questionObjective"></div>
+               <div id="answersContainer"></div>
+           </div>
+       </div>
 
-     <!-- Tela de Resultado - Oferta Paga -->
-     <div id="offerScreen" class="result-screen">
-         <!-- Conteúdo será inserido dinamicamente via JavaScript -->
-     </div>
+       <!-- RODA DA VIDA -->
+       <div id="wheelScreen" class="hidden">
+           <div class="quiz-header">
+               <h1>🎯 Raio-X da Sua Vida</h1>
+               <p>Vamos descobrir qual área da sua vida precisa de mais atenção agora</p>
+           </div>
 
-     <!-- Tela de Acolhimento -->
-     <div id="compassionScreen" class="result-screen">
-         <!-- Conteúdo será inserido dinamicamente via JavaScript -->
-     </div>
+           <div class="progress-container">
+               <div class="progress-bar" id="wheelProgressBar"></div>
+               <div class="progress-text" id="wheelProgressText">Descobrindo seu mapa da vida... 1/12</div>
+           </div>
 
-     <!-- Tela de Saída -->
-     <div id="exitScreen" class="exit-screen">
-         <h2 id="exitTitle"></h2>
-         <p id="exitMessage"></p>
-         <button class="btn-restart clickable-button" id="restartBtn" onclick="restartQuiz()">🔄 Continuar Quiz</button>
-     </div>
+           <div class="question-container" id="wheelQuestionContainer">
+               <div class="question-number" id="wheelQuestionNumber">ÁREA 1 DE 12</div>
+               <div class="question-emoji" id="wheelQuestionEmoji">🧠</div>
+               <div class="question-title" id="wheelQuestionTitle">Você sente que entende de verdade o que pensa, sente e quer?</div>
+               
+               <div class="emotional-buttons" id="wheelEmotionalButtons">
+                   <!-- Botões serão inseridos dinamicamente -->
+               </div>
+           </div>
+       </div>
 
-     <!-- MODAL DE PREVIEW -->
-     <div class="preview-modal" id="previewModal" onclick="closePreview()">
-         <div class="modal-content" onclick="event.stopPropagation()">
-             <button class="close-btn" onclick="closePreview()">×</button>
-             <div class="modal-image">
-                 <img id="modalImage" src="" alt="">
-             </div>
-             <div class="modal-info">
-                 <h3 id="modalTitle"></h3>
-                 <p id="modalDescription"></p>
-             </div>
-         </div>
-     </div>
- </div>
+       <!-- RESULTADO DA RODA -->
+       <div id="wheelResult" class="wheel-result">
+           <h2>🎯 Sua Roda da Vida Revelada</h2>
+           <p>Veja como está o equilíbrio da sua vida agora</p>
+           
+           <div class="wheel-canvas-container">
+               <canvas id="wheelCanvas" width="350" height="350"></canvas>
+           </div>
 
- <script>
-     // Variáveis globais
-     let stoppedAtQuestion = 0;
-     let selectedTimePeriod = '';
-     let isAdvancing = false;
+           <div class="wheel-insights" id="wheelInsights">
+               <!-- Insights serão inseridos dinamicamente -->
+           </div>
+       </div>
 
-     // CONFIGURAÇÃO DAS 13 PERGUNTAS
-     const questions = [
-         {
-             number: 1,
-             title: "Qual seu gênero?",
-             objective: "",
-             answers: ["👨 Homem", "👩 Mulher", "🤷 Prefiro não dizer"],
-             exitAnswers: []
-         },
-         {
-             number: 2,
-             title: "Qual sua faixa etária?",
-             objective: "",
-             answers: ["🎓 18 a 24 anos", "💼 25 a 34 anos", "🏡 35 a 44 anos", "👔 45 a 54 anos", "🎖️ 55+"],
-             exitAnswers: []
-         },
-         {
-             number: 3,
-             title: "Você sente que tem algo errado na sua vida... mas não sabe exatamente o quê?",
-             answers: [
-                 "🔍 Sim, parece que algo tá fora do lugar e eu não entendo",
-                 "🤔 Já pensei nisso, mas nunca fui fundo",
-                 "✅ Eu até sei o que está errado, mas estou com dificuldade para ajustar",
-                 "❌ Não, tudo está sob controle"
-             ],
-             exitAnswers: [3],
-             exitMessage: "Que bom que você sente que tem controle sobre sua vida! Talvez o AppAutoconhecimento não seja necessário para você neste momento."
-         },
-         {
-             number: 4,
-             title: "Você sente que está apenas vivendo os dias… sem saber se está indo pro lugar certo?",
-             answers: [
-                 "😐 Sim, como um barco à deriva",
-                 "🌀 Às vezes, mas nem tenho tempo para pensar sobre isso",
-                 "✅ Não, me sinto no caminho certo! Porém, falta estratégia"
-             ],
-             exitAnswers: []
-         },
-         {
-             number: 5,
-             title: "Você acredita que a falta de autoconhecimento… pode estar te afastando da vida que você deseja?",
-             answers: [
-                 "💥 Sim, acho que esse é o verdadeiro problema",
-                 "🤷 Talvez, nunca tinha pensado nisso desse jeito",
-                 "❌ Não, isso não tem nada a ver"
-             ],
-             exitAnswers: [2],
-             exitMessage: "Entendemos sua perspectiva. O autoconhecimento pode não ser uma prioridade para você neste momento."
-         },
-         {
-             number: 6,
-             title: "Quantas decisões erradas você já tomou… por não saber o que realmente quer?",
-             answers: [
-                 "💸 Várias. E continuo repetindo algumas",
-                 "🤔 Algumas, mas ainda busco entender",
-                 "✅ Nenhuma. Sempre sei o que quero"
-             ],
-             exitAnswers: [2],
-             exitMessage: "Impressionante! Você parece ter uma clareza excepcional sobre suas decisões. Talvez não precise do que oferecemos."
-         },
-         {
-             number: 7,
-             title: "Quando você precisa fazer escolhas, você:",
-             objective: "",
-             answers: [
-                 "🎯 Decide com base nos seus 5 valores pessoais",
-                 "⚡ Decide com base nas vantagens do momento",
-                 "👥 Decide com base no que os outros desejam"
-             ],
-             exitAnswers: []
-         },
-         {
-            number: 8,
-            title: "Quando seu dia começa...",
-            objective: "",
-            answers: [
-                "❓ Não sei por onde começar",
-                "😔 Sei o que preciso fazer, mas não faço",
-                "🌊 Só acordo e deixo a vida me levar",
-                "🤖 Cumpro obrigações que nem escolhi de forma consciente"
-            ],
-            exitAnswers: []
-        },
-        {
-            number: 9,
-            title: "Se alguém te perguntar sobre seus pontos fortes e fracos, você...",
-            objective: "",
-            answers: [
-                "🤷 Eu não faço ideia do que responder",
-                "💭 Eu sinto quais são, mas ainda de forma inconsciente",
-                "✅ Eu sei exatamente no que sou muito bom e muito ruim"
-            ],
-            exitAnswers: [2],
-            exitMessage: "Excelente! Você tem uma autopercepção muito desenvolvida. Talvez já tenha o autoconhecimento necessário."
-        },
-        {
-            number: 10,
-            title: "Quando a sua jornada nesse mundo estiver chegando ao fim... você quer olhar para trás e:",
-            objective: "",
-            answers: [
-                "🌟 Saber que viveu de forma autêntica",
-                "📜 Perceber que só seguiu um script que não foi você quem escreveu",
-                "🏆 Sentir que deixou um legado e fez a diferença",
-                "😰 Nem quero pensar sobre isso"
-            ],
-            exitAnswers: [3],
-            exitMessage: "Entendemos que nem todos querem refletir sobre esses temas profundos. Tudo bem!"
-        },
-        {
-            number: 11,
-            title: "Escolha um período para se imaginar no futuro:",
-            answers: [
-                "📅 Daqui 1 ano",
-                "📅 Daqui a 3 anos",
-                "📅 Daqui a 5 anos",
-                "📅 Daqui a 10 anos"
-            ],
-            exitAnswers: []
-        },
-        {
-            number: 12,
-            title: "", // Será preenchido dinamicamente
-            objective: "",
-            answers: [
-                "😴 Cansado e estagnado",
-                "😔 Arrependido de não ter começado hoje",
-                "🤖 Vivendo no automático",
-                "😊 Super feliz, pois minha vida está 'ok'"
-            ],
-            exitAnswers: [3],
-            exitMessage: "Que ótimo que você se sente satisfeito com sua vida atual! Talvez não precise mudar nada mesmo."
-        },
-        {
-            number: 13,
-            title: "Você quer continuar vivendo sem saber quem você é... ou está pronto para mudar isso hoje?",
-            answers: [
-                "🔥 Chega! Quero mudar isso AGORA",
-                "🤔 Quero mudar, mas preciso conhecer melhor esse método",
-                "😔 Prefiro deixar pra depois"
-            ],
-            exitAnswers: [],
-            finalQuestion: true
-        }
-    ];
+       <!-- PERGUNTA PIVÔ -->
+       <div id="pivotQuestion" class="pivot-question">
+           <h2>💥 Qual área da sua vida você vem adiando… mas no fundo sabe que precisa encarar agora?</h2>
+           <p class="pivot-subtitle">Escolha a área que, se melhorada, criaria um efeito dominó positivo em toda sua vida:</p>
+           
+           <select class="areas-dropdown" id="areasDropdown">
+               <option value="">⚠️ Selecione a área que precisa de ação URGENTE...</option>
+           </select>
+           
+           <button class="confirm-btn" id="confirmAreaBtn">🔥 Confirmar e Enfrentar Isso Agora</button>
+       </div>
 
-    let currentQuestionIndex = 0;
-    let selectedAnswer = null;
+       <!-- PERGUNTA DE DESCONFORTO -->
+       <div id="discomfortQuestion" class="discomfort-question">
+           <h2>💔 E se você continuar sem agir... o que vai continuar se repetindo na sua vida?</h2>
+           <p style="margin-bottom: 25px; opacity: 0.9; font-weight: 600;">Seja brutalmente honesto(a) consigo mesmo(a). O que você NÃO quer mais viver?</p>
+           
+           <textarea class="reflection-input" id="reflectionInput" 
+               placeholder="Ex: Vou continuar me sentindo perdido(a), sem direção, sempre começando e parando projetos... sempre na mesma..."></textarea>
+           
+           <button class="confirm-btn active" id="createPlanBtn">💪 CHEGA! Quero Começar Meu Plano de Ação</button>
+       </div>
 
-    // DADOS DAS FERRAMENTAS
-    const toolsData = [
-        {
-            name: "Acesse no seu tempo",
-            description: "Sem pressão, sem pressa. Evolua no seu ritmo, seja às 6h da manhã ou 23h da noite.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/1.png"
-        },
-        {
-            name: "Arsenal em Expansão", 
-            description: "A cada mês, novas ferramentas de autoconhecimento chegam para enriquecer sua jornada de crescimento.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/2.png"
-        },
-        {
-            name: "Panorama da Sua Vida",
-            description: "Avalie todas as áreas importantes da sua vida e saiba exatamente por onde começar a melhorar.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/3.png"
-        },
-        {
-            name: "Monitore Sua Jornada",
-            description: "Quem não mede não evolui. Transforme cada dia em dados concretos do seu desenvolvimento pessoal.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/4.png"
-        },
-        {
-            name: "Autodisciplina",
-            description: "Pare de ser refém dos seus impulsos. Desenvolva o autocontrole que separa quem sonha de quem conquista.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/5.png"
-        },
-        {
-            name: "Espaço Sagrado Pessoal",
-            description: "Reflita conscientemente: o que funcionou hoje, o que não funcionou e como ajustar sua rota amanhã.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/6.png"
-        },
-        {
-            name: "Mapeamento de Valores",
-            description: "Identifique seus valores fundamentais e viva de forma consistente.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/7.png"
-        },
-        {
-            name: "Diagnóstico Detalhado",
-            description: "Visão completa das suas áreas de força e oportunidades de crescimento.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/8.png"
-        },
-        {
-            name: "Valores Pessoais",
-            description: "Transforme conflitos internos em clareza total. Quando você honra seus valores, a vida faz sentido.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/9.png"
-        },
-        {
-            name: "Renascimento Pessoal",
-            description: "Reconecte-se consigo mesmo, encontre seu propósito único e desenvolva força para qualquer desafio.",
-            image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/10.png"
-        }
-    ];
+       <!-- OFERTA FINAL SUPER PERSUASIVA -->
+       <div id="finalOffer" class="final-offer">
+           <h2>🚀 Sua Transformação Começa AGORA!</h2>
+           <p class="offer-text">
+               O AppAutoconhecimento tem EXATAMENTE o que você precisa para sair do lugar e criar a vida que você merece
+           </p>
+           
+           <div class="urgency-text">
+               <h3>⏰ Você tem 2 opções hoje:</h3>
+               <p><strong>1. Continuar como está</strong> - e daqui 1 ano estar no mesmo lugar (ou pior)</p>
+               <p><strong>2. Investir R$ 29,95 por 1 ano</strong> - e finalmente ter as ferramentas para mudar tudo</p>
+           </div>
+           
+           <div class="cta-buttons">
+               <a href="https://pay.kiwify.com.br/nAeTa0z" class="cta-main clickable-button" onclick="trackPurchase('wheel_high_intent')">
+                   ✅ QUERO MUDAR MINHA VIDA POR R$ 29,95 por 1 ano
+               </a>
+               <a href="javascript:void(0)" class="cta-secondary clickable-button" onclick="showLeadCapture()">
+                   📋 Não agora, mas quero meu relatório detalhado
+               </a>
+           </div>
+           
+           <p style="font-size: 0.9rem; margin-top: 20px; opacity: 0.7;">
+               💳 Pagamento 100% seguro • ⚡ Acesso imediato • 🛡️ Garantia de 7 dias
+           </p>
+       </div>
 
-    // FUNÇÕES PRINCIPAIS DO QUIZ
-    function startQuiz() {
-        hideAllScreens();
-        document.getElementById('quizScreen').classList.remove('hidden');
-        document.getElementById('quizScreen').classList.add('screen-transition');
-        
-        // Track Facebook event
-        fbq('track', 'Lead');
-        fbq('trackCustom', 'QuizStarted', {
-            timestamp: new Date().toISOString()
-        });
+       <!-- CAPTURA DE LEAD OTIMIZADA -->
+       <div id="leadCapture" class="lead-capture">
+           <h2>📩 Receba seu Relatório Completo da Roda da Vida</h2>
+           
+           <div class="value-reminder">
+               <p><strong>🎁 Você receberá GRÁTIS:</strong></p>
+               <p>✅ Análise detalhada de todas as 12 áreas</p>
+               <p>✅ Suas notas e pontos de melhoria</p>
+               <p>✅ Dicas personalizadas para sua área prioritária</p>
+           </div>
+           
+           <div class="form-group">
+               <label for="userName">Seu nome:</label>
+               <input type="text" id="userName" placeholder="Como você gostaria de ser chamado(a)?">
+           </div>
+           
+           <div class="form-group">
+               <label for="userWhatsApp">WhatsApp:</label>
+               <input type="tel" id="userWhatsApp" placeholder="(11) 99999-9999">
+           </div>
+           
+           <div class="action-buttons">
+               <button class="btn-copy" onclick="copyReport()">📋 Copiar meu relatório completo</button>
+               <button class="btn-share" onclick="shareReport()">📤 Compartilhar com alguém</button>
+           </div>
+           
+           <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+               💡 <strong>Lembre-se:</strong> O AppAutoconhecimento ainda está disponível por R$ 29,95. 
+               <a href="https://pay.kiwify.com.br/nAeTa0z" onclick="trackPurchase('lead_recovery')" style="color: var(--cor-destaque); text-decoration: underline;">Clique aqui para garantir</a>
+           </p>
+       </div>
 
-        // Resetar variáveis
-        currentQuestionIndex = 0;
-        selectedAnswer = null;
-        isAdvancing = false;
-        selectedTimePeriod = '';
+       <!-- Tela de Resultado - Oferta Paga (Original) -->
+       <div id="offerScreen" class="result-screen">
+           <!-- Conteúdo será inserido dinamicamente via JavaScript -->
+       </div>
 
-        showQuestion();
-        smartScrollToTop();
-    }
+       <!-- Tela de Acolhimento -->
+       <div id="compassionScreen" class="result-screen">
+           <!-- Conteúdo será inserido dinamicamente via JavaScript -->
+       </div>
 
-    function showQuestion() {
-        const question = questions[currentQuestionIndex];
-        
-        // Track pergunta específica
-        fbq('trackCustom', 'QuestionViewed', {
-            question_number: currentQuestionIndex + 1,
-            question_text: question.title.substring(0, 50)
-        });
-        
-        // Atualizar progresso com animação
-        const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-        setTimeout(() => {
-            document.getElementById('progressBar').style.width = progress + '%';
-        }, 100);
-        document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-        
-        // Atualizar pergunta
-        document.getElementById('questionNumber').textContent = `PERGUNTA ${question.number}`;
-        
-        // Pergunta 12 precisa ser personalizada com o período selecionado
-        if (currentQuestionIndex === 11) {
-            const periods = ['1 ano', '3 anos', '5 anos', '10 anos'];
-            const selectedPeriod = periods[selectedTimePeriod] || '3 anos';
-            document.getElementById('questionTitle').textContent = `Imagine-se daqui a ${selectedPeriod}. Se você não fizer nada para mudar… como acha que estará?`;
-        } else {
-            document.getElementById('questionTitle').textContent = question.title;
-        }
-        
-        // Mostrar objetivo se existir
-        const objectiveElement = document.getElementById('questionObjective');
-        if (question.objective) {
-            objectiveElement.textContent = question.objective;
-            objectiveElement.style.display = 'block';
-        } else {
-            objectiveElement.style.display = 'none';
-        }
-        
-        // Criar opções de resposta com animação
-        const answersContainer = document.getElementById('answersContainer');
-        answersContainer.innerHTML = '';
-        
-        question.answers.forEach((answer, index) => {
-            const answerDiv = document.createElement('div');
-            answerDiv.className = 'answer-option clickable-button';
-            answerDiv.textContent = answer;
-            answerDiv.onclick = () => selectAnswer(index);
-            answerDiv.style.animationDelay = `${index * 0.1}s`;
-            answersContainer.appendChild(answerDiv);
-        });
-        
-        // Resetar seleção
-        selectedAnswer = null;
-        isAdvancing = false;
-    }
+       <!-- Tela de Saída -->
+       <div id="exitScreen" class="exit-screen">
+           <h2 id="exitTitle"></h2>
+           <p id="exitMessage"></p>
+           <button class="btn-restart clickable-button" id="restartBtn" onclick="restartQuiz()">🔄 Continuar Quiz</button>
+       </div>
 
-    function selectAnswer(answerIndex) {
-        if (isAdvancing) return; // Evita cliques múltiplos
-        
-        // Remover seleção anterior
-        document.querySelectorAll('.answer-option').forEach(option => {
-            option.classList.remove('selected');
-        });
-        
-        // Selecionar nova resposta com feedback visual
-        const selectedOption = document.querySelectorAll('.answer-option')[answerIndex];
-        selectedOption.classList.add('selected');
-        selectedAnswer = answerIndex;
-        isAdvancing = true;
-        
-        // Salvar período selecionado para pergunta 12
-        if (currentQuestionIndex === 10) {
-            selectedTimePeriod = answerIndex;
-        }
-        
-        // Track resposta selecionada
-        fbq('trackCustom', 'AnswerSelected', {
-            question_number: currentQuestionIndex + 1,
-            answer_index: answerIndex,
-            answer_text: selectedOption.textContent.substring(0, 30)
-        });
+       <!-- MODAL DE PREVIEW -->
+       <div class="preview-modal" id="previewModal" onclick="closePreview()">
+           <div class="modal-content" onclick="event.stopPropagation()">
+               <button class="close-btn" onclick="closePreview()">×</button>
+               <div class="modal-image">
+                   <img id="modalImage" src="" alt="">
+               </div>
+               <div class="modal-info">
+                   <h3 id="modalTitle"></h3>
+                   <p id="modalDescription"></p>
+               </div>
+           </div>
+       </div>
+   </div>
 
-        // Delay de 1 segundo e então avançar
-        setTimeout(() => {
-            nextQuestion();
-        }, 1000);
-    }
+   <script>
+       // VARIÁVEIS GLOBAIS
+       let stoppedAtQuestion = 0;
+       let selectedTimePeriod = '';
+       let isAdvancing = false;
+       
+       // VARIÁVEIS DA RODA DA VIDA
+       let currentWheelQuestionIndex = 0;
+       let wheelUserResponses = [];
+       let selectedArea = '';
+       let isWheelAdvancing = false;
 
-    function nextQuestion() {
-        if (selectedAnswer === null) return;
-        
-        const currentQuestion = questions[currentQuestionIndex];
-        
-        // Verificar se é resposta de saída (exceto pergunta 13)
-        if (currentQuestionIndex !== questions.length - 1 && currentQuestion.exitAnswers && currentQuestion.exitAnswers.includes(selectedAnswer)) {
-            showExitScreen(currentQuestion.exitMessage);
-            return;
-        }
-        
-        // Se é a última pergunta (13) - Pergunta final
-        if (currentQuestionIndex === questions.length - 1) {
-            if (selectedAnswer === 0) {
-                // "🔥 Chega! Quero mudar isso AGORA"
-                showOfferPage('high_intent');
-            } else if (selectedAnswer === 1) {
-                // "🤔 Quero mudar, mas preciso conhecer melhor esse método"
-                showOfferPage('medium_intent');
-            } else {
-                // "😔 Prefiro deixar pra depois"
-                showCompassionSection();
-            }
-            return;
-        }
-        
-        // Próxima pergunta
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            showQuestion();
-        }
-    }
+       // CONFIGURAÇÃO DAS 13 PERGUNTAS DO QUIZ
+       const questions = [
+           {
+               number: 1,
+               title: "Qual seu gênero?",
+               objective: "",
+               answers: ["👨 Homem", "👩 Mulher", "🤷 Prefiro não dizer"],
+               exitAnswers: []
+           },
+           {
+               number: 2,
+               title: "Qual sua faixa etária?",
+               objective: "",
+               answers: ["🎓 18 a 24 anos", "💼 25 a 34 anos", "🏡 35 a 44 anos", "👔 45 a 54 anos", "🎖️ 55+"],
+               exitAnswers: []
+           },
+           {
+               number: 3,
+               title: "Você sente que tem algo errado na sua vida... mas não sabe exatamente o quê?",
+               answers: [
+                   "🔍 Sim, parece que algo tá fora do lugar e eu não entendo",
+                   "🤔 Já pensei nisso, mas nunca fui fundo",
+                   "✅ Eu até sei o que está errado, mas estou com dificuldade para ajustar",
+                   "❌ Não, tudo está sob controle"
+               ],
+               exitAnswers: [3],
+               exitMessage: "Que bom que você sente que tem controle sobre sua vida! Talvez o AppAutoconhecimento não seja necessário para você neste momento."
+           },
+           {
+               number: 4,
+               title: "Você sente que está apenas vivendo os dias… sem saber se está indo pro lugar certo?",
+               answers: [
+                   "😐 Sim, como um barco à deriva",
+                   "🌀 Às vezes, mas nem tenho tempo para pensar sobre isso",
+                   "✅ Não, me sinto no caminho certo! Porém, falta estratégia"
+               ],
+               exitAnswers: []
+           },
+           {
+               number: 5,
+               title: "Você acredita que a falta de autoconhecimento… pode estar te afastando da vida que você deseja?",
+               answers: [
+                   "💥 Sim, acho que esse é o verdadeiro problema",
+                   "🤷 Talvez, nunca tinha pensado nisso desse jeito",
+                   "❌ Não, isso não tem nada a ver"
+               ],
+               exitAnswers: [2],
+               exitMessage: "Entendemos sua perspectiva. O autoconhecimento pode não ser uma prioridade para você neste momento."
+           },
+           {
+               number: 6,
+               title: "Quantas decisões erradas você já tomou… por não saber o que realmente quer?",
+               answers: [
+                   "💸 Várias. E continuo repetindo algumas",
+                   "🤔 Algumas, mas ainda busco entender",
+                   "✅ Nenhuma. Sempre sei o que quero"
+               ],
+               exitAnswers: [2],
+               exitMessage: "Impressionante! Você parece ter uma clareza excepcional sobre suas decisões. Talvez não precise do que oferecemos."
+           },
+           {
+               number: 7,
+               title: "Quando você precisa fazer escolhas, você:",
+               objective: "",
+               answers: [
+                   "🎯 Decide com base nos seus 5 valores pessoais",
+                   "⚡ Decide com base nas vantagens do momento",
+                   "👥 Decide com base no que os outros desejam"
+               ],
+               exitAnswers: []
+           },
+           {
+              number: 8,
+              title: "Quando seu dia começa...",
+              objective: "",
+              answers: [
+                  "❓ Não sei por onde começar",
+                  "😔 Sei o que preciso fazer, mas não faço",
+                  "🌊 Só acordo e deixo a vida me levar",
+                  "🤖 Cumpro obrigações que nem escolhi de forma consciente"
+              ],
+              exitAnswers: []
+          },
+          {
+              number: 9,
+              title: "Se alguém te perguntar sobre seus pontos fortes e fracos, você...",
+              objective: "",
+              answers: [
+                  "🤷 Eu não faço ideia do que responder",
+                  "💭 Eu sinto quais são, mas ainda de forma inconsciente",
+                  "✅ Eu sei exatamente no que sou muito bom e muito ruim"
+              ],
+              exitAnswers: [2],
+              exitMessage: "Excelente! Você tem uma autopercepção muito desenvolvida. Talvez já tenha o autoconhecimento necessário."
+          },
+          {
+              number: 10,
+              title: "Quando a sua jornada nesse mundo estiver chegando ao fim... você quer olhar para trás e:",
+              objective: "",
+              answers: [
+                  "🌟 Saber que viveu de forma autêntica",
+                  "📜 Perceber que só seguiu um script que não foi você quem escreveu",
+                  "🏆 Sentir que deixou um legado e fez a diferença",
+                  "😰 Nem quero pensar sobre isso"
+              ],
+              exitAnswers: [3],
+              exitMessage: "Entendemos que nem todos querem refletir sobre esses temas profundos. Tudo bem!"
+          },
+          {
+              number: 11,
+              title: "Escolha um período para se imaginar no futuro:",
+              answers: [
+                  "📅 Daqui 1 ano",
+                  "📅 Daqui a 3 anos",
+                  "📅 Daqui a 5 anos",
+                  "📅 Daqui a 10 anos"
+              ],
+              exitAnswers: []
+          },
+          {
+              number: 12,
+              title: "", // Será preenchido dinamicamente
+              objective: "",
+              answers: [
+                  "😴 Cansado e estagnado",
+                  "😔 Arrependido de não ter começado hoje",
+                  "🤖 Vivendo no automático",
+                  "😊 Super feliz, pois minha vida está 'ok'"
+              ],
+              exitAnswers: [3],
+              exitMessage: "Que ótimo que você se sente satisfeito com sua vida atual! Talvez não precise mudar nada mesmo."
+          },
+          {
+              number: 13,
+              title: "Você quer continuar vivendo sem saber quem você é... ou está pronto para começar a mudar isso hoje?",
+              answers: [
+                  "🔥 Chega! Quero começar a mudar isso AGORA",
+                  "🤔 Quero mudar, mas preciso conhecer melhor esse método",
+                  "😔 Prefiro deixar pra depois"
+              ],
+              exitAnswers: [],
+              finalQuestion: true
+          }
+      ];
 
-    // FUNÇÃO PRINCIPAL DA OFERTA PAGA
-    function showOfferPage(intentLevel = 'high_intent') {
-        hideAllScreens();
-        
-        const offerHTML = `
-            <div class="offer-page">
-                <!-- HEADER PRINCIPAL -->
-                <div class="page-header">
-                    <h1>🎯 SEU CAMINHO PARA O AUTOCONHECIMENTO ESTÁ AQUI!</h1>
-                    <p class="subtitle">Acesso completo às ferramentas que vão transformar sua relação consigo mesmo</p>
-                </div>
+      // CONFIGURAÇÃO DAS 12 PERGUNTAS DA RODA DA VIDA
+      const wheelQuestions = [
+          {
+              area: "Autoconhecimento",
+              emoji: "🧠",
+              question: "Você sente que entende de verdade o que pensa, sente e quer?",
+              answers: [
+                  { text: "Nem sei o que se passa dentro de mim", emoji: "😔", value: 0, class: "critical" },
+                  { text: "Me entendo às vezes, mas me perco fácil", emoji: "😐", value: 1, class: "medium" },
+                  { text: "Tenho noção, mas ainda me confundo", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Me conheço bem, sei o que me move", emoji: "😊", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Autodisciplina", 
+              emoji: "💪",
+              question: "Você consegue fazer o que precisa, mesmo quando bate desânimo?",
+              answers: [
+                  { text: "Deixo tudo pra depois", emoji: "😴", value: 0, class: "critical" },
+                  { text: "Faço algumas coisas, mas paro no meio", emoji: "😅", value: 1, class: "medium" },
+                  { text: "Consigo manter o básico", emoji: "🙂", value: 2, class: "good" },
+                 { text: "Faço o que precisa, mesmo sem vontade", emoji: "💪", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Gestão Emocional",
+              emoji: "😌", 
+              question: "Quando algo te irrita, você consegue lidar sem se perder?",
+              answers: [
+                  { text: "Explodo ou me fecho fácil", emoji: "😡", value: 0, class: "critical" },
+                  { text: "Até tento, mas me afogo nos sentimentos", emoji: "😰", value: 1, class: "medium" },
+                  { text: "Consigo me segurar na maioria das vezes", emoji: "😊", value: 2, class: "good" },
+                  { text: "Tenho controle e maturidade emocional", emoji: "😌", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Propósito & Direção",
+              emoji: "🎯",
+              question: "Você sente que tá indo pra algum lugar que faz sentido ou só vivendo no automático?",
+              answers: [
+                  { text: "Tô só existindo, sem rumo", emoji: "😵", value: 0, class: "critical" },
+                  { text: "Tenho sonhos, mas nada claro ainda", emoji: "🤔", value: 1, class: "medium" },
+                  { text: "Tô construindo meu caminho aos poucos", emoji: "🚶", value: 2, class: "good" },
+                  { text: "Tenho um propósito que me guia", emoji: "🎯", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Relacionamentos",
+              emoji: "💝",
+              question: "As pessoas ao seu redor te fazem bem — ou mais te drenam do que somam?",
+              answers: [
+                  { text: "Me sinto sozinho(a), incompreendido(a)", emoji: "😞", value: 0, class: "critical" },
+                  { text: "Me cobram mais do que me apoiam", emoji: "😔", value: 1, class: "medium" },
+                  { text: "Tem altos e baixos, mas me faz bem", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Me sinto acolhido(a), respeitado(a)", emoji: "❤️", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Trabalho & Carreira",
+              emoji: "🚀",
+              question: "Seu trabalho te dá algum orgulho ou é só cansaço e obrigação todo dia?",
+              answers: [
+                  { text: "Só me esgota, não vejo sentido", emoji: "😫", value: 0, class: "critical" },
+                  { text: "Pago as contas, mas não gosto", emoji: "😐", value: 1, class: "medium" },
+                  { text: "Gosto, mas ainda quero algo maior", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Me sinto realizado(a) com o que faço", emoji: "🚀", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Finanças Pessoais",
+              emoji: "💰",
+              question: "Você sente que tem algum controle do seu dinheiro — ou tá sempre apagando incêndio?",
+              answers: [
+                  { text: "Vivo no vermelho, sem saber pra onde vai", emoji: "😰", value: 0, class: "critical" },
+                  { text: "Às vezes sobra, às vezes falta", emoji: "😅", value: 1, class: "medium" },
+                  { text: "Consigo me virar com o que tenho", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Tenho controle, consigo planejar", emoji: "💰", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Saúde & Vitalidade",
+              emoji: "❤️",
+              question: "Seu corpo e sua mente têm energia pra encarar o dia ou você vive no cansaço?",
+              answers: [
+                  { text: "Tô sempre cansado(a) ou doente", emoji: "🤒", value: 0, class: "critical" },
+                  { text: "Às vezes bem, às vezes esgotado(a)", emoji: "😴", value: 1, class: "medium" },
+                  { text: "Me mantenho, mas sei que posso melhorar", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Me sinto forte, com energia e disposição", emoji: "💪", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Tempo & Prioridades",
+              emoji: "⏰",
+              question: "Seu tempo vai pro que realmente importa ou some em coisa que nem faz diferença?",
+              answers: [
+                  { text: "Meu tempo voa e não rende nada", emoji: "😵‍💫", value: 0, class: "critical" },
+                  { text: "Me enrolo e deixo o que importa pra depois", emoji: "😅", value: 1, class: "medium" },
+                  { text: "Consigo me organizar na maioria dos dias", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Faço o que importa com presença e foco", emoji: "⏰", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Resiliência",
+              emoji: "🛡️",
+              question: "Quando a vida te dá porrada, você segura firme ou sente que vai desabar?",
+              answers: [
+                  { text: "Desabo fácil, fico sem chão", emoji: "😭", value: 0, class: "critical" },
+                  { text: "Sofro muito, mas volto devagar", emoji: "😔", value: 1, class: "medium" },
+                  { text: "Aguento firme na maioria das vezes", emoji: "😤", value: 2, class: "good" },
+                  { text: "Me fortaleço até nos momentos difíceis", emoji: "🛡️", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Autoconfiança",
+              emoji: "✨",
+              question: "Você acredita em você — ou vive se sabotando?",
+              answers: [
+                  { text: "Duvido até das minhas decisões simples", emoji: "😰", value: 0, class: "critical" },
+                  { text: "Até começo bem, mas sempre travo", emoji: "😟", value: 1, class: "medium" },
+                  { text: "Confio em mim, mas ainda oscilo", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Acredito em mim, mesmo quando ninguém acredita", emoji: "✨", value: 3, class: "excellent" }
+              ]
+          },
+          {
+              area: "Rotina & Hábitos",
+              emoji: "📅",
+              question: "Sua rotina tá te puxando pra cima ou te travando mais a cada dia?",
+              answers: [
+                  { text: "Minha rotina me afunda mais ainda", emoji: "🕳️", value: 0, class: "critical" },
+                  { text: "Até tento, mas sempre me desorganizo", emoji: "😅", value: 1, class: "medium" },
+                  { text: "Tenho hábitos que me ajudam no dia a dia", emoji: "🙂", value: 2, class: "good" },
+                  { text: "Minha rotina me fortalece todo dia", emoji: "📅", value: 3, class: "excellent" }
+              ]
+          }
+      ];
 
-                <!-- PREVIEW DAS FERRAMENTAS -->
-                <div class="tools-showcase">
-                    <h3>🛠️ Veja algumas ferramentas que você terá acesso:</h3>
-                    
-                    <!-- GRID DE PREVIEWS -->
-                    <div class="tools-preview-grid">
-                        <div class="preview-card main-preview">
-                            <div class="preview-image">
-                                <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/1.png" 
-                                     alt="Roda da Vida" onclick="openPreview(0)">
-                            </div>
-                            <div class="preview-content">
-                                <h4>🧭 Roda da Vida Inteligente</h4>
-                                <p>Veja exatamente onde sua vida está desequilibrada em 2 minutos</p>
-                                <button class="preview-btn" onclick="openPreview(0)">Ver Ferramenta</button>
-                            </div>
-                        </div>
-                        
-                        <div class="preview-card">
-                            <div class="preview-image">
-                                <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/6.png" 
-                                     alt="Perfil Comportamental" onclick="openPreview(5)">
-                            </div>
-                            <h5>🧠 Perfil Comportamental</h5>
-                            <p>Descubra como você funciona</p>
-                        </div>
-                        
-                        <div class="preview-card">
-                            <div class="preview-image">
-                                <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/4.png" 
-                                     alt="Diário de Bordo" onclick="openPreview(3)">
-                            </div>
-                            <h5>📔 Diário de Transformação</h5>
-                            <p>Registre sua evolução diária</p>
-                        </div>
-                        
-                        <div class="preview-card">
-                            <div class="preview-image">
-                                <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/7.png" 
-                                     alt="Valores Pessoais" onclick="openPreview(6)">
-                            </div>
-                            <h5>🎯 Seus Valores Pessoais</h5>
-                            <p>Tome decisões alinhadas</p>
-                        </div>
-                    </div>
-                    
-                    <div class="more-tools">
-                        <p>Novas ferramentas constantemente sendo inseridas</p>
-                        <button class="show-all-btn" onclick="toggleAllTools()">Ver algumas Ferramentas</button>
-                    </div>
-                </div>
+      let currentQuestionIndex = 0;
+      let selectedAnswer = null;
 
-                <!-- LISTA EXPANDIDA (OCULTA) -->
-                <div class="expanded-tools" id="expandedTools" style="display: none;">
-                    <div class="tools-grid-expanded">
-                        ${toolsData.map((tool, index) => `
-                            <div class="tool-item">
-                                <div class="tool-mini-image">
-                                    <img src="${tool.image}" alt="${tool.name}">
-                                </div>
-                                <div class="tool-info">
-                                    <h6>${tool.name}</h6>
-                                    <p>${tool.description}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
+      // DADOS DAS FERRAMENTAS
+      const toolsData = [
+          {
+              name: "Acesse no seu tempo",
+              description: "Sem pressão, sem pressa. Evolua no seu ritmo, seja às 6h da manhã ou 23h da noite.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/1.png"
+          },
+          {
+              name: "Arsenal em Expansão", 
+              description: "A cada mês, novas ferramentas de autoconhecimento chegam para enriquecer sua jornada de crescimento.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/2.png"
+          },
+          {
+              name: "Panorama da Sua Vida",
+              description: "Avalie todas as áreas importantes da sua vida e saiba exatamente por onde começar a melhorar.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/3.png"
+          },
+          {
+              name: "Monitore Sua Jornada",
+              description: "Quem não mede não evolui. Transforme cada dia em dados concretos do seu desenvolvimento pessoal.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/4.png"
+          },
+          {
+              name: "Autodisciplina",
+              description: "Pare de ser refém dos seus impulsos. Desenvolva o autocontrole que separa quem sonha de quem conquista.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/5.png"
+          },
+          {
+              name: "Espaço Sagrado Pessoal",
+              description: "Reflita conscientemente: o que funcionou hoje, o que não funcionou e como ajustar sua rota amanhã.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/6.png"
+          },
+          {
+              name: "Mapeamento de Valores",
+              description: "Identifique seus valores fundamentais e viva de forma consistente.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/7.png"
+          },
+          {
+              name: "Diagnóstico Detalhado",
+              description: "Visão completa das suas áreas de força e oportunidades de crescimento.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/8.png"
+          },
+          {
+              name: "Valores Pessoais",
+              description: "Transforme conflitos internos em clareza total. Quando você honra seus valores, a vida faz sentido.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/9.png"
+          },
+          {
+              name: "Renascimento Pessoal",
+              description: "Reconecte-se consigo mesmo, encontre seu propósito único e desenvolva força para qualquer desafio.",
+              image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/10.png"
+          }
+      ];
 
-                <!-- SEÇÃO DE PREÇO E VALOR -->
-                <div class="pricing-section">
-                    <h3 style="font-size: 1.8rem; margin-bottom: 20px;">💰 Investimento para sua transformação:</h3>
-                    
-                    <div class="price-highlight">
-                        Apenas R$ 29,95 por ano
-                        <div style="font-size: 1rem; font-weight: 400; margin-top: 10px;">
-                            VOCÊ TERÁ ACESSO AS MELHORES FERRAMENTAS TERAPÊUTICAS DE AUTOCONHECIMENTO DO MERCADO
-                        </div>
-                    </div>
+      // INICIALIZAÇÃO
+      document.addEventListener('DOMContentLoaded', function() {
+          // Event listeners para a roda da vida
+          document.getElementById('areasDropdown').addEventListener('change', function() {
+              const confirmBtn = document.getElementById('confirmAreaBtn');
+              if (this.value) {
+                  confirmBtn.classList.add('active');
+                  selectedArea = this.value;
+              } else {
+                  confirmBtn.classList.remove('active');
+              }
+          });
 
-                    <div class="value-proposition">
-                       <strong>🎁 O que você recebe ao entrar hoje:</strong><br>
-✅ Acesso imediato por 1 ano completo<br>
-✅ Novas ferramentas e desafios práticos todo mês<br>
-✅ Atualizações semanais — sem pagar nada a mais<br>
-✅ Comunidade exclusiva com gente que também quer evoluir<br>
-✅ Acesso opcional a ferramentas terapêuticas premium com desconto especial
-                    </div>
-                </div>
+          document.getElementById('confirmAreaBtn').addEventListener('click', function() {
+              if (selectedArea) {
+                  document.getElementById('pivotQuestion').style.display = 'none';
+                  document.getElementById('discomfortQuestion').style.display = 'block';
+                  
+                  fbq('trackCustom', 'WheelAreaSelected', {
+                      selected_area: selectedArea,
+                      area_score: wheelUserResponses.find(r => r.area === selectedArea)?.score || 0
+                  });
+                  
+                  smartScrollToTop();
+              }
+          });
 
-                <!-- GARANTIA INCONDICIONAL -->
-                <div class="guarantee-section">
-                    <span class="guarantee-icon">🛡️</span>
-                    <h3>GARANTIA INCONDICIONAL DE 7 DIAS</h3>
-                    <p><strong>Se você não perceber mudanças reais em sua vida nos primeiros 7 dias, devolvemos 100% do seu dinheiro.</strong></p>
-                    <p>Sem perguntas, sem complicação. Basta acessar: 
-                        <a href="https://refund.kiwify.com/login" class="refund-link" target="_blank">refund.kiwify.com/login</a>
-                    </p>
-                    <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 15px;">
-                        Assumimos todo o risco para que você possa focar apenas em se conhecer melhor.
-                    </p>
-                </div>
+          document.getElementById('createPlanBtn').addEventListener('click', function() {
+              const reflection = document.getElementById('reflectionInput').value;
+              
+              document.getElementById('discomfortQuestion').style.display = 'none';
+              document.getElementById('finalOffer').style.display = 'block';
+              
+              fbq('trackCustom', 'WheelReflectionCompleted', {
+                  selected_area: selectedArea,
+                  reflection_length: reflection.length,
+                  has_reflection: reflection.length > 10
+              });
+              
+              smartScrollToTop();
+          });
+      });
 
-                <!-- BENEFÍCIOS PRINCIPAIS -->
-                <div class="benefit-grid">
-                    <div class="benefit-card">
-                        <span class="icon">🧭</span>
-                        <h4>Roda da Vida</h4>
-                        <p>Visualize exatamente quais áreas da sua vida precisam de atenção e por onde começar.</p>
-                    </div>
+      // FUNÇÕES PRINCIPAIS DO QUIZ
+      function startQuiz() {
+          hideAllScreens();
+          document.getElementById('quizScreen').classList.remove('hidden');
+          document.getElementById('quizScreen').classList.add('screen-transition');
+          
+          // Track Facebook event
+          fbq('track', 'Lead');
+          fbq('trackCustom', 'QuizStarted', {
+              timestamp: new Date().toISOString()
+          });
 
-                    <div class="benefit-card">
-                        <span class="icon">📔</span>
-                        <h4>Diário Reflexivo</h4>
-                        <p>Transforme seus pensamentos em insights poderosos através da escrita consciente.</p>
-                    </div>
+          // Resetar variáveis
+          currentQuestionIndex = 0;
+          selectedAnswer = null;
+          isAdvancing = false;
+          selectedTimePeriod = '';
 
-                    <div class="benefit-card">
-                        <span class="icon">🧠</span>
-                        <h4>Perfil Comportamental</h4>
-                        <p>Entenda como você funciona naturalmente e use isso a seu favor nas decisões.</p>
-                    </div>
+          showQuestion();
+          smartScrollToTop();
+      }
 
-                    <div class="benefit-card">
-                        <span class="icon">🎯</span>
-                        <h4>Mapeamento de Valores</h4>
-                        <p>Descubra seus valores fundamentais e tome decisões alinhadas com quem você é.</p>
-                    </div>
+      function showQuestion() {
+          const question = questions[currentQuestionIndex];
+          
+          // Track pergunta específica
+          fbq('trackCustom', 'QuestionViewed', {
+              question_number: currentQuestionIndex + 1,
+              question_text: question.title.substring(0, 50)
+          });
+          
+          // Atualizar progresso com animação
+          const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+          setTimeout(() => {
+              document.getElementById('progressBar').style.width = progress + '%';
+          }, 100);
+          document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+          
+          // Atualizar pergunta
+          document.getElementById('questionNumber').textContent = `PERGUNTA ${question.number}`;
+          
+          // Pergunta 12 precisa ser personalizada com o período selecionado
+          if (currentQuestionIndex === 11) {
+              const periods = ['1 ano', '3 anos', '5 anos', '10 anos'];
+              const selectedPeriod = periods[selectedTimePeriod] || '3 anos';
+              document.getElementById('questionTitle').textContent = `Imagine-se daqui a ${selectedPeriod}. Se você não fizer nada para mudar… como acha que estará?`;
+          } else {
+              document.getElementById('questionTitle').textContent = question.title;
+          }
+          
+          // Mostrar objetivo se existir
+          const objectiveElement = document.getElementById('questionObjective');
+          if (question.objective) {
+              objectiveElement.textContent = question.objective;
+              objectiveElement.style.display = 'block';
+          } else {
+              objectiveElement.style.display = 'none';
+          }
+          
+          // Criar opções de resposta com animação
+          const answersContainer = document.getElementById('answersContainer');
+          answersContainer.innerHTML = '';
+          
+          question.answers.forEach((answer, index) => {
+              const answerDiv = document.createElement('div');
+              answerDiv.className = 'answer-option clickable-button';
+              answerDiv.textContent = answer;
+              answerDiv.onclick = () => selectAnswer(index);
+              answerDiv.style.animationDelay = `${index * 0.1}s`;
+              answersContainer.appendChild(answerDiv);
+          });
+          
+          // Resetar seleção
+          selectedAnswer = null;
+          isAdvancing = false;
+      }
 
-                    <div class="benefit-card">
-                        <span class="icon">📊</span>
-                        <h4>Análises Detalhadas</h4>
-                        <p>Relatórios personalizados que mostram sua evolução e próximos passos.</p>
-                    </div>
+      function selectAnswer(answerIndex) {
+          if (isAdvancing) return; // Evita cliques múltiplos
+          
+          // Remover seleção anterior
+          document.querySelectorAll('.answer-option').forEach(option => {
+              option.classList.remove('selected');
+          });
+          
+          // Selecionar nova resposta com feedback visual
+          const selectedOption = document.querySelectorAll('.answer-option')[answerIndex];
+          selectedOption.classList.add('selected');
+          selectedAnswer = answerIndex;
+          isAdvancing = true;
+          
+          // Salvar período selecionado para pergunta 12
+          if (currentQuestionIndex === 10) {
+              selectedTimePeriod = answerIndex;
+          }
+          
+          // Track resposta selecionada
+          fbq('trackCustom', 'AnswerSelected', {
+              question_number: currentQuestionIndex + 1,
+              answer_index: answerIndex,
+              answer_text: selectedOption.textContent.substring(0, 30)
+          });
 
-                    <div class="benefit-card">
-                        <span class="icon">🌱</span>
-                        <h4>Acompanhamento Contínuo</h4>
-                        <p>Ferramentas que evoluem com você, garantindo progresso constante.</p>
-                    </div>
-                </div>
+          // Delay de 1 segundo e então avançar
+          setTimeout(() => {
+              nextQuestion();
+          }, 1000);
+      }
 
-                <!-- CTA PRINCIPAL -->
-                <div style="text-align: center; margin: 40px 0;">
-                    <h3 style="margin-bottom: 20px;">🚀 Pronto para se conhecer de verdade?</h3>
-                    <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">
-                        Centenas de pessoas já transformaram suas vidas. Sua vez chegou.
-                    </p>
-                    
-                    <a href="https://pay.kiwify.com.br/nAeTa0z" class="cta-main clickable-button" onclick="trackPurchase('${intentLevel}')">
-                        💳 QUERO ACESSAR AGORA POR R$ 29,95 por 1 ano
-                    </a>
+      function nextQuestion() {
+          if (selectedAnswer === null) return;
+          
+          const currentQuestion = questions[currentQuestionIndex];
+          
+          // Verificar se é resposta de saída (exceto pergunta 13)
+          if (currentQuestionIndex !== questions.length - 1 && currentQuestion.exitAnswers && currentQuestion.exitAnswers.includes(selectedAnswer)) {
+              showExitScreen(currentQuestion.exitMessage);
+              return;
+          }
+          
+          // Se é a última pergunta (13) - NOVA LÓGICA
+          if (currentQuestionIndex === questions.length - 1) {
+              if (selectedAnswer === 0 || selectedAnswer === 1) {
+                  // "🔥 Chega! Quero mudar isso AGORA" OU "🤔 Quero mudar, mas preciso conhecer melhor esse método"
+                  startWheelOfLife();
+              } else {
+                  // "😔 Prefiro deixar pra depois"
+                  showCompassionSection();
+              }
+              return;
+          }
+          
+          // Próxima pergunta
+          currentQuestionIndex++;
+          if (currentQuestionIndex < questions.length) {
+              showQuestion();
+          }
+      }
 
-                    <p style="font-size: 0.9rem; margin-top: 20px; opacity: 0.7;">
-                        Pagamento 100% seguro • Acesso imediato • Garantia de 7 dias
-                    </p>
-                </div>
+      // FUNÇÕES DA RODA DA VIDA
+      function startWheelOfLife() {
+          hideAllScreens();
+          document.getElementById('wheelScreen').classList.remove('hidden');
+          document.getElementById('wheelScreen').classList.add('screen-transition');
+          
+          // Resetar variáveis da roda
+          currentWheelQuestionIndex = 0;
+          wheelUserResponses = [];
+          isWheelAdvancing = false;
+          selectedArea = '';
+          
+          // Track início da roda
+          fbq('trackCustom', 'WheelOfLifeStarted', {
+              source: 'quiz_completion',
+              quiz_completion_rate: '100%'
+          });
 
-                <!-- TRANSPARÊNCIA TOTAL -->
-                <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; margin: 30px 0; text-align: center;">
-                    <h4 style="color: var(--cor-destaque); margin-bottom: 15px;">🔒 Transparência Total</h4>
-                    <p style="margin-bottom: 10px;"><strong>Não há pegadinhas:</strong> Você paga apenas R$ 29,95 uma vez.</p>
-                    <p style="margin-bottom: 10px;"><strong>Não há mensalidades:</strong> Acesso por 1 ano a todas as ferramentas.</p>
-                    <p style="margin-bottom: 10px;"><strong>Não há taxa de cancelamento:</strong> Reembolso gratuito em até 7 dias.</p>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Acreditamos que autoconhecimento deveria ser acessível para todos.</p>
-                </div>
+          showWheelQuestion();
+          smartScrollToTop();
+      }
 
-                <!-- PROVA SOCIAL -->
-                <div style="text-align: center; margin: 30px 0; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-                    <p style="font-size: 1.2rem; margin-bottom: 15px;">
-                        <strong>+3.247 pessoas</strong> já investiram em seu autoconhecimento
-                    </p>
-                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-                        <div style="text-align: center; max-width: 200px;">
-                            <p style="font-size: 0.9rem; font-style: italic;">"Finalmente entendi por que sempre repetia os mesmos padrões"</p>
-                            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">- Marina, 32 anos</p>
-                        </div>
-                        <div style="text-align: center; max-width: 200px;">
-                            <p style="font-size: 0.9rem; font-style: italic;">"O investimento se pagou na primeira semana"</p>
-                            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">- Carlos, 28 anos</p>
-                        </div>
-                        <div style="text-align: center; max-width: 200px;">
-                            <p style="font-size: 0.9rem; font-style: italic;">"Mudou minha forma de tomar decisões"</p>
-                            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">- Ana, 35 anos</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.getElementById('offerScreen').innerHTML = offerHTML;
-        document.getElementById('offerScreen').style.display = 'block';
-        document.getElementById('offerScreen').classList.add('screen-transition');
-        
-        // Track Facebook
-        fbq('trackCustom', 'OfferPageViewed', {
-            intent_level: intentLevel,
-            funnel_stage: 'paid_offer',
-            price: 29.95
-        });
-        
-        smartScrollToTop();
-    }
+      function showWheelQuestion() {
+          const question = wheelQuestions[currentWheelQuestionIndex];
+          
+          // Track pergunta da roda
+          fbq('trackCustom', 'WheelQuestionViewed', {
+              question_number: currentWheelQuestionIndex + 1,
+              area: question.area
+          });
+          
+          // Atualizar progresso
+          const progress = ((currentWheelQuestionIndex + 1) / wheelQuestions.length) * 100;
+          setTimeout(() => {
+              document.getElementById('wheelProgressBar').style.width = progress + '%';
+          }, 100);
+          document.getElementById('wheelProgressText').textContent = `Descobrindo seu mapa da vida... ${currentWheelQuestionIndex + 1}/12`;
+          
+          // Atualizar conteúdo da pergunta
+          document.getElementById('wheelQuestionNumber').textContent = `ÁREA ${currentWheelQuestionIndex + 1} DE 12`;
+          document.getElementById('wheelQuestionEmoji').textContent = question.emoji;
+          document.getElementById('wheelQuestionTitle').textContent = question.question;
+          
+          // Criar botões emocionais
+          const buttonsContainer = document.getElementById('wheelEmotionalButtons');
+          buttonsContainer.innerHTML = '';
+          
+          question.answers.forEach((answer, index) => {
+              const button = document.createElement('div');
+              button.className = `emotional-btn ${answer.class}`;
+              button.onclick = () => selectWheelAnswer(index);
+              
+              button.innerHTML = `
+                  <span class="emoji">${answer.emoji}</span>
+                  <span class="text">${answer.text}</span>
+              `;
+              
+              buttonsContainer.appendChild(button);
+          });
+          
+          // Reset seleção
+          isWheelAdvancing = false;
+      }
 
-    // FUNÇÃO DE ACOLHIMENTO EMPÁTICO
-    function showCompassionSection() {
-        hideAllScreens();
-        
-       const compassionHTML = `
-            <div class="compassion-screen">
-                <h2>Tudo bem adiar. Mas não se esqueça de você.</h2>
-                <p>
-                    Às vezes a vida aperta. E só de estar aqui, você já deu um passo. 
-                    <br><br>
-                    Quando quiser, estarei por aqui pra te ajudar a reencontrar o caminho.
-                </p>
-                
-                <audio controls class="audio-player">
-                    <source src="https://appestoicismo.github.io/audios-appestoicismo/tempo_de_vida.MP3" type="audio/mpeg">
-                    Seu navegador não suporta áudio.
-                </audio>
-                
-                <div style="margin: 30px 0;">
-                    <a href="https://pay.kiwify.com.br/nAeTa0z" class="btn-start clickable-button" onclick="trackPurchase('recovery')">
-                        💳 Quero Investir R$ 29,95 em Mim
-                    </a>
-                    <br><br>
-                    <a href="javascript:void(0)" class="btn-secondary clickable-button" onclick="showOfferPage('recovery')">
-                        💭 Na verdade, quero saber mais sobre o App
-                    </a>
-                </div>
-            </div>
-        `;
-        
-        document.getElementById('compassionScreen').innerHTML = compassionHTML;
-        document.getElementById('compassionScreen').style.display = 'block';
-        document.getElementById('compassionScreen').classList.add('screen-transition');
-        
-        // Track Facebook
-        fbq('trackCustom', 'CompassionSectionViewed', {
-            source: 'quiz_final_question',
-            user_decision: 'postponed',
-            recovery_opportunity: true
-        });
-        
-        smartScrollToTop();
-    }
+      function selectWheelAnswer(answerIndex) {
+          if (isWheelAdvancing) return;
+          
+          const question = wheelQuestions[currentWheelQuestionIndex];
+          const selectedAnswer = question.answers[answerIndex];
+          
+          // Remover seleções anteriores
+          document.querySelectorAll('.emotional-btn').forEach(btn => {
+              btn.classList.remove('selected');
+          });
+          
+          // Selecionar botão atual
+          const selectedButton = document.querySelectorAll('.emotional-btn')[answerIndex];
+          selectedButton.classList.add('selected');
+          
+          // Converter valor para escala 0-10
+          const convertedScore = (selectedAnswer.value / 3) * 10;
+          
+          // Salvar resposta
+          wheelUserResponses[currentWheelQuestionIndex] = {
+              area: question.area,
+              score: convertedScore,
+              selectedText: selectedAnswer.text,
+              emoji: selectedAnswer.emoji
+          };
+          
+          isWheelAdvancing = true;
+          
+          // Track resposta
+          fbq('trackCustom', 'WheelAnswerSelected', {
+              question_number: currentWheelQuestionIndex + 1,
+              area: question.area,
+              score: convertedScore,
+              answer_text: selectedAnswer.text
+          });
+          
+          // Delay e próxima pergunta
+          setTimeout(() => {
+              nextWheelQuestion();
+          }, 1000);
+      }
 
-    // FUNCIONALIDADES DA GALERIA
-    function openPreview(index) {
-        const tool = toolsData[index];
-        const modal = document.getElementById('previewModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        
-        modalImage.src = tool.image;
-        modalImage.alt = tool.name;
-        modalTitle.textContent = tool.name;
-        modalDescription.textContent = tool.description;
-        
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
+      function nextWheelQuestion() {
+          currentWheelQuestionIndex++;
+          
+          if (currentWheelQuestionIndex < wheelQuestions.length) {
+              showWheelQuestion();
+          } else {
+              showWheelResult();
+          }
+      }
 
-    function closePreview() {
-        document.getElementById('previewModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
+      // MOSTRAR RESULTADO DA RODA
+      function showWheelResult() {
+          document.getElementById('wheelScreen').classList.add('hidden');
+          document.getElementById('wheelResult').style.display = 'block';
+          
+          // Desenhar roda
+          drawWheel();
+          
+          // Gerar insights
+          generateWheelInsights();
+          
+          // Mostrar pergunta pivô após delay
+          setTimeout(() => {
+              document.getElementById('pivotQuestion').style.display = 'block';
+              populateAreasDropdown();
+              smartScrollToTop();
+          }, 3000);
+          
+          // Track conclusão da roda
+          fbq('trackCustom', 'WheelOfLifeCompleted', {
+              average_score: calculateAverageScore(),
+              lowest_areas: getLowestAreas().map(a => a.area),
+              highest_areas: getHighestAreas().map(a => a.area),
+              completion_time: new Date().toISOString()
+          });
+      }
 
-    function toggleAllTools() {
-        const expanded = document.getElementById('expandedTools');
-        const btn = document.querySelector('.show-all-btn');
-        
-        if (expanded.style.display === 'none') {
-            expanded.style.display = 'block';
-            btn.textContent = 'Ocultar Ferramentas';
-        } else {
-            expanded.style.display = 'none';
-            btn.textContent = 'Ver Todas as Ferramentas';
-        }
-    }
+      // DESENHAR RODA DA VIDA
+      function drawWheel() {
+          const canvas = document.getElementById('wheelCanvas');
+          const ctx = canvas.getContext('2d');
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const radius = 140;
+          
+          // Limpar canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          // Cores para diferentes níveis
+          const colors = {
+              critical: '#dc2626',
+              low: '#f59e0b', 
+              medium: '#10b981',
+              high: '#059669'
+          };
+          
+          // Desenhar cada seção
+          wheelUserResponses.forEach((response, index) => {
+              const startAngle = (index * 2 * Math.PI) / 12;
+              const endAngle = ((index + 1) * 2 * Math.PI) / 12;
+              const scoreRadius = (response.score / 10) * radius;
+              
+              // Determinar cor baseada na pontuação
+              let color;
+              if (response.score <= 2.5) color = colors.critical;
+              else if (response.score <= 5) color = colors.low;
+              else if (response.score <= 7.5) color = colors.medium;
+              else color = colors.high;
+              
+              // Desenhar seção
+              ctx.beginPath();
+              ctx.moveTo(centerX, centerY);
+              ctx.arc(centerX, centerY, scoreRadius, startAngle, endAngle);
+              ctx.closePath();
+              ctx.fillStyle = color;
+              ctx.fill();
+              ctx.strokeStyle = '#ffffff';
+              ctx.lineWidth = 2;
+              ctx.stroke();
+              
+              // Adicionar texto da área
+              const textAngle = startAngle + (endAngle - startAngle) / 2;
+              const textRadius = radius + 20;
+              const textX = centerX + Math.cos(textAngle) * textRadius;
+              const textY = centerY + Math.sin(textAngle) * textRadius;
+              
+              ctx.fillStyle = '#1f2937';
+              ctx.font = 'bold 11px Arial';
+              ctx.textAlign = 'center';
+              ctx.fillText(response.area.split(' ')[0], textX, textY);
+              
+              // Adicionar pontuação
+              const scoreX = centerX + Math.cos(textAngle) * (scoreRadius * 0.7);
+              const scoreY = centerY + Math.sin(textAngle) * (scoreRadius * 0.7);
+              ctx.fillStyle = '#ffffff';
+              ctx.font = 'bold 12px Arial';
+              ctx.fillText(response.score.toFixed(1), scoreX, scoreY);
+          });
+          
+          // Desenhar círculos de referência
+          for (let i = 2.5; i <= 10; i += 2.5) {
+              const refRadius = (i / 10) * radius;
+              ctx.beginPath();
+              ctx.arc(centerX, centerY, refRadius, 0, 2 * Math.PI);
+              ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+          }
+      }
 
-    // FUNÇÃO DE TRACKING DE COMPRA
-    function trackPurchase(intentLevel) {
-        fbq('track', 'InitiateCheckout', {
-            content_name: 'AppAutoconhecimento_Complete_Access',
-            value: 29.95,
-            currency: 'BRL'
-        });
-        
-        fbq('trackCustom', 'PurchaseIntention', {
-            intent_level: intentLevel,
-            conversion_type: 'paid_access',
-            source: 'quiz_completion',
-            price: 29.95
-        });
-    }
+      // GERAR INSIGHTS DA RODA
+      function generateWheelInsights() {
+          const insightsContainer = document.getElementById('wheelInsights');
+          const averageScore = calculateAverageScore();
+          const lowestAreas = getLowestAreas();
+          const highestAreas = getHighestAreas();
+          
+          let insights = `
+              <div class="insight-item">
+                  <h4>📊 Sua Média Geral: ${averageScore.toFixed(1)}/10</h4>
+                  <p>${getScoreInterpretation(averageScore)}</p>
+              </div>
+              
+              <div class="insight-item">
+                  <h4>🚨 Áreas que precisam de atenção URGENTE:</h4>
+                  <p>${lowestAreas.map(area => `${area.area} (${area.score.toFixed(1)}/10)`).join(', ')}</p>
+              </div>
+              
+              <div class="insight-item">
+                  <h4>⭐ Seus pontos fortes atuais:</h4>
+                  <p>${highestAreas.map(area => `${area.area} (${area.score.toFixed(1)}/10)`).join(', ')}</p>
+              </div>
+          `;
+          
+          insightsContainer.innerHTML = insights;
+      }
 
-    // FUNÇÕES DE SAÍDA E REINÍCIO
-    function showExitScreen(message) {
-        stoppedAtQuestion = currentQuestionIndex;
-        
-        hideAllScreens();
-        document.getElementById('exitScreen').style.display = 'block';
-        document.getElementById('exitScreen').classList.add('screen-transition');
-        
-        document.getElementById('exitTitle').textContent = "Entendemos sua posição";
-        document.getElementById('exitMessage').textContent = message;
-        
-        const restartBtn = document.getElementById('restartBtn');
-        restartBtn.textContent = `🔄 Continuar da Pergunta ${stoppedAtQuestion + 1}`;
-        
-        smartScrollToTop();
-        
-        fbq('trackCustom', 'QuizExit', {
-            exit_question: stoppedAtQuestion + 1,
-            exit_reason: 'negative_answer'
-        });
-    }
+      // CALCULAR MÉDIA
+      function calculateAverageScore() {
+          const sum = wheelUserResponses.reduce((acc, response) => acc + response.score, 0);
+          return sum / wheelUserResponses.length;
+      }
 
-    function restartQuiz() {
-        if (stoppedAtQuestion > 0) {
-            currentQuestionIndex = stoppedAtQuestion;
-            selectedAnswer = null;
-            isAdvancing = false;
-            
-            hideAllScreens();
-            document.getElementById('quizScreen').classList.remove('hidden');
-            document.getElementById('quizScreen').classList.add('screen-transition');
-            
-            showQuestion();
-            smartScrollToTop();
-            
-            fbq('trackCustom', 'QuizResumed', {
-                resumed_from_question: stoppedAtQuestion + 1
-            });
-            
-            stoppedAtQuestion = 0;
-        } else {
-            currentQuestionIndex = 0;
-            selectedAnswer = null;
-            selectedTimePeriod = '';
-            isAdvancing = false;
-            
-            hideAllScreens();
-            document.getElementById('startScreen').classList.remove('hidden');
-            document.getElementById('startScreen').classList.add('screen-transition');
-            smartScrollToTop();
-            
-            fbq('trackCustom', 'QuizRestarted', {
-                restart_type: 'complete'
-            });
-        }
-    }
+      // ÁREAS COM MENOR PONTUAÇÃO
+      function getLowestAreas() {
+          return wheelUserResponses
+              .sort((a, b) => a.score - b.score)
+              .slice(0, 3);
+      }
 
-    // FUNÇÕES DE UTILITÁRIO
-    function smartScrollToTop() {
-        window.scrollTo({ 
-            top: 0, 
-            behavior: 'smooth' 
-        });
-        
-        setTimeout(() => {
-            const firstButton = document.querySelector('.clickable-button:not(.hidden)');
-            if (firstButton && typeof firstButton.scrollIntoView === 'function') {
-                firstButton.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center',
-                    inline: 'nearest' 
-                });
-            }
-        }, 600);
-    }
+      // ÁREAS COM MAIOR PONTUAÇÃO  
+      function getHighestAreas() {
+          return wheelUserResponses
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 3);
+      }
 
-    function hideAllScreens() {
-        document.getElementById('startScreen').classList.add('hidden');
-        document.getElementById('quizScreen').classList.add('hidden');
-        document.getElementById('offerScreen').style.display = 'none';
-        document.getElementById('compassionScreen').style.display = 'none';
-        document.getElementById('exitScreen').style.display = 'none';
-    }
+      // INTERPRETAÇÃO DA PONTUAÇÃO
+      function getScoreInterpretation(score) {
+          if (score <= 3) return "⚠️ SUA VIDA PRECISA DE ATENÇÃO URGENTE! Hora de agir com determinação!";
+          if (score <= 5) return "🔄 Há MUITO espaço para crescimento. Você pode alcançar muito mais!";
+          if (score <= 7) return "📈 Você está no caminho certo, mas pode atingir um nível ainda MAIOR.";
+          return "🎉 Parabéns! Você tem uma vida bem equilibrada, continue assim!";
+      }
 
-    function getCurrentScreen() {
-        if (!document.getElementById('startScreen').classList.contains('hidden')) return 'start';
-        if (!document.getElementById('quizScreen').classList.contains('hidden')) return 'quiz';
-        if (document.getElementById('offerScreen').style.display !== 'none') return 'offer';
-        if (document.getElementById('compassionScreen').style.display !== 'none') return 'compassion';
-        if (document.getElementById('exitScreen').style.display !== 'none') return 'exit';
-        return 'unknown';
-    }
+      // POPULAR DROPDOWN DE ÁREAS
+      function populateAreasDropdown() {
+          const dropdown = document.getElementById('areasDropdown');
+          const lowestAreas = getLowestAreas();
+          
+          // Limpar dropdown
+          dropdown.innerHTML = '<option value="">⚠️ Selecione a área que precisa de ação URGENTE...</option>';
+          
+          // Adicionar áreas com menor pontuação primeiro (em vermelho)
+          lowestAreas.forEach(area => {
+              const option = document.createElement('option');
+              option.value = area.area;
+              option.textContent = `🚨 ${area.area} (${area.score.toFixed(1)}/10) - CRÍTICO`;
+              option.style.color = '#dc2626';
+              option.style.fontWeight = 'bold';
+              dropdown.appendChild(option);
+          });
+          
+          // Adicionar outras áreas
+          wheelUserResponses
+              .filter(area => !lowestAreas.includes(area))
+              .sort((a, b) => a.score - b.score)
+              .forEach(area => {
+                  const option = document.createElement('option');
+                  option.value = area.area;
+                  option.textContent = `${area.area} (${area.score.toFixed(1)}/10)`;
+                  dropdown.appendChild(option);
+              });
+      }
 
-    // EVENTOS DE INTERAÇÃO E MELHORIAS UX
-    document.addEventListener('DOMContentLoaded', function() {
-        // Feedback visual melhorado para mobile
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.classList.contains('clickable-button') || e.target.classList.contains('answer-option')) {
-                e.target.style.transform = 'scale(0.98)';
-            }
-        });
+      // MOSTRAR CAPTURA DE LEAD
+      function showLeadCapture() {
+          document.getElementById('finalOffer').style.display = 'none';
+          document.getElementById('leadCapture').style.display = 'block';
+          
+          fbq('trackCustom', 'WheelLeadCaptureViewed', {
+              source: 'declined_wheel_offer',
+              selected_area: selectedArea,
+              average_score: calculateAverageScore()
+          });
+          
+          smartScrollToTop();
+      }
 
-        document.addEventListener('touchend', function(e) {
-            if (e.target.classList.contains('clickable-button') || e.target.classList.contains('answer-option')) {
-                setTimeout(() => {
-                    e.target.style.transform = '';
-                }, 150);
-            }
-        });
+      // COPIAR RELATÓRIO
+      function copyReport() {
+          const name = document.getElementById('userName').value;
+          const whatsapp = document.getElementById('userWhatsApp').value;
+          
+          if (!name || !whatsapp) {
+              alert('⚠️ Por favor, preencha seu nome e WhatsApp para receber o relatório!');
+              return;
+          }
+          
+          const report = generateWheelReport(name);
+          
+          navigator.clipboard.writeText(report).then(() => {
+              alert('📋 Relatório copiado! Você pode colar em qualquer lugar.');
+              trackWheelLeadCapture(name, whatsapp, 'copy');
+          }).catch(() => {
+              // Fallback para navegadores que não suportam clipboard
+              const textArea = document.createElement('textarea');
+              textArea.value = report;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textArea);
+              alert('📋 Relatório copiado! Você pode colar em qualquer lugar.');
+              trackWheelLeadCapture(name, whatsapp, 'copy');
+          });
+      }
 
-        // Keyboard navigation para acessibilidade
-        document.addEventListener('keydown', function(e) {
-            if (e.key >= '1' && e.key <= '9' && !isAdvancing) {
-                const answerIndex = parseInt(e.key) - 1;
-                const options = document.querySelectorAll('.answer-option');
-                if (options[answerIndex]) {
-                    selectAnswer(answerIndex);
-                }
-            }
-        });
+      // COMPARTILHAR RELATÓRIO
+      function shareReport() {
+          const name = document.getElementById('userName').value;
+          const whatsapp = document.getElementById('userWhatsApp').value;
+          
+          if (!name || !whatsapp) {
+              alert('⚠️ Por favor, preencha seu nome e WhatsApp para compartilhar o relatório!');
+              return;
+          }
+          
+          const report = generateWheelReport(name);
+          const encodedReport = encodeURIComponent(report);
+          const whatsappUrl = `https://wa.me/?text=${encodedReport}`;
+          
+          window.open(whatsappUrl, '_blank');
+          trackWheelLeadCapture(name, whatsapp, 'share');
+      }
 
-        // Exit intent tracking
-        let hasInteracted = false;
-        
-        document.addEventListener('click', () => hasInteracted = true);
-        document.addEventListener('keydown', () => hasInteracted = true);
-        
-        document.addEventListener('mouseout', function(e) {
-            if (e.clientY <= 0 && hasInteracted) {
-                fbq('trackCustom', 'ExitIntent', {
-                    current_question: currentQuestionIndex + 1,
-                    funnel_stage: getCurrentScreen()
-                });
-            }
-        });
+      // GERAR RELATÓRIO DA RODA
+      function generateWheelReport(name) {
+          const averageScore = calculateAverageScore();
+          const lowestAreas = getLowestAreas();
+          const highestAreas = getHighestAreas();
+          const selectedAreaData = wheelUserResponses.find(r => r.area === selectedArea);
+          
+          return `🎯 RODA DA VIDA - ${name.toUpperCase()}
 
-        // Tracking de tempo na página
-        let startTime = Date.now();
-        
-        window.addEventListener('beforeunload', function() {
-            const timeSpent = Math.round((Date.now() - startTime) / 1000);
-            fbq('trackCustom', 'TimeSpent', {
-                seconds: timeSpent,
-                questions_answered: currentQuestionIndex,
-                funnel_completion: getCurrentScreen() === 'offer' ? 'completed' : 'incomplete'
-            });
-        });
+📊 *SUA ANÁLISE COMPLETA:*
+▫️ Média Geral: *${averageScore.toFixed(1)}/10*
+▫️ ${getScoreInterpretation(averageScore)}
 
-        // Acessibilidade melhorada
-        const buttons = document.querySelectorAll('button, .clickable-button');
-        buttons.forEach(button => {
-            if (!button.getAttribute('aria-label')) {
-                button.setAttribute('aria-label', button.textContent.trim());
-            }
-        });
+🎯 *ÁREA PRIORITÁRIA ESCOLHIDA:*
+▫️ ${selectedArea}
+▫️ Pontuação atual: *${selectedAreaData ? selectedAreaData.score.toFixed(1) : 'N/A'}/10*
 
-        // Respeitar preferências do usuário
-        if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
-            document.body.style.setProperty('--cor-destaque', '#00ff00');
-            document.body.style.setProperty('--cor-principal', '#000000');
-        }
+🚨 *ÁREAS QUE PRECISAM DE ATENÇÃO URGENTE:*
+${lowestAreas.map(area => `▫️ ${area.area}: *${area.score.toFixed(1)}/10*`).join('\n')}
 
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.head.insertAdjacentHTML('beforeend', `
-                <style>
-                    *, *::before, *::after {
-                        animation-duration: 0.01ms !important;
-                        animation-iteration-count: 1 !important;
-                        transition-duration: 0.01ms !important;
-                    }
-                </style>
-            `);
-        }
-    });
+⭐ *SEUS PONTOS FORTES:*
+${highestAreas.map(area => `▫️ ${area.area}: *${area.score.toFixed(1)}/10*`).join('\n')}
 
-    // Analytics avançados
-    function trackAdvancedMetrics() {
-        if (window.performance) {
-            const navigation = performance.getEntriesByType('navigation')[0];
-            fbq('trackCustom', 'PagePerformance', {
-                load_time: Math.round(navigation.loadEventEnd - navigation.loadEventStart),
-                dom_ready: Math.round(navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart)
-            });
-        }
-        
-        fbq('trackCustom', 'DeviceInfo', {
-            screen_width: window.screen.width,
-            screen_height: window.screen.height,
-            viewport_width: window.innerWidth,
-            viewport_height: window.innerHeight,
-            device_pixel_ratio: window.devicePixelRatio || 1,
-            is_mobile: window.innerWidth <= 768,
-            user_agent: navigator.userAgent.substring(0, 100)
-        });
-    }
+💡 *PRÓXIMOS PASSOS RECOMENDADOS:*
+▫️ Foque na sua área prioritária: *${selectedArea}*
+▫️ Dedique 15 min/dia para melhorar essa área
+▫️ Use o AppAutoconhecimento para acelerar sua evolução
 
-    window.addEventListener('load', trackAdvancedMetrics);
+🚀 *QUER ACELERAR SUA TRANSFORMAÇÃO?*
+O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar a vida que merece.
 
-    // Error boundary
-    window.addEventListener('error', function(e) {
-        console.error('JavaScript Error:', e.error);
-        fbq('trackCustom', 'JavaScriptError', {
-            message: e.message.substring(0, 100),
-            filename: e.filename,
-            lineno: e.lineno,
-            current_screen: getCurrentScreen()
-        });
-    });
+👉 Acesse agora: https://pay.kiwify.com.br/nAeTa0z
+💰 Apenas R$ 29,95 por 1 ano completo
+🛡️ 7 dias de garantia total
 
-    // Debug mode para desenvolvimento
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log('🎯 Quiz AppAutoconhecimento v8.0 - Auto-advance sem botões');
-        console.log('💰 Preço: R$ 29,95 com garantia de 7 dias');
-        console.log('⚡ Fluxo: Clique → Delay 1s → Próxima pergunta');
-        
-        window.debugQuiz = {
-            jumpToQuestion: (n) => {
-                currentQuestionIndex = n - 1;
-                isAdvancing = false;
-                showQuestion();
-            },
-            testOfferPage: (intent = 'high_intent') => {
-                showOfferPage(intent);
-            },
-            testCompassionSection: () => {
-                showCompassionSection();
-            },
-            showAllScreens: () => {
-                console.log('Telas disponíveis:');
-                console.log('1. debugQuiz.testOfferPage() - Página de oferta paga');
-                console.log('2. debugQuiz.testCompassionSection() - Tela de acolhimento');
-                console.log('3. debugQuiz.jumpToQuestion(13) - Ir para pergunta final');
-            },
-            getToolsData: () => {
-                console.table(toolsData);
-            },
-            simulateClick: (answerIndex) => {
-                selectAnswer(answerIndex);
-            }
-        };
-    }
+#AutoConhecimento #RodaDaVida #DesenvolvimentoPessoal #TransformaçãoPessoal`;
+      }
 
-</script>
+      // FUNÇÃO PRINCIPAL DA OFERTA PAGA (ORIGINAL)
+      function showOfferPage(intentLevel = 'high_intent') {
+          hideAllScreens();
+          
+          const offerHTML = `
+              <div class="offer-page">
+                  <!-- HEADER PRINCIPAL -->
+                  <div class="page-header">
+                      <h1>🎯 SEU CAMINHO PARA O AUTOCONHECIMENTO ESTÁ AQUI!</h1>
+                      <p class="subtitle">Acesso completo às ferramentas que vão transformar sua relação consigo mesmo</p>
+                  </div>
+
+                  <!-- PREVIEW DAS FERRAMENTAS -->
+                  <div class="tools-showcase">
+                      <h3>🛠️ Veja algumas ferramentas que você terá acesso:</h3>
+                      
+                      <!-- GRID DE PREVIEWS -->
+                      <div class="tools-preview-grid">
+                          <div class="preview-card main-preview">
+                              <div class="preview-image">
+                                  <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/1.png" 
+                                       alt="Roda da Vida" onclick="openPreview(0)">
+                              </div>
+                              <div class="preview-content">
+                                  <h4>🧭 Roda da Vida Inteligente</h4>
+                                  <p>Veja exatamente onde sua vida está desequilibrada em 2 minutos</p>
+                                  <button class="preview-btn" onclick="openPreview(0)">Ver Ferramenta</button>
+                              </div>
+                          </div>
+                          
+                          <div class="preview-card">
+                              <div class="preview-image">
+                                  <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/6.png" 
+                                       alt="Perfil Comportamental" onclick="openPreview(5)">
+                              </div>
+                              <h5>🧠 Perfil Comportamental</h5>
+                              <p>Descubra como você funciona</p>
+                          </div>
+                          
+                          <div class="preview-card">
+                              <div class="preview-image">
+                                  <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/4.png" 
+                                       alt="Diário de Bordo" onclick="openPreview(3)">
+                              </div>
+                              <h5>📔 Diário de Transformação</h5>
+                              <p>Registre sua evolução diária</p>
+                          </div>
+                          
+                          <div class="preview-card">
+                              <div class="preview-image">
+                                  <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/7.png" 
+                                       alt="Valores Pessoais" onclick="openPreview(6)">
+                              </div>
+                              <h5>🎯 Seus Valores Pessoais</h5>
+                              <p>Tome decisões alinhadas</p>
+                          </div>
+                      </div>
+                      
+                      <div class="more-tools">
+                          <p>Novas ferramentas constantemente sendo inseridas</p>
+                          <button class="show-all-btn" onclick="toggleAllTools()">Ver algumas Ferramentas</button>
+                      </div>
+                  </div>
+
+                  <!-- LISTA EXPANDIDA (OCULTA) -->
+                  <div class="expanded-tools" id="expandedTools" style="display: none;">
+                      <div class="tools-grid-expanded">
+                          ${toolsData.map((tool, index) => `
+                              <div class="tool-item">
+                                  <div class="tool-mini-image">
+                                      <img src="${tool.image}" alt="${tool.name}">
+                                  </div>
+                                  <div class="tool-info">
+                                      <h6>${tool.name}</h6>
+                                      <p>${tool.description}</p>
+                                  </div>
+                              </div>
+                          `).join('')}
+                      </div>
+                  </div>
+
+                  <!-- SEÇÃO DE PREÇO E VALOR -->
+                  <div class="pricing-section">
+                      <h3 style="font-size: 1.8rem; margin-bottom: 20px;">💰 Investimento para sua transformação:</h3>
+                      
+                      <div class="price-highlight">
+                          Apenas R$ 29,95 por ano
+                          <div style="font-size: 1rem; font-weight: 400; margin-top: 10px;">
+                              VOCÊ TERÁ ACESSO AS MELHORES FERRAMENTAS TERAPÊUTICAS DE AUTOCONHECIMENTO DO MERCADO
+                          </div>
+                      </div>
+
+                      <div class="value-proposition">
+                         <strong>🎁 O que você recebe ao entrar hoje:</strong><br>
+  ✅ Acesso imediato por 1 ano completo<br>
+  ✅ Novas ferramentas e desafios práticos todo mês<br>
+  ✅ Atualizações semanais — sem pagar nada a mais<br>
+  ✅ Comunidade exclusiva com gente que também quer evoluir<br>
+  ✅ Acesso opcional a ferramentas terapêuticas premium com desconto especial
+                      </div>
+                  </div>
+
+                  <!-- GARANTIA INCONDICIONAL -->
+                  <div class="guarantee-section">
+                      <span class="guarantee-icon">🛡️</span>
+                      <h3>GARANTIA INCONDICIONAL DE 7 DIAS</h3>
+                      <p><strong>Se você não perceber mudanças reais em sua vida nos primeiros 7 dias, devolvemos 100% do seu dinheiro.</strong></p>
+                      <p>Sem perguntas, sem complicação. Basta acessar: 
+                          <a href="https://refund.kiwify.com/login" class="refund-link" target="_blank">refund.kiwify.com/login</a>
+                      </p>
+                      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 15px;">
+                          Assumimos todo o risco para que você possa focar apenas em se conhecer melhor.
+                      </p>
+                  </div>
+
+                  <!-- BENEFÍCIOS PRINCIPAIS -->
+                  <div class="benefit-grid">
+                      <div class="benefit-card">
+                          <span class="icon">🧭</span>
+                          <h4>Roda da Vida</h4>
+                          <p>Visualize exatamente quais áreas da sua vida precisam de atenção e por onde começar.</p>
+                      </div>
+
+                      <div class="benefit-card">
+                          <span class="icon">📔</span>
+                          <h4>Diário Reflexivo</h4>
+                          <p>Transforme seus pensamentos em insights poderosos através da escrita consciente.</p>
+                      </div>
+
+                      <div class="benefit-card">
+                          <span class="icon">🧠</span>
+                          <h4>Perfil Comportamental</h4>
+                          <p>Entenda como você funciona naturalmente e use isso a seu favor nas decisões.</p>
+                      </div>
+
+                      <div class="benefit-card">
+                          <span class="icon">🎯</span>
+                          <h4>Mapeamento de Valores</h4>
+                          <p>Descubra seus valores fundamentais e tome decisões alinhadas com quem você é.</p>
+                      </div>
+
+                      <div class="benefit-card">
+                          <span class="icon">📊</span>
+                          <h4>Análises Detalhadas</h4>
+                          <p>Relatórios personalizados que mostram sua evolução e próximos passos.</p>
+                      </div>
+
+                      <div class="benefit-card">
+                          <span class="icon">🌱</span>
+                          <h4>Acompanhamento Contínuo</h4>
+                          <p>Ferramentas que evoluem com você, garantindo progresso constante.</p>
+                      </div>
+                  </div>
+
+                  <!-- CTA PRINCIPAL -->
+                  <div style="text-align: center; margin: 40px 0;">
+                      <h3 style="margin-bottom: 20px;">🚀 Pronto para se conhecer de verdade?</h3>
+                      <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">
+                          Centenas de pessoas já transformaram suas vidas. Sua vez chegou.
+                      </p>
+                      
+                      <a href="https://pay.kiwify.com.br/nAeTa0z" class="cta-main clickable-button" onclick="trackPurchase('${intentLevel}')">
+                          💳 QUERO ACESSAR AGORA POR R$ 29,95 por 1 ano
+                      </a>
+
+                      <p style="font-size: 0.9rem; margin-top: 20px; opacity: 0.7;">
+                          Pagamento 100% seguro • Acesso imediato • Garantia de 7 dias
+                      </p>
+                  </div>
+
+                  <!-- TRANSPARÊNCIA TOTAL -->
+                  <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; margin: 30px 0; text-align: center;">
+                      <h4 style="color: var(--cor-destaque); margin-bottom: 15px;">🔒 Transparência Total</h4>
+                      <p style="margin-bottom: 10px;"><strong>Não há pegadinhas:</strong> Você paga apenas R$ 29,95 uma vez.</p>
+                      <p style="margin-bottom: 10px;"><strong>Não há mensalidades:</strong> Acesso por 1 ano a todas as ferramentas.</p>
+                      <p style="margin-bottom: 10px;"><strong>Não há taxa de cancelamento:</strong> Reembolso gratuito em até 7 dias.</p>
+                      <p style="font-size: 0.9rem; opacity: 0.8;">Acreditamos que autoconhecimento deveria ser acessível para todos.</p>
+                  </div>
+
+                  <!-- PROVA SOCIAL -->
+                  <div style="text-align: center; margin: 30px 0; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                      <p style="font-size: 1.2rem; margin-bottom: 15px;">
+                          <strong>+3.247 pessoas</strong> já investiram em seu autoconhecimento
+                      </p>
+                      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                          <div style="text-align: center; max-width: 200px;">
+                              <p style="font-size: 0.9rem; font-style: italic;">"Finalmente entendi por que sempre repetia os mesmos padrões"</p>
+                              <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">- Marina, 32 anos</p>
+                          </div>
+                          <div style="text-align: center; max-width: 200px;">
+                              <p style="font-size: 0.9rem; font-style: italic;">"O investimento se pagou na primeira semana"</p>
+                              <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">- Carlos, 28 anos</p>
+                          </div>
+                          <div style="text-align: center; max-width: 200px;">
+                              <p style="font-size: 0.9rem; font-style: italic;">"Mudou minha forma de tomar decisões"</p>
+                              <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">- Ana, 35 anos</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          `;
+          
+          document.getElementById('offerScreen').innerHTML = offerHTML;
+          document.getElementById('offerScreen').style.display = 'block';
+          document.getElementById('offerScreen').classList.add('screen-transition');
+          
+          // Track Facebook
+          fbq('trackCustom', 'OfferPageViewed', {
+              intent_level: intentLevel,
+              funnel_stage: 'paid_offer',
+              price: 29.95
+          });
+          
+          smartScrollToTop();
+      }
+
+      // FUNÇÃO DE ACOLHIMENTO EMPÁTICO
+      function showCompassionSection() {
+          hideAllScreens();
+          
+         const compassionHTML = `
+              <div class="compassion-screen">
+                  <h2>Tudo bem adiar. Mas não se esqueça de você.</h2>
+                  <p>
+                      Às vezes a vida aperta. E só de estar aqui, você já deu um passo. 
+                      <br><br>
+                      Quando quiser, estarei por aqui pra te ajudar a reencontrar o caminho.
+                  </p>
+                  
+                  <audio controls class="audio-player">
+                      <source src="https://appestoicismo.github.io/audios-appestoicismo/tempo_de_vida.MP3" type="audio/mpeg">
+                      Seu navegador não suporta áudio.
+                  </audio>
+                  
+                  <div style="margin: 30px 0;">
+                      <a href="https://pay.kiwify.com.br/nAeTa0z" class="btn-start clickable-button" onclick="trackPurchase('recovery')">
+                          💳 Quero Investir R$ 29,95 em Mim
+                      </a>
+                      <br><br>
+                      <a href="javascript:void(0)" class="btn-secondary clickable-button" onclick="showOfferPage('recovery')">
+                          💭 Na verdade, quero saber mais sobre o App
+                      </a>
+                  </div>
+              </div>
+          `;
+          
+          document.getElementById('compassionScreen').innerHTML = compassionHTML;
+          document.getElementById('compassionScreen').style.display = 'block';
+          document.getElementById('compassionScreen').classList.add('screen-transition');
+          
+          // Track Facebook
+          fbq('trackCustom', 'CompassionSectionViewed', {
+              source: 'quiz_final_question',
+              user_decision: 'postponed',
+              recovery_opportunity: true
+          });
+          
+          smartScrollToTop();
+      }
+
+      // FUNCIONALIDADES DA GALERIA
+      function openPreview(index) {
+          const tool = toolsData[index];
+          const modal = document.getElementById('previewModal');
+          const modalImage = document.getElementById('modalImage');
+          const modalTitle = document.getElementById('modalTitle');
+          const modalDescription = document.getElementById('modalDescription');
+          
+          modalImage.src = tool.image;
+          modalImage.alt = tool.name;
+          modalTitle.textContent = tool.name;
+          modalDescription.textContent = tool.description;
+          
+          modal.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+      }
+
+      function closePreview() {
+          document.getElementById('previewModal').style.display = 'none';
+          document.body.style.overflow = 'auto';
+      }
+
+      function toggleAllTools() {
+          const expanded = document.getElementById('expandedTools');
+          const btn = document.querySelector('.show-all-btn');
+          
+          if (expanded.style.display === 'none') {
+              expanded.style.display = 'block';
+              btn.textContent = 'Ocultar Ferramentas';
+          } else {
+              expanded.style.display = 'none';
+              btn.textContent = 'Ver Todas as Ferramentas';
+          }
+      }
+
+      // FUNÇÕES DE TRACKING
+      function trackPurchase(intentLevel) {
+          fbq('track', 'InitiateCheckout', {
+              content_name: 'AppAutoconhecimento_Complete_Access',
+              value: 29.95,
+              currency: 'BRL'
+          });
+          
+          fbq('trackCustom', 'PurchaseIntention', {
+              intent_level: intentLevel,
+              conversion_type: 'paid_access',
+              source: wheelUserResponses.length > 0 ? 'wheel_completion' : 'quiz_completion',
+              price: 29.95,
+              selected_area: selectedArea || 'none',
+              average_score: wheelUserResponses.length > 0 ? calculateAverageScore() : 0
+          });
+      }
+
+      function trackWheelLeadCapture(name, whatsapp, action) {
+          fbq('trackCustom', 'WheelLeadCaptured', {
+              name: name.substring(0, 20), // Limitar tamanho
+              whatsapp: whatsapp.replace(/\D/g, '').substring(0, 15), // Apenas números
+              action: action,
+              selected_area: selectedArea,
+              average_score: calculateAverageScore(),
+              lowest_areas: getLowestAreas().map(a => a.area).join(','),
+              timestamp: new Date().toISOString()
+          });
+      }
+
+      // FUNÇÕES DE SAÍDA E REINÍCIO
+      function showExitScreen(message) {
+          stoppedAtQuestion = currentQuestionIndex;
+          
+          hideAllScreens();
+          document.getElementById('exitScreen').style.display = 'block';
+          document.getElementById('exitScreen').classList.add('screen-transition');
+          
+          document.getElementById('exitTitle').textContent = "Entendemos sua posição";
+          document.getElementById('exitMessage').textContent = message;
+          
+          const restartBtn = document.getElementById('restartBtn');
+          restartBtn.textContent = `🔄 Continuar da Pergunta ${stoppedAtQuestion + 1}`;
+          
+          smartScrollToTop();
+          
+          fbq('trackCustom', 'QuizExit', {
+              exit_question: stoppedAtQuestion + 1,
+              exit_reason: 'negative_answer'
+          });
+      }
+
+      function restartQuiz() {
+          if (stoppedAtQuestion > 0) {
+              currentQuestionIndex = stoppedAtQuestion;
+              selectedAnswer = null;
+              isAdvancing = false;
+              
+              hideAllScreens();
+              document.getElementById('quizScreen').classList.remove('hidden');
+              document.getElementById('quizScreen').classList.add('screen-transition');
+              
+              showQuestion();
+              smartScrollToTop();
+              
+              fbq('trackCustom', 'QuizResumed', {
+                  resumed_from_question: stoppedAtQuestion + 1
+              });
+              
+              stoppedAtQuestion = 0;
+          } else {
+              currentQuestionIndex = 0;
+              selectedAnswer = null;
+              selectedTimePeriod = '';
+              isAdvancing = false;
+              
+              hideAllScreens();
+              document.getElementById('startScreen').classList.remove('hidden');
+              document.getElementById('startScreen').classList.add('screen-transition');
+              smartScrollToTop();
+              
+              fbq('trackCustom', 'QuizRestarted', {
+                  restart_type: 'complete'
+              });
+          }
+      }
+
+      // FUNÇÕES DE UTILITÁRIO
+      function smartScrollToTop() {
+          window.scrollTo({ 
+              top: 0, 
+              behavior: 'smooth' 
+          });
+          
+          setTimeout(() => {
+              const firstButton = document.querySelector('.clickable-button:not(.hidden)');
+              if (firstButton && typeof firstButton.scrollIntoView === 'function') {
+                  firstButton.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'center',
+                      inline: 'nearest' 
+                  });
+              }
+          }, 600);
+      }
+
+      function hideAllScreens() {
+          document.getElementById('startScreen').classList.add('hidden');
+          document.getElementById('quizScreen').classList.add('hidden');
+          document.getElementById('wheelScreen').classList.add('hidden');
+          document.getElementById('wheelResult').style.display = 'none';
+          document.getElementById('pivotQuestion').style.display = 'none';
+          document.getElementById('discomfortQuestion').style.display = 'none';
+          document.getElementById('finalOffer').style.display = 'none';
+          document.getElementById('leadCapture').style.display = 'none';
+          document.getElementById('offerScreen').style.display = 'none';
+          document.getElementById('compassionScreen').style.display = 'none';
+          document.getElementById('exitScreen').style.display = 'none';
+      }
+
+      function getCurrentScreen() {
+          if (!document.getElementById('startScreen').classList.contains('hidden')) return 'start';
+          if (!document.getElementById('quizScreen').classList.contains('hidden')) return 'quiz';
+          if (!document.getElementById('wheelScreen').classList.contains('hidden')) return 'wheel';
+          if (document.getElementById('wheelResult').style.display !== 'none') return 'wheel_result';
+          if (document.getElementById('pivotQuestion').style.display !== 'none') return 'pivot';
+          if (document.getElementById('discomfortQuestion').style.display !== 'none') return 'discomfort';
+          if (document.getElementById('finalOffer').style.display !== 'none') return 'final_offer';
+          if (document.getElementById('leadCapture').style.display !== 'none') return 'lead_capture';
+          if (document.getElementById('offerScreen').style.display !== 'none') return 'offer';
+          if (document.getElementById('compassionScreen').style.display !== 'none') return 'compassion';
+          if (document.getElementById('exitScreen').style.display !== 'none') return 'exit';
+          return 'unknown';
+      }
+
+      // EVENTOS DE INTERAÇÃO E MELHORIAS UX
+      document.addEventListener('DOMContentLoaded', function() {
+          // Feedback visual melhorado para mobile
+          document.addEventListener('touchstart', function(e) {
+              if (e.target.classList.contains('clickable-button') || 
+                  e.target.classList.contains('answer-option') ||
+                  e.target.classList.contains('emotional-btn')) {
+                  e.target.style.transform = 'scale(0.98)';
+              }
+          });
+
+          document.addEventListener('touchend', function(e) {
+              if (e.target.classList.contains('clickable-button') || 
+                  e.target.classList.contains('answer-option') ||
+                  e.target.classList.contains('emotional-btn')) {
+                  setTimeout(() => {
+                      e.target.style.transform = '';
+                  }, 150);
+              }
+          });
+
+          // Keyboard navigation para acessibilidade
+          document.addEventListener('keydown', function(e) {
+              if (e.key >= '1' && e.key <= '9' && !isAdvancing && !isWheelAdvancing) {
+                  const answerIndex = parseInt(e.key) - 1;
+                  
+                  // Quiz normal
+                  if (!document.getElementById('quizScreen').classList.contains('hidden')) {
+                      const options = document.querySelectorAll('.answer-option');
+                      if (options[answerIndex]) {
+                          selectAnswer(answerIndex);
+                      }
+                  }
+                  
+                  // Roda da vida
+                  if (!document.getElementById('wheelScreen').classList.contains('hidden')) {
+                      const options = document.querySelectorAll('.emotional-btn');
+                      if (options[answerIndex]) {
+                          selectWheelAnswer(answerIndex);
+                      }
+                  }
+              }
+          });
+
+          // Validação de WhatsApp brasileira
+          document.getElementById('userWhatsApp').addEventListener('input', function(e) {
+              let value = e.target.value.replace(/\D/g, '');
+              value = value.replace(/(\d{2})(\d)/, '($1) $2');
+              value = value.replace(/(\d{5})(\d)/, '$1-$2');
+              e.target.value = value;
+          });
+
+          // Exit intent tracking
+          let hasInteracted = false;
+          
+          document.addEventListener('click', () => hasInteracted = true);
+          document.addEventListener('keydown', () => hasInteracted = true);
+          
+          document.addEventListener('mouseout', function(e) {
+              if (e.clientY <= 0 && hasInteracted) {
+                  fbq('trackCustom', 'ExitIntent', {
+                      current_question: currentQuestionIndex + 1,
+                      current_wheel_question: currentWheelQuestionIndex + 1,
+                      funnel_stage: getCurrentScreen(),
+                      selected_area: selectedArea || 'none'
+                  });
+              }
+          });
+
+          // Tracking de tempo na página
+          let startTime = Date.now();
+          
+          window.addEventListener('beforeunload', function() {
+              const timeSpent = Math.round((Date.now() - startTime) / 1000);
+              fbq('trackCustom', 'SessionTimeSpent', {
+                  seconds: timeSpent,
+                  quiz_questions_answered: currentQuestionIndex,
+                  wheel_questions_answered: currentWheelQuestionIndex,
+                  funnel_completion: getCurrentScreen() === 'final_offer' || getCurrentScreen() === 'offer' ? 'completed' : 'incomplete',
+                  selected_area: selectedArea || 'none'
+              });
+          });
+
+          // Acessibilidade melhorada
+          const buttons = document.querySelectorAll('button, .clickable-button, .emotional-btn');
+          buttons.forEach(button => {
+              if (!button.getAttribute('aria-label')) {
+                  button.setAttribute('aria-label', button.textContent.trim());
+              }
+          });
+
+          // Respeitar preferências do usuário
+          if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
+              document.body.style.setProperty('--cor-destaque', '#00ff00');
+              document.body.style.setProperty('--cor-principal', '#000000');
+          }
+
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              document.head.insertAdjacentHTML('beforeend', `
+                  <style>
+                      *, *::before, *::after {
+                          animation-duration: 0.01ms !important;
+                          animation-iteration-count: 1 !important;
+                          transition-duration: 0.01ms !important;
+                      }
+                  </style>
+              `);
+          }
+      });
+
+      // Analytics avançados
+      function trackAdvancedMetrics() {
+          if (window.performance) {
+              const navigation = performance.getEntriesByType('navigation')[0];
+              fbq('trackCustom', 'PagePerformance', {
+                  load_time: Math.round(navigation.loadEventEnd - navigation.loadEventStart),
+                  dom_ready: Math.round(navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart)
+              });
+          }
+          
+          fbq('trackCustom', 'DeviceInfo', {
+              screen_width: window.screen.width,
+              screen_height: window.screen.height,
+              viewport_width: window.innerWidth,
+              viewport_height: window.innerHeight,
+              device_pixel_ratio: window.devicePixelRatio || 1,
+              is_mobile: window.innerWidth <= 768,
+              user_agent: navigator.userAgent.substring(0, 100)
+          });
+      }
+
+      window.addEventListener('load', trackAdvancedMetrics);
+
+      // Error boundary
+      window.addEventListener('error', function(e) {
+          console.error('JavaScript Error:', e.error);
+          fbq('trackCustom', 'JavaScriptError', {
+              error_message: e.message.substring(0, 100),
+              filename: e.filename,
+              lineno: e.lineno,
+              current_screen: getCurrentScreen(),
+              current_question: currentQuestionIndex,
+              current_wheel_question: currentWheelQuestionIndex
+          });
+      });
+
+      // Debug mode para desenvolvimento
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          console.log('🎯 Quiz + Roda da Vida AppAutoconhecimento v9.0');
+          console.log('💰 Preço: R$ 29,95 com garantia de 7 dias');
+          console.log('⚡ Fluxo: Quiz → Roda da Vida → Oferta Persuasiva');
+          console.log('🎨 Novo design super persuasivo para conversão máxima');
+          
+          window.debugQuiz = {
+              jumpToQuestion: (n) => {
+                  currentQuestionIndex = n - 1;
+                  isAdvancing = false;
+                  showQuestion();
+              },
+              jumpToWheelQuestion: (n) => {
+                  currentWheelQuestionIndex = n - 1;
+                  isWheelAdvancing = false;
+                  showWheelQuestion();
+              },
+              testOfferPage: (intent = 'high_intent') => {
+                  showOfferPage(intent);
+              },
+              testWheelFlow: () => {
+                  startWheelOfLife();
+              },
+              testFinalOffer: () => {
+                  // Simular dados da roda para teste
+                  wheelUserResponses = [
+                      {area: "Autoconhecimento", score: 3.3, selectedText: "Me entendo às vezes", emoji: "😐"},
+                      {area: "Autodisciplina", score: 5.0, selectedText: "Faço algumas coisas", emoji: "😅"},
+                      {area: "Gestão Emocional", score: 2.5, selectedText: "Explodo fácil", emoji: "😡"},
+                      {area: "Propósito & Direção", score: 4.2, selectedText: "Tenho sonhos", emoji: "🤔"},
+                      {area: "Relacionamentos", score: 6.7, selectedText: "Altos e baixos", emoji: "🙂"},
+                      {area: "Trabalho & Carreira", score: 7.5, selectedText: "Gosto do que faço", emoji: "🙂"},
+                      {area: "Finanças Pessoais", score: 3.3, selectedText: "Às vezes sobra", emoji: "😅"},
+                      {area: "Saúde & Vitalidade", score: 5.8, selectedText: "Me mantenho", emoji: "🙂"},
+                      {area: "Tempo & Prioridades", score: 4.2, selectedText: "Me enrolo", emoji: "😅"},
+                      {area: "Resiliência", score: 6.7, selectedText: "Aguento firme", emoji: "😤"},
+                      {area: "Autoconfiança", score: 5.0, selectedText: "Confio mas oscilo", emoji: "🙂"},
+                      {area: "Rotina & Hábitos", score: 3.3, selectedText: "Sempre me desorganizo", emoji: "😅"}
+                  ];
+                  selectedArea = "Gestão Emocional";
+                  hideAllScreens();
+                  document.getElementById('finalOffer').style.display = 'block';
+              },
+              testCompassionSection: () => {
+                  showCompassionSection();
+              },
+              testLeadCapture: () => {
+                  // Simular dados da roda para teste
+                  wheelUserResponses = [
+                      {area: "Autoconhecimento", score: 3.3, selectedText: "Me entendo às vezes", emoji: "😐"},
+                      {area: "Autodisciplina", score: 5.0, selectedText: "Faço algumas coisas", emoji: "😅"}
+                  ];
+                  selectedArea = "Autoconhecimento";
+                  hideAllScreens();
+                  document.getElementById('leadCapture').style.display = 'block';
+              },
+              showAllScreens: () => {
+                  console.log('🎯 Telas disponíveis para teste:');
+                  console.log('1. debugQuiz.testOfferPage() - Página de oferta original');
+                  console.log('2. debugQuiz.testWheelFlow() - Iniciar Roda da Vida');
+                  console.log('3. debugQuiz.testFinalOffer() - Oferta final pós-roda');
+                  console.log('4. debugQuiz.testCompassionSection() - Tela de acolhimento');
+                  console.log('5. debugQuiz.testLeadCapture() - Captura de lead');
+                  console.log('6. debugQuiz.jumpToQuestion(13) - Ir para pergunta final');
+                  console.log('7. debugQuiz.jumpToWheelQuestion(5) - Ir para pergunta da roda');
+              },
+              getWheelData: () => {
+                  if (wheelUserResponses.length > 0) {
+                      console.table(wheelUserResponses);
+                      console.log('Média:', calculateAverageScore().toFixed(2));
+                      console.log('Menor pontuação:', getLowestAreas());
+                      console.log('Maior pontuação:', getHighestAreas());
+                  } else {
+                      console.log('Nenhum dado da roda disponível ainda');
+                  }
+              },
+              simulateComplete: () => {
+                  console.log('🚀 Simulando jornada completa...');
+                  
+                  // Simular quiz completo
+                  currentQuestionIndex = 12;
+                  
+                  // Simular roda completa  
+                  wheelUserResponses = [
+                      {area: "Autoconhecimento", score: 2.5, selectedText: "Me entendo às vezes", emoji: "😐"},
+                      {area: "Autodisciplina", score: 3.3, selectedText: "Faço algumas coisas", emoji: "😅"},
+                      {area: "Gestão Emocional", score: 1.7, selectedText: "Explodo fácil", emoji: "😡"},
+                      {area: "Propósito & Direção", score: 4.2, selectedText: "Tenho sonhos", emoji: "🤔"},
+                      {area: "Relacionamentos", score: 6.7, selectedText: "Altos e baixos", emoji: "🙂"},
+                      {area: "Trabalho & Carreira", score: 7.5, selectedText: "Gosto do que faço", emoji: "🙂"},
+                      {area: "Finanças Pessoais", score: 2.5, selectedText: "Às vezes sobra", emoji: "😅"},
+                      {area: "Saúde & Vitalidade", score: 5.8, selectedText: "Me mantenho", emoji: "🙂"},
+                      {area: "Tempo & Prioridades", score: 3.3, selectedText: "Me enrolo", emoji: "😅"},
+                      {area: "Resiliência", score: 6.7, selectedText: "Aguento firme", emoji: "😤"},
+                      {area: "Autoconfiança", score: 4.2, selectedText: "Confio mas oscilo", emoji: "🙂"},
+                      {area: "Rotina & Hábitos", score: 2.5, selectedText: "Sempre me desorganizo", emoji: "😅"}
+                  ];
+                  selectedArea = "Gestão Emocional";
+                  
+                  console.log('✅ Dados simulados criados');
+                  console.log('📊 Média da roda:', calculateAverageScore().toFixed(2));
+                  console.log('🚨 Áreas críticas:', getLowestAreas().map(a => a.area));
+                  console.log('⭐ Pontos fortes:', getHighestAreas().map(a => a.area));
+                  console.log('🎯 Área selecionada:', selectedArea);
+              }
+          };
+          
+          // Mostrar comandos disponíveis
+          console.log('📋 Digite debugQuiz.showAllScreens() para ver todos os comandos');
+      }
+
+      // OTIMIZAÇÕES DE PERFORMANCE
+      
+      // Lazy loading para imagens
+      if ('IntersectionObserver' in window) {
+          const imageObserver = new IntersectionObserver((entries, observer) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      const img = entry.target;
+                      img.src = img.dataset.src;
+                      img.classList.remove('lazy');
+                      imageObserver.unobserve(img);
+                  }
+              });
+          });
+
+          document.addEventListener('DOMContentLoaded', () => {
+              const lazyImages = document.querySelectorAll('img[data-src]');
+              lazyImages.forEach(img => imageObserver.observe(img));
+          });
+      }
+
+      // Preload crítico
+      function preloadCriticalAssets() {
+          const criticalImages = [
+              'https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/1.png',
+              'https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/6.png',
+              'https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/4.png',
+              'https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/7.png'
+          ];
+
+          criticalImages.forEach(src => {
+              const link = document.createElement('link');
+              link.rel = 'preload';
+              link.as = 'image';
+              link.href = src;
+              document.head.appendChild(link);
+          });
+      }
+
+      // Executar preload após carregamento inicial
+      window.addEventListener('load', preloadCriticalAssets);
+
+      // Service Worker para cache (opcional)
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/sw.js')
+                  .then(registration => {
+                      console.log('SW registrado:', registration);
+                  })
+                  .catch(registrationError => {
+                      console.log('SW falha:', registrationError);
+                  });
+          });
+      }
+
+      // OTIMIZAÇÕES FINAIS DE CONVERSÃO
+
+      // Detectar usuários que voltaram
+      function trackReturningUser() {
+          const lastVisit = localStorage.getItem('lastQuizVisit');
+          const now = Date.now();
+          
+          if (lastVisit) {
+              const daysSinceLastVisit = (now - parseInt(lastVisit)) / (1000 * 60 * 60 * 24);
+              
+              fbq('trackCustom', 'ReturningUser', {
+                  days_since_last_visit: Math.round(daysSinceLastVisit),
+                  is_returning: true
+              });
+              
+              // Oferecer desconto especial para usuários que voltaram após 3+ dias
+              if (daysSinceLastVisit >= 3) {
+                  // Poderia implementar um desconto especial aqui
+                  console.log('🎁 Usuário retornando após', Math.round(daysSinceLastVisit), 'dias');
+              }
+          } else {
+              fbq('trackCustom', 'FirstTimeUser', {
+                  is_first_time: true
+              });
+          }
+          
+          localStorage.setItem('lastQuizVisit', now.toString());
+      }
+
+      // Executar tracking de usuário retornando
+      trackReturningUser();
+
+      // Detectar abandono de carrinho
+      let abandonmentTimer;
+      function startAbandonmentTracking() {
+          clearTimeout(abandonmentTimer);
+          abandonmentTimer = setTimeout(() => {
+              if (getCurrentScreen() === 'final_offer' || getCurrentScreen() === 'offer') {
+                  fbq('trackCustom', 'CartAbandonment', {
+                      screen: getCurrentScreen(),
+                      selected_area: selectedArea || 'none',
+                      average_score: wheelUserResponses.length > 0 ? calculateAverageScore() : 0,
+                      time_on_offer: 30 // segundos
+                  });
+              }
+          }, 30000); // 30 segundos na tela de oferta
+      }
+
+      // Iniciar tracking quando chegar na oferta
+      const originalShowFinalOffer = document.getElementById('finalOffer').style.display;
+      const originalShowOfferPage = showOfferPage;
+      
+      // Override para adicionar tracking
+      showOfferPage = function(intentLevel) {
+          originalShowOfferPage(intentLevel);
+          startAbandonmentTracking();
+      };
+
+      // MELHORIAS DE ACESSIBILIDADE
+
+      // Suporte a leitores de tela
+      function announceToScreenReader(message) {
+          const announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'polite');
+          announcement.setAttribute('aria-atomic', 'true');
+          announcement.style.position = 'absolute';
+          announcement.style.left = '-10000px';
+          announcement.style.width = '1px';
+          announcement.style.height = '1px';
+          announcement.style.overflow = 'hidden';
+          announcement.textContent = message;
+          
+          document.body.appendChild(announcement);
+          
+          setTimeout(() => {
+              document.body.removeChild(announcement);
+          }, 1000);
+      }
+
+      // Anunciar mudanças importantes
+      function announceProgress(step, total, description) {
+          announceToScreenReader(`Passo ${step} de ${total}. ${description}`);
+      }
+
+      // IMPLEMENTAÇÃO DE MICRO-CONVERSÕES
+
+      // Track micro-conversões
+      function trackMicroConversion(type, value) {
+          fbq('trackCustom', 'MicroConversion', {
+              type: type,
+              value: value,
+              screen: getCurrentScreen(),
+              timestamp: new Date().toISOString()
+          });
+      }
+
+      // Exemplos de micro-conversões
+      document.addEventListener('click', function(e) {
+          if (e.target.classList.contains('preview-btn')) {
+              trackMicroConversion('tool_preview_clicked', e.target.textContent);
+          }
+          
+          if (e.target.classList.contains('show-all-btn')) {
+              trackMicroConversion('show_all_tools_clicked', 'expanded_tool_list');
+          }
+          
+          if (e.target.id === 'areasDropdown') {
+              trackMicroConversion('area_dropdown_opened', 'pivot_question_interaction');
+          }
+      });
+
+      // Track scroll depth
+      let maxScrollPercent = 0;
+      window.addEventListener('scroll', function() {
+          const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+          
+          if (scrollPercent > maxScrollPercent && scrollPercent % 25 === 0) {
+              maxScrollPercent = scrollPercent;
+              trackMicroConversion('scroll_depth', `${scrollPercent}%`);
+          }
+      });
+
+  </script>
 </body>
 </html>
