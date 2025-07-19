@@ -497,6 +497,19 @@
             box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
         }
 
+        /* REFERÊNCIA DISCRETA DA ÁREA URGENTE */
+        .urgent-area-reminder {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--cor-urgente);
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--cor-urgente);
+            font-weight: 600;
+            text-align: center;
+        }
+
         /* PERGUNTA DE DESCONFORTO */
         .discomfort-question {
             display: none;
@@ -556,6 +569,11 @@
             height: 200%;
             background: linear-gradient(45deg, transparent, rgba(251, 191, 36, 0.1), transparent);
             animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .final-offer h2 {
@@ -904,26 +922,26 @@
         }
 
         /* MODAL DE PREVIEW */
-        .preview-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            padding: 20px;
-        }
+       .preview-modal {
+           display: none;
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background: rgba(0, 0, 0, 0.9);
+           z-index: 1000;
+           padding: 20px;
+       }
 
-        .modal-content {
-            background: var(--cor-secundaria);
-            border-radius: 15px;
-            max-width: 600px;
-            margin: 50px auto;
-            position: relative;
-            border: 1px solid var(--cor-destaque);
-        }
+       .modal-content {
+           background: var(--cor-secundaria);
+           border-radius: 15px;
+           max-width: 600px;
+           margin: 50px auto;
+           position: relative;
+           border: 1px solid var(--cor-destaque);
+       }
 
        .close-btn {
            position: absolute;
@@ -1018,11 +1036,6 @@
            height: 200%;
            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
            animation: shine 3s infinite;
-       }
-
-       @keyframes shine {
-           0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-           100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
        }
 
        .value-proposition {
@@ -1315,6 +1328,11 @@
            .cta-main {
                min-width: 300px;
            }
+
+           .urgent-area-reminder {
+               font-size: 0.85rem;
+               padding: 10px 15px;
+           }
        }
 
        @media (max-width: 480px) {
@@ -1352,6 +1370,11 @@
            .final-offer,
            .lead-capture {
                padding: 25px 20px;
+           }
+
+           .urgent-area-reminder {
+               font-size: 0.8rem;
+               padding: 8px 12px;
            }
        }
    </style>
@@ -1393,8 +1416,8 @@
        <!-- RODA DA VIDA -->
        <div id="wheelScreen" class="hidden">
            <div class="quiz-header">
-               <h1>🎯 Raio-X da Sua Vida</h1>
-               <p>Vamos descobrir qual área da sua vida precisa de mais atenção agora</p>
+               <h1>🎯 Sua Roda da Vida</h1>
+               <p>Descubra qual área da sua vida precisa de mais atenção agora</p>
            </div>
 
            <div class="progress-container">
@@ -1413,7 +1436,7 @@
            </div>
        </div>
 
-       <!-- RESULTADO DA RODA -->
+       <!-- RESULTADO DA RODA (Só aparece aqui) -->
        <div id="wheelResult" class="wheel-result">
            <h2>🎯 Sua Roda da Vida Revelada</h2>
            <p>Veja como está o equilíbrio da sua vida agora</p>
@@ -1439,8 +1462,13 @@
            <button class="confirm-btn" id="confirmAreaBtn">🔥 Confirmar e Enfrentar Isso Agora</button>
        </div>
 
-       <!-- PERGUNTA DE DESCONFORTO -->
+       <!-- PERGUNTA DE DESCONFORTO (sem roda visual) -->
        <div id="discomfortQuestion" class="discomfort-question">
+           <!-- Referência discreta da área escolhida -->
+           <div class="urgent-area-reminder" id="urgentAreaReminder">
+               🚨 Área que precisa de ação URGENTE: <span id="selectedAreaName">---</span>
+           </div>
+           
            <h2>💔 E se você continuar sem agir... o que vai continuar se repetindo na sua vida?</h2>
            <p style="margin-bottom: 25px; opacity: 0.9; font-weight: 600;">Seja brutalmente honesto(a) consigo mesmo(a). O que você NÃO quer mais viver?</p>
            
@@ -1450,8 +1478,13 @@
            <button class="confirm-btn active" id="createPlanBtn">💪 CHEGA! Quero Começar Meu Plano de Ação</button>
        </div>
 
-       <!-- OFERTA FINAL SUPER PERSUASIVA -->
+       <!-- OFERTA FINAL SUPER PERSUASIVA (sem roda visual) -->
        <div id="finalOffer" class="final-offer">
+           <!-- Referência discreta da área escolhida -->
+           <div class="urgent-area-reminder" id="urgentAreaReminderOffer">
+               🚨 Sua área prioritária: <span id="selectedAreaNameOffer">---</span>
+           </div>
+           
            <h2>🚀 Sua Transformação Começa AGORA!</h2>
            <p class="offer-text">
                O AppAutoconhecimento tem EXATAMENTE o que você precisa para sair do lugar e criar a vida que você merece
@@ -1460,15 +1493,15 @@
            <div class="urgency-text">
                <h3>⏰ Você tem 2 opções hoje:</h3>
                <p><strong>1. Continuar como está</strong> - e daqui 1 ano estar no mesmo lugar (ou pior)</p>
-               <p><strong>2. Investir R$ 29,95 por 1 ano</strong> - e finalmente ter as ferramentas para mudar tudo</p>
+               <p><strong>2. Investir R$ 29,95 em você</strong> - e finalmente ter as ferramentas para mudar tudo</p>
            </div>
            
            <div class="cta-buttons">
                <a href="https://pay.kiwify.com.br/nAeTa0z" class="cta-main clickable-button" onclick="trackPurchase('wheel_high_intent')">
-                   ✅ QUERO MUDAR MINHA VIDA POR R$ 29,95 por 1 ano
+                   ✅ QUERO MUDAR MINHA VIDA POR R$ 29,95 por ANO
                </a>
                <a href="javascript:void(0)" class="cta-secondary clickable-button" onclick="showLeadCapture()">
-                   📋 Não agora, mas quero meu relatório detalhado
+                   📋 Não agora, mas quero meu relatório da Roda
                </a>
            </div>
            
@@ -1477,8 +1510,13 @@
            </p>
        </div>
 
-       <!-- CAPTURA DE LEAD OTIMIZADA -->
+       <!-- CAPTURA DE LEAD OTIMIZADA (sem roda visual) -->
        <div id="leadCapture" class="lead-capture">
+           <!-- Referência discreta da área escolhida -->
+           <div class="urgent-area-reminder" id="urgentAreaReminderLead">
+               🚨 Sua área prioritária: <span id="selectedAreaNameLead">---</span>
+           </div>
+           
            <h2>📩 Receba seu Relatório Completo da Roda da Vida</h2>
            
            <div class="value-reminder">
@@ -1551,6 +1589,7 @@
        let currentWheelQuestionIndex = 0;
        let wheelUserResponses = [];
        let selectedArea = '';
+       let selectedAreaScore = 0;
        let isWheelAdvancing = false;
 
        // CONFIGURAÇÃO DAS 13 PERGUNTAS DO QUIZ
@@ -1719,7 +1758,7 @@
                   { text: "Deixo tudo pra depois", emoji: "😴", value: 0, class: "critical" },
                   { text: "Faço algumas coisas, mas paro no meio", emoji: "😅", value: 1, class: "medium" },
                   { text: "Consigo manter o básico", emoji: "🙂", value: 2, class: "good" },
-                 { text: "Faço o que precisa, mesmo sem vontade", emoji: "💪", value: 3, class: "excellent" }
+                  { text: "Faço o que precisa, mesmo sem vontade", emoji: "💪", value: 3, class: "excellent" }
               ]
           },
           {
@@ -1899,6 +1938,9 @@
               if (this.value) {
                   confirmBtn.classList.add('active');
                   selectedArea = this.value;
+                  // Buscar a pontuação da área selecionada
+                  const areaData = wheelUserResponses.find(r => r.area === selectedArea);
+                  selectedAreaScore = areaData ? areaData.score : 0;
               } else {
                   confirmBtn.classList.remove('active');
               }
@@ -1906,12 +1948,17 @@
 
           document.getElementById('confirmAreaBtn').addEventListener('click', function() {
               if (selectedArea) {
+                  // Ocultar roda e insights - FOCO TOTAL NA CONVERSÃO
+                  document.getElementById('wheelResult').style.display = 'none';
                   document.getElementById('pivotQuestion').style.display = 'none';
+                  
+                  // Mostrar pergunta de desconforto com referência discreta
                   document.getElementById('discomfortQuestion').style.display = 'block';
+                  updateUrgentAreaReminder();
                   
                   fbq('trackCustom', 'WheelAreaSelected', {
                       selected_area: selectedArea,
-                      area_score: wheelUserResponses.find(r => r.area === selectedArea)?.score || 0
+                      area_score: selectedAreaScore
                   });
                   
                   smartScrollToTop();
@@ -1923,9 +1970,11 @@
               
               document.getElementById('discomfortQuestion').style.display = 'none';
               document.getElementById('finalOffer').style.display = 'block';
+              updateUrgentAreaReminder();
               
               fbq('trackCustom', 'WheelReflectionCompleted', {
                   selected_area: selectedArea,
+                  area_score: selectedAreaScore,
                   reflection_length: reflection.length,
                   has_reflection: reflection.length > 10
               });
@@ -1933,6 +1982,25 @@
               smartScrollToTop();
           });
       });
+
+      // ATUALIZAR REFERÊNCIAS DISCRETAS DA ÁREA URGENTE
+      function updateUrgentAreaReminder() {
+          const areaWithScore = `${selectedArea} (${selectedAreaScore.toFixed(1)}/10)`;
+          
+          // Atualizar todas as referências
+          const elements = [
+              'selectedAreaName',
+              'selectedAreaNameOffer', 
+              'selectedAreaNameLead'
+          ];
+          
+          elements.forEach(id => {
+              const element = document.getElementById(id);
+              if (element) {
+                  element.textContent = areaWithScore;
+              }
+          });
+      }
 
       // FUNÇÕES PRINCIPAIS DO QUIZ
       function startQuiz() {
@@ -2084,6 +2152,7 @@
           wheelUserResponses = [];
           isWheelAdvancing = false;
           selectedArea = '';
+          selectedAreaScore = 0;
           
           // Track início da roda
           fbq('trackCustom', 'WheelOfLifeStarted', {
@@ -2189,7 +2258,7 @@
           }
       }
 
-      // MOSTRAR RESULTADO DA RODA
+      // MOSTRAR RESULTADO DA RODA (SÓ AQUI)
       function showWheelResult() {
           document.getElementById('wheelScreen').classList.add('hidden');
           document.getElementById('wheelResult').style.display = 'block';
@@ -2374,14 +2443,16 @@
               });
       }
 
-      // MOSTRAR CAPTURA DE LEAD
+      // MOSTRAR CAPTURA DE LEAD (SEM RODA VISUAL)
       function showLeadCapture() {
           document.getElementById('finalOffer').style.display = 'none';
           document.getElementById('leadCapture').style.display = 'block';
+          updateUrgentAreaReminder();
           
           fbq('trackCustom', 'WheelLeadCaptureViewed', {
               source: 'declined_wheel_offer',
               selected_area: selectedArea,
+              area_score: selectedAreaScore,
               average_score: calculateAverageScore()
           });
           
@@ -2439,7 +2510,6 @@
           const averageScore = calculateAverageScore();
           const lowestAreas = getLowestAreas();
           const highestAreas = getHighestAreas();
-          const selectedAreaData = wheelUserResponses.find(r => r.area === selectedArea);
           
           return `🎯 RODA DA VIDA - ${name.toUpperCase()}
 
@@ -2449,7 +2519,7 @@
 
 🎯 *ÁREA PRIORITÁRIA ESCOLHIDA:*
 ▫️ ${selectedArea}
-▫️ Pontuação atual: *${selectedAreaData ? selectedAreaData.score.toFixed(1) : 'N/A'}/10*
+▫️ Pontuação atual: *${selectedAreaScore.toFixed(1)}/10*
 
 🚨 *ÁREAS QUE PRECISAM DE ATENÇÃO URGENTE:*
 ${lowestAreas.map(area => `▫️ ${area.area}: *${area.score.toFixed(1)}/10*`).join('\n')}
@@ -2791,6 +2861,7 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
               whatsapp: whatsapp.replace(/\D/g, '').substring(0, 15), // Apenas números
               action: action,
               selected_area: selectedArea,
+              area_score: selectedAreaScore,
               average_score: calculateAverageScore(),
               lowest_areas: getLowestAreas().map(a => a.area).join(','),
               timestamp: new Date().toISOString()
@@ -2947,12 +3018,15 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
           });
 
           // Validação de WhatsApp brasileira
-          document.getElementById('userWhatsApp').addEventListener('input', function(e) {
-              let value = e.target.value.replace(/\D/g, '');
-              value = value.replace(/(\d{2})(\d)/, '($1) $2');
-              value = value.replace(/(\d{5})(\d)/, '$1-$2');
-              e.target.value = value;
-          });
+          const whatsappInput = document.getElementById('userWhatsApp');
+          if (whatsappInput) {
+              whatsappInput.addEventListener('input', function(e) {
+                  let value = e.target.value.replace(/\D/g, '');
+                  value = value.replace(/(\d{2})(\d)/, '($1) $2');
+                  value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                  e.target.value = value;
+              });
+          }
 
           // Exit intent tracking
           let hasInteracted = false;
@@ -3050,10 +3124,10 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
 
       // Debug mode para desenvolvimento
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-          console.log('🎯 Quiz + Roda da Vida AppAutoconhecimento v9.0');
+          console.log('🎯 Quiz + Roda da Vida AppAutoconhecimento v10.0 - FOCO TOTAL EM CONVERSÃO');
           console.log('💰 Preço: R$ 29,95 com garantia de 7 dias');
-          console.log('⚡ Fluxo: Quiz → Roda da Vida → Oferta Persuasiva');
-          console.log('🎨 Novo design super persuasivo para conversão máxima');
+          console.log('⚡ Fluxo: Quiz → Roda da Vida → Pergunta Pivô → Desconforto → Oferta FINAL');
+          console.log('🎨 Roda visual aparece APENAS no resultado - máximo foco na conversão');
           
           window.debugQuiz = {
               jumpToQuestion: (n) => {
@@ -3089,8 +3163,21 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
                       {area: "Rotina & Hábitos", score: 3.3, selectedText: "Sempre me desorganizo", emoji: "😅"}
                   ];
                   selectedArea = "Gestão Emocional";
+                  selectedAreaScore = 2.5;
                   hideAllScreens();
                   document.getElementById('finalOffer').style.display = 'block';
+                  updateUrgentAreaReminder();
+              },
+              testDiscomfortQuestion: () => {
+                  wheelUserResponses = [
+                      {area: "Autoconhecimento", score: 3.3, selectedText: "Me entendo às vezes", emoji: "😐"},
+                      {area: "Gestão Emocional", score: 2.5, selectedText: "Explodo fácil", emoji: "😡"}
+                  ];
+                  selectedArea = "Gestão Emocional";
+                  selectedAreaScore = 2.5;
+                  hideAllScreens();
+                  document.getElementById('discomfortQuestion').style.display = 'block';
+                  updateUrgentAreaReminder();
               },
               testCompassionSection: () => {
                   showCompassionSection();
@@ -3102,18 +3189,47 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
                       {area: "Autodisciplina", score: 5.0, selectedText: "Faço algumas coisas", emoji: "😅"}
                   ];
                   selectedArea = "Autoconhecimento";
+                  selectedAreaScore = 3.3;
                   hideAllScreens();
                   document.getElementById('leadCapture').style.display = 'block';
+                  updateUrgentAreaReminder();
+              },
+              testWheelResult: () => {
+                  // Simular dados completos da roda
+                  wheelUserResponses = [
+                      {area: "Autoconhecimento", score: 3.3, selectedText: "Me entendo às vezes", emoji: "😐"},
+                      {area: "Autodisciplina", score: 5.0, selectedText: "Faço algumas coisas", emoji: "😅"},
+                      {area: "Gestão Emocional", score: 2.5, selectedText: "Explodo fácil", emoji: "😡"},
+                      {area: "Propósito & Direção", score: 4.2, selectedText: "Tenho sonhos", emoji: "🤔"},
+                      {area: "Relacionamentos", score: 6.7, selectedText: "Altos e baixos", emoji: "🙂"},
+                      {area: "Trabalho & Carreira", score: 7.5, selectedText: "Gosto do que faço", emoji: "🙂"},
+                      {area: "Finanças Pessoais", score: 3.3, selectedText: "Às vezes sobra", emoji: "😅"},
+                      {area: "Saúde & Vitalidade", score: 5.8, selectedText: "Me mantenho", emoji: "🙂"},
+                      {area: "Tempo & Prioridades", score: 4.2, selectedText: "Me enrolo", emoji: "😅"},
+                      {area: "Resiliência", score: 6.7, selectedText: "Aguento firme", emoji: "😤"},
+                      {area: "Autoconfiança", score: 5.0, selectedText: "Confio mas oscilo", emoji: "🙂"},
+                      {area: "Rotina & Hábitos", score: 3.3, selectedText: "Sempre me desorganizo", emoji: "😅"}
+                  ];
+                  hideAllScreens();
+                  document.getElementById('wheelResult').style.display = 'block';
+                  drawWheel();
+                  generateWheelInsights();
+                  setTimeout(() => {
+                      document.getElementById('pivotQuestion').style.display = 'block';
+                      populateAreasDropdown();
+                  }, 1000);
               },
               showAllScreens: () => {
                   console.log('🎯 Telas disponíveis para teste:');
                   console.log('1. debugQuiz.testOfferPage() - Página de oferta original');
                   console.log('2. debugQuiz.testWheelFlow() - Iniciar Roda da Vida');
-                  console.log('3. debugQuiz.testFinalOffer() - Oferta final pós-roda');
-                  console.log('4. debugQuiz.testCompassionSection() - Tela de acolhimento');
-                  console.log('5. debugQuiz.testLeadCapture() - Captura de lead');
-                  console.log('6. debugQuiz.jumpToQuestion(13) - Ir para pergunta final');
-                  console.log('7. debugQuiz.jumpToWheelQuestion(5) - Ir para pergunta da roda');
+                  console.log('3. debugQuiz.testWheelResult() - Resultado da roda (ÚNICA tela com visual)');
+                  console.log('4. debugQuiz.testDiscomfortQuestion() - Pergunta de desconforto');
+                  console.log('5. debugQuiz.testFinalOffer() - Oferta final (SEM roda visual)');
+                  console.log('6. debugQuiz.testCompassionSection() - Tela de acolhimento');
+                  console.log('7. debugQuiz.testLeadCapture() - Captura de lead (SEM roda visual)');
+                  console.log('8. debugQuiz.jumpToQuestion(13) - Ir para pergunta final');
+                  console.log('9. debugQuiz.jumpToWheelQuestion(5) - Ir para pergunta da roda');
               },
               getWheelData: () => {
                   if (wheelUserResponses.length > 0) {
@@ -3121,6 +3237,7 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
                       console.log('Média:', calculateAverageScore().toFixed(2));
                       console.log('Menor pontuação:', getLowestAreas());
                       console.log('Maior pontuação:', getHighestAreas());
+                      console.log('Área selecionada:', selectedArea, 'Score:', selectedAreaScore);
                   } else {
                       console.log('Nenhum dado da roda disponível ainda');
                   }
@@ -3147,17 +3264,20 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
                       {area: "Rotina & Hábitos", score: 2.5, selectedText: "Sempre me desorganizo", emoji: "😅"}
                   ];
                   selectedArea = "Gestão Emocional";
+                  selectedAreaScore = 1.7;
                   
                   console.log('✅ Dados simulados criados');
                   console.log('📊 Média da roda:', calculateAverageScore().toFixed(2));
                   console.log('🚨 Áreas críticas:', getLowestAreas().map(a => a.area));
                   console.log('⭐ Pontos fortes:', getHighestAreas().map(a => a.area));
-                  console.log('🎯 Área selecionada:', selectedArea);
+                  console.log('🎯 Área selecionada:', selectedArea, 'Score:', selectedAreaScore);
               }
           };
           
           // Mostrar comandos disponíveis
           console.log('📋 Digite debugQuiz.showAllScreens() para ver todos os comandos');
+          console.log('🔥 NOVIDADE: Roda visual aparece APENAS em testWheelResult()');
+          console.log('⚡ Demais telas têm apenas referência discreta da área urgente!');
       }
 
       // OTIMIZAÇÕES DE PERFORMANCE
@@ -3202,19 +3322,6 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
       // Executar preload após carregamento inicial
       window.addEventListener('load', preloadCriticalAssets);
 
-      // Service Worker para cache (opcional)
-      if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/sw.js')
-                  .then(registration => {
-                      console.log('SW registrado:', registration);
-                  })
-                  .catch(registrationError => {
-                      console.log('SW falha:', registrationError);
-                  });
-          });
-      }
-
       // OTIMIZAÇÕES FINAIS DE CONVERSÃO
 
       // Detectar usuários que voltaram
@@ -3256,24 +3363,13 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
                   fbq('trackCustom', 'CartAbandonment', {
                       screen: getCurrentScreen(),
                       selected_area: selectedArea || 'none',
+                      area_score: selectedAreaScore || 0,
                       average_score: wheelUserResponses.length > 0 ? calculateAverageScore() : 0,
                       time_on_offer: 30 // segundos
                   });
               }
           }, 30000); // 30 segundos na tela de oferta
       }
-
-      // Iniciar tracking quando chegar na oferta
-      const originalShowFinalOffer = document.getElementById('finalOffer').style.display;
-      const originalShowOfferPage = showOfferPage;
-      
-      // Override para adicionar tracking
-      showOfferPage = function(intentLevel) {
-          originalShowOfferPage(intentLevel);
-          startAbandonmentTracking();
-      };
-
-      // MELHORIAS DE ACESSIBILIDADE
 
       // Suporte a leitores de tela
       function announceToScreenReader(message) {
@@ -3335,6 +3431,26 @@ O AppAutoconhecimento tem as ferramentas certas para você sair do lugar e criar
               maxScrollPercent = scrollPercent;
               trackMicroConversion('scroll_depth', `${scrollPercent}%`);
           }
+      });
+
+      // Iniciar tracking de abandono quando chegar na oferta
+      const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+              if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                  const target = mutation.target;
+                  if ((target.id === 'finalOffer' || target.id === 'offerScreen') && 
+                      target.style.display !== 'none' && 
+                      !target.classList.contains('hidden')) {
+                      startAbandonmentTracking();
+                  }
+              }
+          });
+      });
+
+      observer.observe(document.body, {
+          attributes: true,
+          subtree: true,
+          attributeFilter: ['style', 'class']
       });
 
   </script>
