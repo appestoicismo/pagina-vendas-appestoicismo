@@ -1174,18 +1174,23 @@ const toolsData = [
       function showOfferPage(intentLevel = 'high_intent') {
           hideAllScreens();
           
-          // Criar slider de ferramentas
-          const toolsSlider = toolsData.map(tool => `
-              <div class="tool-card">
-                  <div class="tool-image">
-                      <div style="width: 60px; height: 60px; background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">
-                          ${tool.image}
-                      </div>
-                  </div>
-                  <h4>${tool.name}</h4>
-                  <p>${tool.description}</p>
-              </div>
-          `).join('');
+          // Criar slider de ferramentas - VERSÃO CORRIGIDA
+const toolsSlider = toolsData.map(tool => `
+    <div class="tool-card">
+        <div class="tool-image">
+            <img src="${tool.image}" 
+                 alt="${tool.name}" 
+                 style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"
+                 onload="this.style.opacity='1'"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="width: 100%; height: 100%; background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado)); border-radius: 10px; display: none; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">
+                📱
+            </div>
+        </div>
+        <h4>${tool.name}</h4>
+        <p>${tool.description}</p>
+    </div>
+`).join('');
           
           const offerHTML = `
               <div class="offer-page">
