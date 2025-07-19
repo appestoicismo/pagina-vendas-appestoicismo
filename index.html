@@ -978,35 +978,36 @@
       let selectedAnswer = null;
 
       // DADOS DAS FERRAMENTAS - VERSÃO ATUALIZADA
+// DADOS DAS FERRAMENTAS - VERSÃO CORRIGIDA
 const toolsData = [
     {
-        name: "Roda da Vida",
-        description: "Visualize e equilibre todas as áreas da sua vida de forma clara e objetiva.",
+        name: "Acesse no seu tempo",
+        description: "Sem pressão, sem pressa. Evolua no seu ritmo, seja às 6h da manhã ou 23h da noite.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/1.png"
     },
     {
-        name: "Análise Detalhada", 
-        description: "Análise detalhada das suas notas por área com insights personalizados.",
+        name: "Arsenal em Expansão", 
+        description: "A cada mês, novas ferramentas de autoconhecimento chegam para enriquecer sua jornada de crescimento.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/2.png"
     },
     {
-        name: "Diário Reflexivo",
-        description: "Espaço seguro para expressar seus pensamentos e acompanhar sua evolução.",
+        name: "Panorama da Sua Vida",
+        description: "Avalie todas as áreas importantes da sua vida e saiba exatamente por onde começar a melhorar.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/3.png"
     },
     {
-        name: "Diário de Bordo",
-        description: "Registre seu dia e descubra padrões que influenciam seu bem-estar.",
+        name: "Monitore Sua Jornada",
+        description: "Quem não mede não evolui. Transforme cada dia em dados concretos do seu desenvolvimento pessoal.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/4.png"
     },
     {
-        name: "Análise Comportamental",
-        description: "Conheça suas notas detalhadas em cada área do autoconhecimento.",
+        name: "Autodisciplina",
+        description: "Pare de ser refém dos seus impulsos. Desenvolva o autocontrole que separa quem sonha de quem conquista.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/5.png"
     },
     {
-        name: "Perfil Comportamental",
-        description: "Descubra como você é naturalmente e como usar isso a seu favor.",
+        name: "Espaço Sagrado Pessoal",
+        description: "Reflita conscientemente: o que funcionou hoje, o que não funcionou e como ajustar sua rota amanhã.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/6.png"
     },
     {
@@ -1020,13 +1021,13 @@ const toolsData = [
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/8.png"
     },
     {
-        name: "Monitoramento Contínuo",
-        description: "Acompanhe sua evolução e mantenha-se no caminho certo.",
+        name: "Valores Pessoais",
+        description: "Transforme conflitos internos em clareza total. Quando você honra seus valores, a vida faz sentido.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/9.png"
     },
     {
-        name: "Acesso Completo",
-        description: "Todas as ferramentas integradas em uma plataforma simples e poderosa.",
+        name: "Renascimento Pessoal",
+        description: "Reconecte-se consigo mesmo, encontre seu propósito único e desenvolva força para qualquer desafio.",
         image: "https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/10.png"
     }
 ];
@@ -1186,11 +1187,11 @@ const toolsSlider = toolsData.map(tool => `
             <div style="width: 100%; height: 100%; background: linear-gradient(45deg, var(--cor-destaque), var(--cor-dourado)); border-radius: 10px; display: none; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">
                 📱
             </div>
-        </div>
-        <h4>${tool.name}</h4>
-        <p>${tool.description}</p>
-    </div>
-`).join('');
+                  </div>
+                  <h4>${tool.name}</h4>
+                  <p>${tool.description}</p>
+              </div>
+          `).join('');
           
           const offerHTML = `
               <div class="offer-page">
@@ -1222,9 +1223,9 @@ const toolsSlider = toolsData.map(tool => `
 
                       <div class="value-proposition">
                           <strong>🎁 O que você recebe:</strong><br>
-                          ✅ Acesso imediato a todas as ferramentas<br>
-                          ✅ Mais de 10 recursos de autoconhecimento<br>
-                          ✅ Atualizações constantes sem custo adicional<br>
+                          ✅ Acesso imediato ao AppAutoconhecimento<br>
+                          ✅ Novas ferramentas e desafios todos os meses<br>
+                          ✅ Atualizações semanais sem custo adicional<br>
                           ✅ Comunidade exclusiva de crescimento pessoal
                       </div>
                   </div>
