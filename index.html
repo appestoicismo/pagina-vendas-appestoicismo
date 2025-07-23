@@ -1010,8 +1010,8 @@
         }
 
         .btn-start:hover {
-           transform: translateY(-3px) scale(1.02);
-           box-shadow: 0 12px 35px rgba(34, 197, 94, 0.4);
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 12px 35px rgba(34, 197, 94, 0.4);
        }
 
        /* Resultado */
@@ -1208,96 +1208,428 @@
            color: var(--text-muted);
        }
 
-       /* Oferta Final */
-       .final-offer {
+       /* Página de Apresentação do Produto */
+       .product-presentation {
            display: none;
            text-align: center;
            padding: 48px 32px;
-           background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(251, 191, 36, 0.2) 100%);
+           background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
            border-radius: 24px;
-           border: 3px solid var(--warning);
+           border: 2px solid var(--accent);
            margin-top: 40px;
            position: relative;
            overflow: hidden;
        }
 
-       .final-offer::before {
+       .product-presentation::before {
            content: '';
            position: absolute;
            top: -50%;
            left: -50%;
            width: 200%;
            height: 200%;
-           background: linear-gradient(45deg, transparent, rgba(251, 191, 36, 0.1), transparent);
-           animation: shine 3s infinite;
+           background: linear-gradient(45deg, transparent, rgba(34, 197, 94, 0.05), transparent);
+           animation: shine 4s infinite;
        }
 
-       .offer-title {
+       /* Card de Oferta */
+       .promo-card {
+           background: var(--gradient-danger);
+           color: white;
+           padding: 16px 24px;
+           border-radius: 50px;
+           margin-bottom: 32px;
+           display: inline-block;
+           position: relative;
+           z-index: 2;
+           box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+           animation: urgentGlow 3s ease-in-out infinite;
+       }
+
+       .promo-badge {
+           font-size: 0.9rem;
+           font-weight: 700;
+           text-transform: uppercase;
+           letter-spacing: 1px;
+           margin-bottom: 4px;
+       }
+
+       .promo-text {
+           font-size: 1rem;
+           font-weight: 600;
+       }
+
+       /* Ponte de Continuidade */
+       .transition-bridge {
+           background: var(--card-bg);
+           border-radius: 20px;
+           padding: 32px;
+           margin-bottom: 32px;
+           border: 1px solid var(--border);
+           position: relative;
+           z-index: 2;
+           text-align: left;
+       }
+
+       .transition-bridge h3 {
+           color: var(--accent);
+           font-size: 1.5rem;
+           margin-bottom: 16px;
+           text-align: center;
+       }
+
+       .transition-bridge > p {
+           font-size: 1.1rem;
+           margin-bottom: 24px;
+           text-align: center;
+           color: var(--text-muted);
+       }
+
+       .next-step-box {
+           background: rgba(34, 197, 94, 0.1);
+           border-radius: 16px;
+           padding: 24px;
+           border-left: 4px solid var(--accent);
+       }
+
+       .next-step-box h4 {
+           color: var(--accent);
+           font-size: 1.2rem;
+           margin-bottom: 12px;
+           text-align: center;
+       }
+
+       .next-step-box p {
+           font-size: 1.1rem;
+           font-weight: 600;
+           margin-bottom: 20px;
+           text-align: center;
+       }
+
+       .reality-check {
+           background: rgba(239, 68, 68, 0.1);
+           border: 1px solid var(--danger);
+           border-radius: 12px;
+           padding: 16px;
+           font-size: 0.95rem;
+           color: var(--danger);
+           font-weight: 600;
+           text-align: center;
+       }
+
+       /* Apresentação do Programa */
+       .program-intro {
+           margin-bottom: 40px;
+           position: relative;
+           z-index: 2;
+       }
+
+       .program-title {
            font-size: 2.2rem;
            margin-bottom: 24px;
            background: var(--gradient-accent);
            -webkit-background-clip: text;
            -webkit-text-fill-color: transparent;
            background-clip: text;
-           position: relative;
-           z-index: 2;
            font-weight: 700;
        }
 
-       .offer-text {
-           font-size: 1.3rem;
-           margin-bottom: 32px;
+       .program-description {
+           font-size: 1.2rem;
+           line-height: 1.6;
            color: var(--text-muted);
-           line-height: 1.5;
-           position: relative;
-           z-index: 2;
-           font-weight: 500;
+           max-width: 800px;
+           margin: 0 auto;
+           text-align: left;
        }
 
-       .urgency-box {
+       /* Os 4 Principais Benefícios */
+       .benefits-section {
+           margin-bottom: 40px;
+           position: relative;
+           z-index: 2;
+       }
+
+       .benefits-title {
+           font-size: 1.8rem;
+           margin-bottom: 32px;
+           color: var(--accent);
+           font-weight: 700;
+       }
+
+       .benefits-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+           gap: 24px;
+           max-width: 1000px;
+           margin: 0 auto;
+       }
+
+       .benefit-card {
+           background: var(--card-bg);
+           border-radius: 20px;
+           padding: 24px;
+           border: 1px solid var(--border);
+           transition: all 0.3s ease;
+           text-align: left;
+           position: relative;
+           overflow: hidden;
+       }
+
+       .benefit-card::before {
+           content: '';
+           position: absolute;
+           top: 0;
+           left: -100%;
+           width: 100%;
+           height: 100%;
+           background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+           transition: left 0.5s;
+       }
+
+       .benefit-card:hover::before {
+           left: 100%;
+       }
+
+       .benefit-card:hover {
+           transform: translateY(-5px);
+           border-color: var(--accent);
+           box-shadow: var(--shadow-strong);
+       }
+
+       .benefit-number {
+           width: 40px;
+           height: 40px;
+           background: var(--gradient-accent);
+           color: var(--primary);
+           border-radius: 50%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-weight: 700;
+           font-size: 1.2rem;
+           margin-bottom: 16px;
+           position: relative;
+           z-index: 2;
+       }
+
+       .benefit-title {
+           font-size: 1.1rem;
+           font-weight: 600;
+           margin-bottom: 12px;
+           color: var(--accent);
+           position: relative;
+           z-index: 2;
+       }
+
+       .benefit-desc {
+           font-size: 0.95rem;
+           line-height: 1.5;
+           color: var(--text-muted);
+           position: relative;
+           z-index: 2;
+       }
+
+       /* Nova Choice Box */
+       .choice-box {
            background: rgba(239, 68, 68, 0.1);
            border: 2px solid var(--danger);
            border-radius: 16px;
-           padding: 24px;
+           padding: 32px;
            margin: 32px 0;
            position: relative;
            z-index: 2;
        }
 
-       .urgency-title {
+       .choice-title {
            color: var(--danger);
-           margin-bottom: 16px;
-           font-size: 1.4rem;
+           margin-bottom: 24px;
+           font-size: 1.6rem;
            font-weight: 700;
        }
 
-       .urgency-options {
+       .choice-options {
            text-align: left;
-           margin-top: 16px;
+           margin-bottom: 32px;
        }
 
-       .urgency-option {
-           margin-bottom: 12px;
-           font-size: 1rem;
-           line-height: 1.4;
+       .choice-option {
+           margin-bottom: 16px;
+           font-size: 1.1rem;
+           line-height: 1.5;
+           padding: 16px;
+           background: rgba(255, 255, 255, 0.05);
+           border-radius: 12px;
+           border-left: 4px solid var(--danger);
        }
 
-       .cta-buttons {
-           display: flex;
-           flex-direction: column;
+       .choice-cta {
+           text-align: center;
+       }
+
+       .btn-learn-more {
+           background: var(--gradient-accent);
+           color: var(--primary);
+           border: none;
+           padding: 20px 40px;
+           border-radius: 25px;
+           font-size: 1.2rem;
+           font-weight: 700;
+           cursor: pointer;
+           transition: all 0.3s ease;
+           box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+           position: relative;
+           overflow: hidden;
+       }
+
+       .btn-learn-more::before {
+           content: '';
+           position: absolute;
+           top: 0;
+           left: -100%;
+           width: 100%;
+           height: 100%;
+           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+           transition: left 0.5s;
+       }
+
+       .btn-learn-more:hover::before {
+           left: 100%;
+       }
+
+       .btn-learn-more:hover {
+           transform: translateY(-3px) scale(1.02);
+           box-shadow: 0 12px 35px rgba(34, 197, 94, 0.4);
+       }
+
+       /* Detalhes do Programa */
+       .program-details {
+           margin-top: 40px;
+           position: relative;
+           z-index: 2;
+           text-align: left;
+       }
+
+       .included-title {
+           font-size: 1.8rem;
+           margin-bottom: 32px;
+           color: var(--accent);
+           font-weight: 700;
+           text-align: center;
+       }
+
+       .tools-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
            gap: 20px;
-           align-items: center;
+           margin-bottom: 40px;
+       }
+
+       .tool-card {
+           background: var(--card-bg);
+           border-radius: 16px;
+           padding: 20px;
+           border: 1px solid var(--border);
+           transition: all 0.3s ease;
+           position: relative;
+           overflow: hidden;
+       }
+
+       .tool-card::before {
+           content: '';
+           position: absolute;
+           top: 0;
+           left: -100%;
+           width: 100%;
+           height: 100%;
+           background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+           transition: left 0.5s;
+       }
+
+       .tool-card:hover::before {
+           left: 100%;
+       }
+
+       .tool-card:hover {
+           transform: translateY(-3px);
+           border-color: var(--accent);
+       }
+
+       .tool-icon {
+           font-size: 2rem;
+           margin-bottom: 12px;
            position: relative;
            z-index: 2;
        }
 
-       .cta-main {
+       .tool-card h4 {
+           font-size: 1rem;
+           font-weight: 600;
+           margin-bottom: 8px;
+           color: var(--accent);
+           position: relative;
+           z-index: 2;
+       }
+
+       .tool-card p {
+           font-size: 0.9rem;
+           line-height: 1.4;
+           color: var(--text-muted);
+           position: relative;
+           z-index: 2;
+       }
+
+       /* Seção de Bônus */
+       .bonus-section {
+           background: rgba(34, 197, 94, 0.1);
+           border-radius: 16px;
+           padding: 24px;
+           margin-bottom: 32px;
+           border-left: 4px solid var(--accent);
+       }
+
+       .bonus-title {
+           color: var(--accent);
+           font-size: 1.3rem;
+           margin-bottom: 16px;
+           font-weight: 600;
+       }
+
+       .bonus-list {
+           display: flex;
+           flex-direction: column;
+           gap: 12px;
+       }
+
+       .bonus-item {
+           display: flex;
+           align-items: center;
+           gap: 12px;
+           font-size: 1rem;
+           color: var(--text-muted);
+       }
+
+       .bonus-icon {
+           font-size: 1.3rem;
+           flex-shrink: 0;
+       }
+
+       /* CTAs Finais do Programa */
+       .final-program-cta {
+           display: flex;
+           flex-direction: column;
+           gap: 16px;
+           align-items: center;
+           margin-top: 32px;
+       }
+
+       .cta-program-main {
            background: var(--gradient-accent);
            color: var(--primary);
            border: none;
            padding: 24px 48px;
            border-radius: 25px;
-           font-size: 1.4rem;
+           font-size: 1.3rem;
            font-weight: 700;
            cursor: pointer;
            transition: all 0.3s ease;
@@ -1309,7 +1641,7 @@
            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
        }
 
-       .cta-main::before {
+       .cta-program-main::before {
            content: '';
            position: absolute;
            top: 0;
@@ -1320,16 +1652,16 @@
            transition: left 0.5s;
        }
 
-       .cta-main:hover::before {
+       .cta-program-main:hover::before {
            left: 100%;
        }
 
-       .cta-main:hover {
+       .cta-program-main:hover {
            transform: translateY(-3px) scale(1.02);
            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.5);
        }
 
-       .cta-secondary {
+       .cta-program-secondary {
            background: var(--card-bg);
            color: var(--text);
            border: 1px solid var(--border);
@@ -1341,17 +1673,9 @@
            text-decoration: none;
        }
 
-       .cta-secondary:hover {
+       .cta-program-secondary:hover {
            background: rgba(255, 255, 255, 0.1);
            transform: translateY(-2px);
-       }
-
-       .offer-guarantee {
-           font-size: 0.9rem;
-           margin-top: 24px;
-           color: var(--text-muted);
-           position: relative;
-           z-index: 2;
        }
 
        /* Captura de Lead */
@@ -1441,6 +1765,70 @@
        .recovery-link a {
            color: var(--accent);
            text-decoration: underline;
+       }
+
+       /* Responsividade para Página do Produto */
+       @media (max-width: 768px) {
+           .product-presentation {
+               padding: 32px 20px;
+           }
+           
+           .program-title {
+               font-size: 1.8rem;
+           }
+           
+           .program-description {
+               font-size: 1.1rem;
+           }
+           
+           .benefits-grid {
+               grid-template-columns: 1fr;
+               gap: 16px;
+           }
+           
+           .tools-grid {
+               grid-template-columns: 1fr;
+               gap: 16px;
+           }
+           
+           .choice-option {
+               font-size: 1rem;
+           }
+           
+           .btn-learn-more {
+               font-size: 1.1rem;
+               padding: 18px 32px;
+           }
+           
+           .cta-program-main {
+               min-width: 280px;
+               font-size: 1.1rem;
+               padding: 20px 36px;
+           }
+       }
+
+       @media (max-width: 480px) {
+           .program-title {
+               font-size: 1.6rem;
+           }
+           
+           .benefits-title {
+               font-size: 1.5rem;
+           }
+           
+           .choice-title {
+               font-size: 1.4rem;
+           }
+           
+           .included-title {
+               font-size: 1.5rem;
+           }
+           
+           .cta-program-main {
+               min-width: 240px;
+               font-size: 1rem;
+               padding: 18px 28px;
+           }
        }
 
        /* Utilitários */
@@ -1569,22 +1957,14 @@
                font-size: 1.5rem;
            }
 
-           .btn-start, .cta-main {
+           .btn-start {
                font-size: 1.1rem;
                padding: 20px 36px;
                min-width: auto;
            }
 
-           .pivot-title, .reflection-title, .offer-title {
+           .pivot-title, .reflection-title {
                font-size: 1.5rem;
-           }
-
-           .offer-text {
-               font-size: 1.1rem;
-           }
-
-           .cta-main {
-               min-width: 280px;
            }
 
            .start-features {
@@ -1610,13 +1990,7 @@
                gap: 8px;
            }
 
-           .cta-main {
-               min-width: 240px;
-               font-size: 1rem;
-               padding: 18px 28px;
-           }
-
-           .pivot-question, .reflection-question, .final-offer, .lead-capture {
+           .pivot-question, .reflection-question, .lead-capture, .product-presentation {
                padding: 32px 20px;
            }
        }
@@ -1662,6 +2036,83 @@
            0% { transform: rotate(0deg); }
            100% { transform: rotate(360deg); }
        }
+      /* Valor do Investimento */
+.investment-value {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%);
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 32px 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.investment-title {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.investment-description {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.price-highlight {
+    background: var(--gradient-accent);
+    color: var(--primary);
+    padding: 20px 32px;
+    border-radius: 50px;
+    margin: 24px auto;
+    display: inline-block;
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+}
+
+.price-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    display: block;
+}
+
+.price-period {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.investment-benefits {
+    margin-top: 24px;
+    font-size: 1rem;
+    line-height: 1.8;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.benefit-check {
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .investment-value {
+        padding: 24px 20px;
+    }
+    
+    .price-value {
+        font-size: 1.8rem;
+    }
+    
+    .investment-benefits {
+        text-align: center;
+    }
+}
    </style>
 </head>
 <body>
@@ -2022,38 +2473,211 @@
                </button>
            </div>
 
-           <!-- Oferta Final -->
-           <div id="finalOffer" class="final-offer">
-               <div class="urgent-reminder" id="urgentReminderOffer">
-                   🚨 Sua área prioritária: <span id="selectedAreaNameOffer">---</span>
+           <!-- Página de Apresentação do Produto -->
+           <div id="productPresentation" class="product-presentation">
+               <div class="urgent-reminder" id="urgentReminderProduct">
+                   🚨 Sua área prioritária: <span id="selectedAreaNameProduct">---</span>
                </div>
-               
-               <h2 class="offer-title">🚀 Sua Transformação Começa AGORA!</h2>
-               <p class="offer-text">
-                   A Terapia de Autoconhecimento Para Mulheres tem EXATAMENTE o que você precisa 
-                   para sair do lugar e criar a vida que você merece
-               </p>
-               
-               <div class="urgency-box">
-                   <h3 class="urgency-title">⏰ Você tem 2 opções hoje:</h3>
-                   <div class="urgency-options">
-                       <div class="urgency-option"><strong>1. Continuar como está</strong> - e daqui 1 ano estar no mesmo lugar (ou pior)</div>
-                       <div class="urgency-option"><strong>2. Investir R$ 37,95 em você</strong> - e finalmente ter as ferramentas para mudar tudo</div>
+
+               <!-- Ponte de Continuidade -->
+               <div class="transition-bridge">
+                   <h3>✅ Parabéns! Você descobriu sua área prioritária</h3>
+                   <p>Agora você sabe EXATAMENTE onde focar. Mas descobrir é só o primeiro passo...</p>
+                   
+                   <div class="next-step-box">
+                       <h4>🤔 A pergunta que fica é:</h4>
+                       <p><strong>"Como eu vou REALMENTE mudar isso sozinha?"</strong></p>
+                       
+                       <div class="reality-check">
+                           ⚠️ <strong>Realidade:</strong> 87% das pessoas que fazem autodiagnósticos nunca conseguem implementar mudanças duradouras sozinhas.
+                       </div>
                    </div>
                </div>
-               
-               <div class="cta-buttons">
-                   <a href="https://pay.kiwify.com.br/nAeTa0z" class="cta-main" onclick="ScannerApp.trackPurchase('scanner_high_intent')">
-                       ✅ QUERO MUDAR MINHA VIDA POR R$ 37,95/ANO
-                   </a>
-                   <a href="javascript:void(0)" class="cta-secondary" onclick="ScannerApp.showLeadCapture()">
-                       📋 Não agora, mas quero meu relatório completo
-                   </a>
+
+               <!-- Apresentação do Programa -->
+               <div class="program-intro">
+                   <h2 class="program-title">💝 Então este programa é para você.</h2>
+                   <p class="program-description">
+                       Imagine se você tivesse as ferramentas certas para lidar com sua ansiedade, inseguranças e 
+                       padrões repetitivos sem depender de sessões tradicionais de terapia, e no seu tempo. E se, além 
+                       disso, você pudesse reprogramar crenças, reduzir sintomas emocionais e acessar um estado de 
+                       equilíbrio com práticas simples e eficazes? É isso que o <strong>Programa Terapêutico de Autoconhecimento Para Mulheres</strong> oferece: uma 
+                       jornada prática, acessível e profunda de reconexão com você.
+                   </p>
                </div>
-               
-               <p class="offer-guarantee">
-                   💳 Pagamento 100% seguro • ⚡ Acesso imediato • 🛡️ Garantia de 7 dias
-               </p>
+
+               <!-- Os 4 Principais Benefícios -->
+               <div class="benefits-section">
+                   <h3 class="benefits-title">Os 4 principais benefícios</h3>
+                   <div class="benefits-grid">
+                       <div class="benefit-card">
+                           <div class="benefit-number">1</div>
+                           <h4 class="benefit-title">Pare de se sabotar seja autêntica</h4>
+                           <p class="benefit-desc">
+                               Aprenda a gerar interesse genuíno em cuidar de si mesma, conectando-se com o 
+                               que realmente importa, sem precisar "forçar" mudanças.
+                           </p>
+                       </div>
+                       
+                       <div class="benefit-card">
+                           <div class="benefit-number">2</div>
+                           <h4 class="benefit-title">Transforme relacionamentos com leveza e firmeza</h4>
+                           <p class="benefit-desc">
+                               Descubra como estabelecer limites de forma natural e acolhedora, mostrando 
+                               o verdadeiro valor do seu tempo e energia.
+                           </p>
+                       </div>
+                       
+                       <div class="benefit-card">
+                           <div class="benefit-number">3</div>
+                           <h4 class="benefit-title">Tenha clareza para lidar com emoções</h4>
+                           <p class="benefit-desc">
+                               Domine técnicas para responder às situações mais comuns com equilíbrio, 
+                               mantendo sua paz interior e posicionamento consciente.
+                           </p>
+                       </div>
+                       
+                       <div class="benefit-card">
+                           <div class="benefit-number">4</div>
+                           <h4 class="benefit-title">Método completo e acessível</h4>
+                           <p class="benefit-desc">
+                               Tenha acesso a um sistema completo por um valor muito abaixo 
+                               do que custaria uma terapia tradicional.
+                           </p>
+                       </div>
+                   </div>
+               </div>
+
+               <!-- Nova Urgency Box -->
+               <div class="choice-box">
+                   <h3 class="choice-title">💭 Agora você tem uma escolha importante:</h3>
+                   <div class="choice-options">
+                       <div class="choice-option">
+                           <strong>1. Tentar sozinha novamente</strong> - e correr o risco de ficar no mesmo ciclo de frustração
+                       </div>
+                       <div class="choice-option">
+                           <strong>2. Ser acompanhada por um método terapêutico</strong> - que já ajudou centenas de mulheres a transformarem exatamente a área que você descobriu ser prioritária
+                       </div>
+                   </div>
+                   
+                   <div class="choice-cta">
+                       <button class="btn-learn-more" onclick="ScannerApp.showProgramDetails()">
+                           🔍 QUERO CONHECER ESSE MÉTODO TERAPÊUTICO
+                       </button>
+                   </div>
+               </div>
+
+               <!-- O Que Está Incluído -->
+               <div id="programDetails" class="program-details hidden">
+                   <h3 class="included-title">🛠️ O que está incluído no programa:</h3>
+                   
+                   <div class="tools-grid">
+                       <div class="tool-card">
+                           <div class="tool-icon">🧠</div>
+                           <h4>Como Silenciar a Voz que te Sabota</h4>
+                           <p>Identifique, nomeie e desmonte aquela voz interna que te paralisa. Resultado: menos bloqueios mentais, mais ação consciente.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">💝</div>
+                           <h4>Descubra Seus Valores Verdadeiros</h4>
+                           <p>Revele os princípios que realmente guiam suas escolhas para decidir com menos culpa e mais direção.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">🎯</div>
+                           <h4>Construa um Objetivo Claro e Alinhado</h4>
+                           <p>Monte um objetivo central conectado aos seus valores, com checklist prático para sair da estagnação.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">⚖️</div>
+                           <h4>Tome Decisões com Mente Limpa</h4>
+                           <p>Use técnicas guiadas para ver recursos e obstáculos claramente, decidindo com sabedoria ao invés de impulso.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">📊</div>
+                           <h4>Mapeie Suas 8 Áreas de Vida</h4>
+                           <p>Avalie todas as áreas, identifique as 3 prioridades e monte um plano imediato para agir onde mais dói.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">🔮</div>
+                           <h4>Prepare-se Para Desafios Futuros</h4>
+                           <p>Simule problemas antes que explodam. Reduza ansiedade e prepare respostas conscientes ao invés de reações impulsivas.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">⭐</div>
+                           <h4>Fortaleça Sua Base Interna</h4>
+                           <p>Treine responder "o que sobra em mim se tudo cair?" e fortaleça essa base que ninguém pode tirar de você.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">⏰</div>
+                           <h4>Reflita Sobre Como Usa Seu Tempo</h4>
+                           <p>Receba insights sobre como você tem usado seus anos e clareza sobre prioridades reais.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">📝</div>
+                           <h4>Registre Sua Evolução Diariamente</h4>
+                           <p>Documente dia, emoções e aprendizados no seu Diário de Bordo que mantém sua evolução visível.</p>
+                       </div>
+                       
+                       <div class="tool-card">
+                           <div class="tool-icon">🏆</div>
+                           <h4>Desafios Mensais Práticos</h4>
+                           <p>A cada mês, um novo desafio para colocar em prática todo o autoconhecimento adquirido.</p>
+                       </div>
+                   </div>
+
+                   <!-- Bônus -->
+                   <div class="bonus-section">
+                       <h4 class="bonus-title">➕ Você também recebe:</h4>
+                       <div class="bonus-list">
+                           <div class="bonus-item">
+                               <span class="bonus-icon">👥</span>
+                               <span>Acesso à comunidade exclusiva de mulheres em transformação</span>
+                           </div>
+                           <div class="bonus-item">
+                               <span class="bonus-icon">📚</span>
+                               <span>Lições semanais sobre autoconhecimento e desenvolvimento pessoal</span>
+                           </div>
+                           <div class="bonus-item">
+                               <span class="bonus-icon">💬</span>
+                               <span>Suporte direto dos nossos consultores especializados</span>
+                           </div>
+                       </div>
+                   </div>
+<!-- Valor do Investimento -->
+<div class="investment-value">
+    <h4 class="investment-title">💎 Acesso Completo ao Programa</h4>
+    <p class="investment-description">
+        Para ter acesso a <strong>todos os benefícios</strong>, incluindo as novas ferramentas e atualizações que serão inseridas no programa, você investe apenas:
+    </p>
+    <div class="price-highlight">
+        <span class="price-value">R$ 37,95</span>
+        <span class="price-period">pagamento único</span>
+    </div>
+    <div class="investment-benefits">
+        <span class="benefit-check">✅</span> Acesso por 1 ano ao programa completo<br>
+        <span class="benefit-check">✅</span> Teste por 7 dias. Se não ver resultados devolvemos seu R$<br>
+        <span class="benefit-check">✅</span> Todas as atualizações futuras incluídas<br>
+        <span class="benefit-check">✅</span> Novas ferramentas sem custo adicional
+    </div>
+</div>
+                   <!-- CTA Final -->
+                   <div class="final-program-cta">
+                       <a href="https://pay.kiwify.com.br/nAeTa0z" class="cta-program-main" onclick="ScannerApp.trackPurchase('program_presentation')">
+                           ✅ QUERO TRANSFORMAR MINHA VIDA AGORA
+                       </a>
+                       <a href="javascript:void(0)" class="cta-program-secondary" onclick="ScannerApp.showLeadCapture()">
+                           📋 Não agora, mas quero meu relatório completo
+                       </a>
+                   </div>
+               </div>
            </div>
 
            <!-- Captura de Lead -->
@@ -2603,12 +3227,12 @@
                }
            },
 
-           // MOSTRAR OFERTA FINAL
+           // MOSTRAR PÁGINA DE APRESENTAÇÃO DO PRODUTO
            showFinalOffer() {
                const reflection = document.getElementById('reflectionInput').value;
                
                document.getElementById('reflectionQuestion').style.display = 'none';
-               document.getElementById('finalOffer').style.display = 'block';
+               document.getElementById('productPresentation').style.display = 'block';
                this.updateUrgentAreaReminder();
                
                this.trackEvent('ScannerReflectionCompleted', {
@@ -2621,9 +3245,42 @@
                this.scrollToTop();
            },
 
+           // MOSTRAR DETALHES DO PROGRAMA
+           showProgramDetails() {
+    const detailsSection = document.getElementById('programDetails');
+    const button = document.querySelector('.btn-learn-more');
+    
+    if (detailsSection.classList.contains('hidden')) {
+        detailsSection.classList.remove('hidden');
+        detailsSection.style.display = 'block';
+        button.textContent = '🔼 OCULTAR DETALHES DO PROGRAMA';
+        
+        // Scroll suave para os detalhes
+        setTimeout(() => {
+            detailsSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }, 100);
+        
+        this.trackEvent('ScannerProgramDetailsExpanded', {
+            selected_area: this.state.selectedArea,
+            area_score: this.state.selectedAreaScore
+        });
+    } else {
+        detailsSection.classList.add('hidden');
+        detailsSection.style.display = 'none';
+        button.textContent = '🔍 QUERO CONHECER ESSE MÉTODO TERAPÊUTICO';
+        
+        this.trackEvent('ScannerProgramDetailsCollapsed', {
+            selected_area: this.state.selectedArea
+        });
+    }
+},
+
            // MOSTRAR CAPTURA DE LEAD
            showLeadCapture() {
-               document.getElementById('finalOffer').style.display = 'none';
+               document.getElementById('productPresentation').style.display = 'none';
                document.getElementById('leadCapture').style.display = 'block';
                this.updateUrgentAreaReminder();
                
@@ -2727,7 +3384,8 @@ A Terapia de Autoconhecimento Para Mulheres tem as ferramentas certas para você
                const elements = [
                    'selectedAreaName',
                    'selectedAreaNameOffer', 
-                   'selectedAreaNameLead'
+                   'selectedAreaNameLead',
+                   'selectedAreaNameProduct'
                ];
                
                elements.forEach(id => {
@@ -2774,7 +3432,7 @@ A Terapia de Autoconhecimento Para Mulheres tem as ferramentas certas para você
            trackPurchase(intentLevel) {
                this.trackEvent('InitiateCheckout', {
                    content_name: 'Terapia_Autoconhecimento_Mulheres',
-                   value: 29.95,
+                   value: 37.95,
                    currency: 'BRL'
                });
                
@@ -2782,7 +3440,7 @@ A Terapia de Autoconhecimento Para Mulheres tem as ferramentas certas para você
                    intent_level: intentLevel,
                    conversion_type: 'paid_access',
                    source: this.state.responses.length > 0 ? 'scanner_completion' : 'direct_start',
-                   price: 29.95,
+                   price: 37.95,
                    selected_area: this.state.selectedArea || 'none',
                    average_score: this.state.responses.length > 0 ? this.calculateAverageScore() : 0
                });
@@ -2814,8 +3472,8 @@ A Terapia de Autoconhecimento Para Mulheres tem as ferramentas certas para você
                document.getElementById('resultScreen').style.display = 'none';
                document.getElementById('pivotQuestion').style.display = 'none';
                document.getElementById('reflectionQuestion').style.display = 'none';
-               document.getElementById('finalOffer').style.display = 'none';
                document.getElementById('leadCapture').style.display = 'none';
+               document.getElementById('productPresentation').style.display = 'none';
            },
 
            scrollToTop() {
@@ -2831,8 +3489,8 @@ A Terapia de Autoconhecimento Para Mulheres tem as ferramentas certas para você
                if (document.getElementById('resultScreen').style.display !== 'none') return 'result';
                if (document.getElementById('pivotQuestion').style.display !== 'none') return 'pivot';
                if (document.getElementById('reflectionQuestion').style.display !== 'none') return 'reflection';
-               if (document.getElementById('finalOffer').style.display !== 'none') return 'final_offer';
                if (document.getElementById('leadCapture').style.display !== 'none') return 'lead_capture';
+               if (document.getElementById('productPresentation').style.display !== 'none') return 'product_presentation';
                return 'unknown';
            }
        };
@@ -2949,11 +3607,19 @@ A Terapia de Autoconhecimento Para Mulheres tem as ferramentas certas para você
        });
 
        // INICIALIZAÇÃO
-       document.addEventListener('DOMContentLoaded', function() {
-           ScannerApp.init();
-           
-           // Track page view
-           trackEvent('LandingPageViewed', {
+document.addEventListener('DOMContentLoaded', function() {
+    ScannerApp.init();
+    
+    // Corrigir estado inicial do botão
+    setTimeout(() => {
+        const button = document.querySelector('.btn-learn-more');
+        if (button) {
+            button.textContent = '🔍 QUERO CONHECER ESSE MÉTODO TERAPÊUTICO';
+        }
+    }, 100);
+    
+    // Track page view
+    trackEvent('LandingPageViewed', {
                timestamp: new Date().toISOString(),
                user_agent: navigator.userAgent.substring(0, 100)
            });
@@ -2976,7 +3642,7 @@ A Terapia de Autoconhecimento Para Mulheres tem as ferramentas certas para você
                ScannerApp.trackEvent('SessionTimeSpent', {
                    seconds: timeSpent,
                    scanner_questions_answered: ScannerApp.state.currentQuestionIndex,
-                   funnel_completion: ScannerApp.getCurrentScreen() === 'final_offer' ? 'completed' : 'incomplete',
+                   funnel_completion: ScannerApp.getCurrentScreen() === 'product_presentation' ? 'completed' : 'incomplete',
                    selected_area: ScannerApp.state.selectedArea || 'none'
                });
            });
