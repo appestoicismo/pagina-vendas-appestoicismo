@@ -63,7 +63,6 @@
            max-width: 800px;
            margin: 0 auto;
            padding: 20px;
-           background: #ffffff;
        }
 
        /* ANIMAÇÕES */
@@ -451,8 +450,8 @@
        }
 
        .btn-primary {
-           background: linear-gradient(45deg, #dc2626, #ef4444);
-           color: white;
+           background: linear-gradient(45deg, #dc2626, #ef4444) !important;
+           color: white !important;
            border: none;
            padding: 18px 35px;
            border-radius: 50px;
@@ -524,8 +523,8 @@
        }
 
        .start-cta {
-           background: linear-gradient(45deg, #dc2626, #ef4444);
-           color: white;
+           background: linear-gradient(45deg, #dc2626, #ef4444) !important;
+           color: white !important;
            border: none;
            padding: 20px 40px;
            border-radius: 50px;
@@ -620,7 +619,6 @@
            padding: 40px 20px;
            max-width: 800px;
            margin: 0 auto;
-           background: transparent;
        }
 
        .section-title {
@@ -639,12 +637,11 @@
            line-height: 1.6;
        }
 
-       /* VÍDEO VSL */
+       /* VÍDEO VSL - CÓDIGO LIMPO SEM CAIXAS VAZIAS */
        .video-section {
            padding: 40px 20px;
            max-width: 800px;
            margin: 0 auto;
-           background: transparent;
        }
 
        .video-title {
@@ -667,7 +664,6 @@
        .video-container {
            margin: 30px 0;
            text-align: center;
-           background: transparent;
        }
 
        .video-wrapper {
@@ -677,7 +673,6 @@
            overflow: hidden;
            border-radius: 15px;
            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-           background: transparent;
        }
 
        .video-wrapper iframe {
@@ -688,27 +683,12 @@
            height: 100%;
            border: none;
            border-radius: 15px;
-           background: transparent;
-       }
-
-       /* CORREÇÃO DA CAIXA BRANCA */
-       .sales-section {
-           background: transparent !important;
-       }
-
-       .sales-section * {
-           background: transparent !important;
-       }
-
-       .video-container::before,
-       .video-container::after {
-           display: none !important;
        }
 
        /* BOTÃO CHECKOUT PÓS VÍDEO */
        .checkout-button {
-           background: linear-gradient(45deg, #16a34a, #22c55e);
-           color: white;
+           background: linear-gradient(45deg, #16a34a, #22c55e) !important;
+           color: white !important;
            border: none;
            padding: 20px 50px;
            border-radius: 50px;
@@ -1021,1115 +1001,1115 @@
       }
 
       .pricing-badge {
-          background: #dc2626;
-          color: white;
-          padding: 8px 20px;
-          border-radius: 25px;
-          font-size: 12px;
-          font-weight: 700;
-          display: inline-block;
-          margin-bottom: 20px;
-          text-transform: uppercase;
-          animation: pulse 2s ease-in-out infinite;
-      }
+         background: #dc2626;
+         color: white;
+         padding: 8px 20px;
+         border-radius: 25px;
+         font-size: 12px;
+         font-weight: 700;
+         display: inline-block;
+         margin-bottom: 20px;
+         text-transform: uppercase;
+         animation: pulse 2s ease-in-out infinite;
+     }
 
-      .original-price {
-          font-size: 18px;
-          text-decoration: line-through;
-          opacity: 0.6;
-          margin-bottom: 10px;
-      }
+     .original-price {
+         font-size: 18px;
+         text-decoration: line-through;
+         opacity: 0.6;
+         margin-bottom: 10px;
+     }
 
-      .current-price {
-          font-size: 48px;
-          font-weight: 700;
-          color: #48bb78;
-          margin-bottom: 15px;
-      }
+     .current-price {
+         font-size: 48px;
+         font-weight: 700;
+         color: #48bb78;
+         margin-bottom: 15px;
+     }
 
-      .price-description {
-          font-size: 14px;
-          opacity: 0.8;
-          margin-bottom: 25px;
-      }
+     .price-description {
+         font-size: 14px;
+         opacity: 0.8;
+         margin-bottom: 25px;
+     }
 
-      /* CTA PRINCIPAL */
-      .main-cta-section {
-          text-align: center;
-          padding: 40px 20px;
-          background: linear-gradient(135deg, #f0fff4, #dcfce7);
-          border-radius: 20px;
-          margin: 30px 0;
-      }
+     /* CTA PRINCIPAL */
+     .main-cta-section {
+         text-align: center;
+         padding: 40px 20px;
+         background: linear-gradient(135deg, #f0fff4, #dcfce7);
+         border-radius: 20px;
+         margin: 30px 0;
+     }
 
-      .main-cta-button {
-          background: linear-gradient(45deg, #16a34a, #22c55e);
-          color: white;
-          border: none;
-          padding: 20px 50px;
-          border-radius: 50px;
-          font-size: 20px;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 12px;
-          box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          margin-bottom: 15px;
-      }
+     .main-cta-button {
+         background: linear-gradient(45deg, #16a34a, #22c55e) !important;
+         color: white !important;
+         border: none;
+         padding: 20px 50px;
+         border-radius: 50px;
+         font-size: 20px;
+         font-weight: 700;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         text-decoration: none;
+         display: inline-flex;
+         align-items: center;
+         gap: 12px;
+         box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+         text-transform: uppercase;
+         letter-spacing: 0.5px;
+         margin-bottom: 15px;
+     }
 
-      .main-cta-button:hover {
-          transform: translateY(-3px) scale(1.05);
-          box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
-      }
+     .main-cta-button:hover {
+         transform: translateY(-3px) scale(1.05);
+         box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
+     }
 
-      .cta-guarantee {
-          font-size: 14px;
-          color: #16a34a;
-          font-weight: 600;
-          margin-top: 10px;
-      }
+     .cta-guarantee {
+         font-size: 14px;
+         color: #16a34a;
+         font-weight: 600;
+         margin-top: 10px;
+     }
 
-      /* GARANTIA */
-      .guarantee-section {
-          background: linear-gradient(135deg, #f0f9ff, #dbeafe);
-          border-radius: 20px;
-          padding: 40px 30px;
-          margin: 30px 0;
-          text-align: center;
-      }
+     /* GARANTIA */
+     .guarantee-section {
+         background: linear-gradient(135deg, #f0f9ff, #dbeafe);
+         border-radius: 20px;
+         padding: 40px 30px;
+         margin: 30px 0;
+         text-align: center;
+     }
 
-      .guarantee-icon {
-          font-size: 64px;
-          color: #3b82f6;
-          margin-bottom: 20px;
-      }
+     .guarantee-icon {
+         font-size: 64px;
+         color: #3b82f6;
+         margin-bottom: 20px;
+     }
 
-      .guarantee-title {
-          font-size: 24px;
-          font-weight: 700;
-          color: #1a202c;
-          margin-bottom: 15px;
-      }
+     .guarantee-title {
+         font-size: 24px;
+         font-weight: 700;
+         color: #1a202c;
+         margin-bottom: 15px;
+     }
 
-      .guarantee-description {
-          font-size: 16px;
-          color: #4a5568;
-          line-height: 1.6;
-      }
+     .guarantee-description {
+         font-size: 16px;
+         color: #4a5568;
+         line-height: 1.6;
+     }
 
-      /* FAQ */
-      .faq-section {
-          margin: 40px 0;
-      }
+     /* FAQ */
+     .faq-section {
+         margin: 40px 0;
+     }
 
-      .faq-item {
-          background: #f7fafc;
-          border-radius: 12px;
-          margin-bottom: 15px;
-          overflow: hidden;
-      }
+     .faq-item {
+         background: #f7fafc;
+         border-radius: 12px;
+         margin-bottom: 15px;
+         overflow: hidden;
+     }
 
-      .faq-question {
-          background: none;
-          border: none;
-          padding: 20px;
-          width: 100%;
-          text-align: left;
-          font-size: 16px;
-          font-weight: 600;
-          color: #1a202c;
-          cursor: pointer;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-      }
+     .faq-question {
+         background: none;
+         border: none;
+         padding: 20px;
+         width: 100%;
+         text-align: left;
+         font-size: 16px;
+         font-weight: 600;
+         color: #1a202c;
+         cursor: pointer;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+     }
 
-      .faq-question:hover {
-          background: #edf2f7;
-      }
+     .faq-question:hover {
+         background: #edf2f7;
+     }
 
-      .faq-answer {
-          padding: 0 20px 20px;
-          font-size: 14px;
-          color: #4a5568;
-          line-height: 1.6;
-          display: none;
-      }
+     .faq-answer {
+         padding: 0 20px 20px;
+         font-size: 14px;
+         color: #4a5568;
+         line-height: 1.6;
+         display: none;
+     }
 
-      .faq-answer.active {
-          display: block;
-      }
+     .faq-answer.active {
+         display: block;
+     }
 
-      .faq-icon {
-          transition: transform 0.3s ease;
-      }
+     .faq-icon {
+         transition: transform 0.3s ease;
+     }
 
-      .faq-item.active .faq-icon {
-          transform: rotate(180deg);
-      }
+     .faq-item.active .faq-icon {
+         transform: rotate(180deg);
+     }
 
-      /* RESPONSIVO */
-      @media (max-width: 768px) {
-          .container, .sales-container {
-              padding: 15px;
-          }
+     /* RESPONSIVO */
+     @media (max-width: 768px) {
+         .container, .sales-container {
+             padding: 15px;
+         }
 
-          .title, .sales-headline {
-              font-size: 24px;
-          }
+         .title, .sales-headline {
+             font-size: 24px;
+         }
 
-          .question-text {
-              font-size: 20px;
-          }
+         .question-text {
+             font-size: 20px;
+         }
 
-          .question-card, .result-card {
-              padding: 30px 25px;
-          }
+         .question-card, .result-card {
+             padding: 30px 25px;
+         }
 
-          .answer-btn {
-              padding: 16px 18px;
-              font-size: 14px;
-          }
+         .answer-btn {
+             padding: 16px 18px;
+             font-size: 14px;
+         }
 
-          .btn-primary, .start-cta, .main-cta-button, .checkout-button {
-              font-size: 15px;
-              padding: 16px 30px;
-          }
+         .btn-primary, .start-cta, .main-cta-button, .checkout-button {
+             font-size: 15px;
+             padding: 16px 30px;
+         }
 
-          .result-title {
-              font-size: 22px;
-          }
+         .result-title {
+             font-size: 22px;
+         }
 
-          .sales-section, .video-section {
-              padding: 30px 15px;
-          }
+         .sales-section, .video-section {
+             padding: 30px 15px;
+         }
 
-          .current-price {
-              font-size: 36px;
-          }
+         .current-price {
+             font-size: 36px;
+         }
 
-          .video-title {
-              font-size: 20px;
-          }
-      }
+         .video-title {
+             font-size: 20px;
+         }
+     }
 
-      @media (max-width: 480px) {
-          .title, .sales-headline {
-              font-size: 22px;
-          }
+     @media (max-width: 480px) {
+         .title, .sales-headline {
+             font-size: 22px;
+         }
 
-          .question-text {
-              font-size: 18px;
-          }
+         .question-text {
+             font-size: 18px;
+         }
 
-          .btn-primary, .start-cta, .main-cta-button, .checkout-button {
-              font-size: 14px;
-              padding: 14px 25px;
-          }
+         .btn-primary, .start-cta, .main-cta-button, .checkout-button {
+             font-size: 14px;
+             padding: 14px 25px;
+         }
 
-          .header, .result-card {
-              padding: 25px 20px;
-          }
+         .header, .result-card {
+             padding: 25px 20px;
+         }
 
-          .quick-stats {
-              flex-direction: column;
-              gap: 10px;
-          }
+         .quick-stats {
+             flex-direction: column;
+             gap: 10px;
+         }
 
-          .current-price {
-              font-size: 32px;
-          }
+         .current-price {
+             font-size: 32px;
+         }
 
-          .video-title {
-              font-size: 18px;
-          }
-      }
+         .video-title {
+             font-size: 18px;
+         }
+     }
 
-      .hidden {
-          display: none !important;
-      }
-  </style>
+     .hidden {
+         display: none !important;
+     }
+ </style>
 </head>
 <body>
-  <!-- TELA INICIAL -->
-  <div id="startScreen" class="screen active">
-      <div class="container">
-          <div class="header fade-in">
-              <div class="badge">🚨 DIAGNÓSTICO CRÍTICO</div>
-              <h1 class="title">Descubra Qual Área da Sua Vida Está Te Sabotando</h1>
-              <p class="subtitle">Em 3 minutos, identifique exatamente onde você está se perdendo e receba sua solução personalizada</p>
-              
-              <div class="quick-stats">
-                  <div class="stat">
-                      <span class="stat-number">3 min</span>
-                      <span class="stat-label">Duração</span>
-                  </div>
-                  <div class="stat">
-                      <span class="stat-number">100%</span>
-                      <span class="stat-label">Gratuito</span>
-                  </div>
-                  <div class="stat">
-                      <span class="stat-number">Personalizado</span>
-                      <span class="stat-label">Resultado</span>
-                  </div>
-              </div>
-              
-              <button class="start-cta" onclick="iniciarQuiz()">
-                  COMEÇAR DIAGNÓSTICO AGORA
-                  <span class="arrow">→</span>
-              </button>
-          </div>
-      </div>
-  </div>
+ <!-- TELA INICIAL -->
+ <div id="startScreen" class="screen active">
+     <div class="container">
+         <div class="header fade-in">
+             <div class="badge">🚨 DIAGNÓSTICO CRÍTICO</div>
+             <h1 class="title">Descubra Qual Área da Sua Vida Está Te Sabotando</h1>
+             <p class="subtitle">Em 3 minutos, identifique exatamente onde você está se perdendo e receba sua solução personalizada</p>
+             
+             <div class="quick-stats">
+                 <div class="stat">
+                     <span class="stat-number">3 min</span>
+                     <span class="stat-label">Duração</span>
+                 </div>
+                 <div class="stat">
+                     <span class="stat-number">100%</span>
+                     <span class="stat-label">Gratuito</span>
+                 </div>
+                 <div class="stat">
+                     <span class="stat-number">Personalizado</span>
+                     <span class="stat-label">Resultado</span>
+                 </div>
+             </div>
+             
+             <button class="start-cta" onclick="iniciarQuiz()">
+                 COMEÇAR DIAGNÓSTICO AGORA
+                 <span class="arrow">→</span>
+             </button>
+         </div>
+     </div>
+ </div>
 
-  <!-- TELA DO QUIZ -->
-  <div id="quizScreen" class="screen">
-      <div class="container">
-          <div class="progress-container fade-in">
-              <div class="progress-text">Pergunta <span id="currentQuestion">1</span> de <span id="totalQuestions">6</span></div>
-              <div class="progress-bar-bg">
-                  <div class="progress-bar" id="progressBar"></div>
-              </div>
-          </div>
+ <!-- TELA DO QUIZ -->
+ <div id="quizScreen" class="screen">
+     <div class="container">
+         <div class="progress-container fade-in">
+             <div class="progress-text">Pergunta <span id="currentQuestion">1</span> de <span id="totalQuestions">6</span></div>
+             <div class="progress-bar-bg">
+                 <div class="progress-bar" id="progressBar"></div>
+             </div>
+         </div>
 
-          <div class="question-card fade-in" id="questionCard">
-              <div class="question-number">PERGUNTA <span id="questionNumber">1</span></div>
-              <h2 class="question-text" id="questionText"></h2>
-              <div class="answers-container" id="answersContainer"></div>
-          </div>
-      </div>
-  </div>
+         <div class="question-card fade-in" id="questionCard">
+             <div class="question-number">PERGUNTA <span id="questionNumber">1</span></div>
+             <h2 class="question-text" id="questionText"></h2>
+             <div class="answers-container" id="answersContainer"></div>
+         </div>
+     </div>
+ </div>
 
-  <!-- TELA DE LOADING -->
-  <div id="loadingScreen" class="screen">
-      <div class="container">
-          <div class="loading-screen fade-in">
-              <div class="loading-spinner"></div>
-              <div class="loading-text">Analisando suas respostas...</div>
-              <div class="loading-subtext">Gerando seu diagnóstico personalizado</div>
-          </div>
-      </div>
-  </div>
+ <!-- TELA DE LOADING -->
+ <div id="loadingScreen" class="screen">
+     <div class="container">
+         <div class="loading-screen fade-in">
+             <div class="loading-spinner"></div>
+             <div class="loading-text">Analisando suas respostas...</div>
+             <div class="loading-subtext">Gerando seu diagnóstico personalizado</div>
+         </div>
+     </div>
+ </div>
 
-  <!-- TELA DE RESULTADO -->
-  <div id="resultScreen" class="screen">
-      <div class="container">
-          <div class="result-card fade-in" id="resultCard">
-              <!-- Conteúdo será gerado dinamicamente -->
-          </div>
-      </div>
-  </div>
+ <!-- TELA DE RESULTADO -->
+ <div id="resultScreen" class="screen">
+     <div class="container">
+         <div class="result-card fade-in" id="resultCard">
+             <!-- Conteúdo será gerado dinamicamente -->
+         </div>
+     </div>
+ </div>
 
-  <!-- PÁGINA DE VENDAS -->
-  <div id="salesScreen" class="screen sales-page">
-      <!-- HEADER DA PÁGINA DE VENDAS -->
-      <div class="sales-header">
-          <div class="sales-container">
-              <div class="connection-badge" id="connectionBadge">Baseado no seu diagnóstico</div>
-              <h1 class="sales-headline">O aplicativo terapêutico que já transformou mais de 2.847 Mulheres como você.</h1>
-              <p class="sales-subheadline">Assista ao vídeo abaixo e veja como o aplicativo funciona.</p>
-          </div>
-      </div>
+ <!-- PÁGINA DE VENDAS -->
+ <div id="salesScreen" class="screen sales-page">
+     <!-- HEADER DA PÁGINA DE VENDAS -->
+     <div class="sales-header">
+         <div class="sales-container">
+             <div class="connection-badge" id="connectionBadge">Baseado no seu diagnóstico</div>
+             <h1 class="sales-headline">O aplicativo terapêutico que já transformou mais de 2.847 Mulheres como você.</h1>
+             <p class="sales-subheadline">Assista ao vídeo abaixo e veja como o aplicativo funciona.</p>
+         </div>
+     </div>
 
-      <!-- VÍDEO VSL COM TÍTULO E CTA -->
-      <div class="video-section">
-          <h2 class="video-title">📱 Veja como o aplicativo funciona na prática</h2>
-          <p class="video-cta">Com apenas 15 minutos por semana, elas começaram a se sentir mais vivas, presentes e no controle de si mesmas. Veja como, assistindo o vídeo:</p>
-          
-          <div class="video-container">
-              <div class="video-wrapper">
-                  <iframe src="https://www.youtube.com/embed/sLnAFjkuM8k" allowfullscreen></iframe>
-              </div>
-          </div>
-          
-          <!-- BOTÃO CHECKOUT PÓS VÍDEO -->
-          <div style="text-align: center;">
-              <button class="checkout-button" onclick="irParaCheckout()">
-                  QUERO TRANSFORMAR MINHA VIDA AGORA
-                  <span class="arrow">→</span>
-              </button>
-          </div>
-      </div>
+     <!-- VÍDEO VSL COM TÍTULO E CTA -->
+     <div class="video-section">
+         
+         <p class="video-cta">Com apenas 15 minutos por semana, elas começaram a se sentir mais vivas, presentes e no controle de si mesmas. Veja como, assistindo o vídeo:</p>
+         
+         <div class="video-container">
+             <div class="video-wrapper">
+                 <iframe src="https://www.youtube.com/embed/sLnAFjkuM8k" allowfullscreen></iframe>
+             </div>
+         </div>
+         
+         <!-- BOTÃO CHECKOUT PÓS VÍDEO -->
+         <div style="text-align: center;">
+             <button class="checkout-button" onclick="irParaCheckout()">
+                 QUERO TRANSFORMAR MINHA VIDA AGORA
+                 <span class="arrow">→</span>
+             </button>
+         </div>
+     </div>
 
-      <!-- PRODUTO -->
-      <div class="sales-section">
-          <div class="product-showcase">
-              <div class="product-icon">📱</div>
-              <div class="product-name">APLICATIVO TERAPÊUTICO DE AUTOCONHECIMENTO</div>
-              <div class="product-description">
-                  O primeiro aplicativo desenvolvido especificamente para mulheres que querem recuperar sua energia, identidade e bem-estar de forma prática e rápida.
-              </div>
-          </div>
-      </div>
+     <!-- PRODUTO -->
+     <div class="sales-section">
+         <div class="product-showcase">
+             <div class="product-icon">📱</div>
+             <div class="product-name">APLICATIVO TERAPÊUTICO DE AUTOCONHECIMENTO</div>
+             <div class="product-description">
+                 O primeiro aplicativo desenvolvido especificamente para mulheres que querem recuperar sua energia, identidade e bem-estar de forma prática e rápida.
+             </div>
+         </div>
+     </div>
 
-      <!-- BENEFÍCIOS -->
-      <div class="sales-section">
-          <div class="section-title">💖 O Que Vai Mudar na Sua Vida</div>
-          <div class="benefits-grid">
-              <div class="benefit-item">
-                  <div class="benefit-icon">⚡</div>
-                  <div class="benefit-content">
-                      <div class="benefit-title">Energia pra viver, não só sobreviver</div>
-                      <div class="benefit-description">Acorde com disposição real — sem peso no peito, sem culpa por existir.</div>
-                  </div>
-              </div>
-              <div class="benefit-item">
-                  <div class="benefit-icon">🎯</div>
-                  <div class="benefit-content">
-                      <div class="benefit-title">Clareza pra pensar e decidir sem travar</div>
-                      <div class="benefit-description">Organize sua mente e volte a confiar nas suas escolhas, sem se sentir perdida.</div>
-                  </div>
-              </div>
-              <div class="benefit-item">
-                  <div class="benefit-icon">💝</div>
-                  <div class="benefit-content">
-                      <div class="benefit-title">Reencontro com quem você era antes de se apagar</div>
-                      <div class="benefit-description">Lembre de quem você é de verdade — além de mãe, esposa, profissional e "a forte da casa".</div>
-                  </div>
-              </div>
-              <div class="benefit-item">
-                  <div class="benefit-icon">🌸</div>
-                  <div class="benefit-content">
-                      <div class="benefit-title">Equilíbrio emocional que você sente no corpo</div>
-                      <div class="benefit-description">Chega de reprimir o que sente ou explodir sozinha no banheiro. Aprenda a se cuidar de dentro pra fora.</div>
-                  </div>
-              </div>
-              <div class="benefit-item">
-                  <div class="benefit-icon">🏠</div>
-                  <div class="benefit-content">
-                      <div class="benefit-title">Relacionamentos mais leves, sem se anular</div>
-                      <div class="benefit-description">Estabeleça limites com quem você ama, sem culpa. E seja respeitada sem ter que brigar por isso.</div>
-                  </div>
-              </div>
-          </div>
-      </div>
+     <!-- BENEFÍCIOS -->
+     <div class="sales-section">
+         <div class="section-title">💖 O Que Vai Mudar na Sua Vida</div>
+         <div class="benefits-grid">
+             <div class="benefit-item">
+                 <div class="benefit-icon">⚡</div>
+                 <div class="benefit-content">
+                     <div class="benefit-title">Energia pra viver, não só sobreviver</div>
+                     <div class="benefit-description">Acorde com disposição real — sem peso no peito, sem culpa por existir.</div>
+                 </div>
+             </div>
+             <div class="benefit-item">
+                 <div class="benefit-icon">🎯</div>
+                 <div class="benefit-content">
+                     <div class="benefit-title">Clareza pra pensar e decidir sem travar</div>
+                     <div class="benefit-description">Organize sua mente e volte a confiar nas suas escolhas, sem se sentir perdida.</div>
+                 </div>
+             </div>
+             <div class="benefit-item">
+                 <div class="benefit-icon">💝</div>
+                 <div class="benefit-content">
+                     <div class="benefit-title">Reencontro com quem você era antes de se apagar</div>
+                     <div class="benefit-description">Lembre de quem você é de verdade — além de mãe, esposa, profissional e "a forte da casa".</div>
+                 </div>
+             </div>
+             <div class="benefit-item">
+                 <div class="benefit-icon">🌸</div>
+                 <div class="benefit-content">
+                     <div class="benefit-title">Equilíbrio emocional que você sente no corpo</div>
+                     <div class="benefit-description">Chega de reprimir o que sente ou explodir sozinha no banheiro. Aprenda a se cuidar de dentro pra fora.</div>
+                 </div>
+             </div>
+             <div class="benefit-item">
+                 <div class="benefit-icon">🏠</div>
+                 <div class="benefit-content">
+                     <div class="benefit-title">Relacionamentos mais leves, sem se anular</div>
+                     <div class="benefit-description">Estabeleça limites com quem você ama, sem culpa. E seja respeitada sem ter que brigar por isso.</div>
+                 </div>
+             </div>
+         </div>
+     </div>
 
-      <!-- COMO FUNCIONA -->
-      <div class="sales-section">
-          <div class="how-it-works">
-              <div class="section-title">💡 Como o Programa Te Ajuda Na Prática</div>
-              <div class="steps-grid">
-                  <div class="step-item">
-                      <div class="step-number">1</div>
-                      <div class="step-content">
-                          <div class="step-title">🔍 Diagnóstico Rápido e Profundo</div>
-                          <div class="step-description">Em poucos cliques, o app entende o que tá drenando sua energia — e monta um plano só seu, sem enrolação.</div>
-                      </div>
-                  </div>
-                  <div class="step-item">
-                      <div class="step-number">2</div>
-                      <div class="step-content">
-                          <div class="step-title">🧘‍♀️ Sessões Leves e Terapêuticas</div>
-                          <div class="step-description">Só 15 minutinhos 1 ou 2 vezes na semana, com reflexões guiadas e exercícios práticos que cabem na sua rotina — até no intervalo do trabalho.</div>
-                      </div>
-                  </div>
-                  <div class="step-item">
-                      <div class="step-number">3</div>
-                      <div class="step-content">
-                          <div class="step-title">📊 Acompanhamento que te entende</div>
-                          <div class="step-description">O app acompanha seu ritmo e ajusta as atividades conforme seu progresso. Você não precisa ser perfeita — só presente.</div>
-                      </div>
-                  </div>
-                  <div class="step-item">
-                      <div class="step-number">4</div>
-                      <div class="step-content">
-                          <div class="step-title">🌱 Transformação real e sustentável</div>
-                          <div class="step-description">Nada de efeito temporário. Aqui, você cria novos hábitos com base no que realmente funciona pra você. Sem pressão, sem culpa.</div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+     <!-- COMO FUNCIONA -->
+     <div class="sales-section">
+         <div class="how-it-works">
+             <div class="section-title">💡 Como o Programa Te Ajuda Na Prática</div>
+             <div class="steps-grid">
+                 <div class="step-item">
+                     <div class="step-number">1</div>
+                     <div class="step-content">
+                         <div class="step-title">🔍 Diagnóstico Rápido e Profundo</div>
+                         <div class="step-description">Em poucos cliques, o app entende o que tá drenando sua energia — e monta um plano só seu, sem enrolação.</div>
+                     </div>
+                 </div>
+                 <div class="step-item">
+                     <div class="step-number">2</div>
+                     <div class="step-content">
+                         <div class="step-title">🧘‍♀️ Sessões Leves e Terapêuticas</div>
+                         <div class="step-description">Só 15 minutinhos 1 ou 2 vezes na semana, com reflexões guiadas e exercícios práticos que cabem na sua rotina — até no intervalo do trabalho.</div>
+                     </div>
+                 </div>
+                 <div class="step-item">
+                     <div class="step-number">3</div>
+                     <div class="step-content">
+                         <div class="step-title">📊 Acompanhamento que te entende</div>
+                         <div class="step-description">O app acompanha seu ritmo e ajusta as atividades conforme seu progresso. Você não precisa ser perfeita — só presente.</div>
+                     </div>
+                 </div>
+                 <div class="step-item">
+                     <div class="step-number">4</div>
+                     <div class="step-content">
+                         <div class="step-title">🌱 Transformação real e sustentável</div>
+                         <div class="step-description">Nada de efeito temporário. Aqui, você cria novos hábitos com base no que realmente funciona pra você. Sem pressão, sem culpa.</div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
 
-      <!-- PARA QUEM É -->
-      <div class="sales-section">
-          <div class="target-audience">
-              <div class="section-title">Este Programa é Para Você Se:</div>
-              <div class="audience-list">
-                  <div class="audience-item">
-                      <div class="audience-icon">✅</div>
-                      <div class="audience-text">Você se sente exausta mesmo após uma noite de sono</div>
-                  </div>
-                  <div class="audience-item">
-                      <div class="audience-icon">✅</div>
-                      <div class="audience-text">Cuida de todos, mas esqueceu de cuidar de si mesma</div>
-                  </div>
-                  <div class="audience-item">
-                      <div class="audience-icon">✅</div>
-                      <div class="audience-text">Sente que perdeu sua identidade no meio de tantas responsabilidades</div>
-                  </div>
-                  <div class="audience-item">
-                      <div class="audience-icon">✅</div>
-                      <div class="audience-text">Quer uma solução prática que se adapte à sua rotina corrida</div>
-                  </div>
-                  <div class="audience-item">
-                      <div class="audience-icon">✅</div>
-                      <div class="audience-text">Está cansada de soluções superficiais e quer resultados reais</div>
-                  </div>
-              </div>
-          </div>
-      </div>
+     <!-- PARA QUEM É -->
+     <div class="sales-section">
+         <div class="target-audience">
+             <div class="section-title">Este Programa é Para Você Se:</div>
+             <div class="audience-list">
+                 <div class="audience-item">
+                     <div class="audience-icon">✅</div>
+                     <div class="audience-text">Você se sente exausta mesmo após uma noite de sono</div>
+                 </div>
+                 <div class="audience-item">
+                     <div class="audience-icon">✅</div>
+                     <div class="audience-text">Cuida de todos, mas esqueceu de cuidar de si mesma</div>
+                 </div>
+                 <div class="audience-item">
+                     <div class="audience-icon">✅</div>
+                     <div class="audience-text">Sente que perdeu sua identidade no meio de tantas responsabilidades</div>
+                 </div>
+                 <div class="audience-item">
+                     <div class="audience-icon">✅</div>
+                     <div class="audience-text">Quer uma solução prática que se adapte à sua rotina corrida</div>
+                 </div>
+                 <div class="audience-item">
+                     <div class="audience-icon">✅</div>
+                     <div class="audience-text">Está cansada de soluções superficiais e quer resultados reais</div>
+                 </div>
+             </div>
+         </div>
+     </div>
 
-      <!-- PROVAS SOCIAIS -->
-      <div class="sales-section">
-          <div class="social-proof">
-              <div class="section-title">O Que Nossas Usuárias Dizem</div>
-              <div class="testimonials-grid">
-                  <div class="testimonial">
-                      <div class="testimonial-text">
-                          Em 3 semanas usando o app, recuperei minha energia e voltei a me sentir eu mesma. Finalmente consegui estabelecer limites saudáveis com minha família.
-                      </div>
-                      <div class="testimonial-author">
-                          <div class="author-avatar">M</div>
-                          <div class="author-info">
-                              <div class="author-name">Maria Silva</div>
-                              <div class="author-result">Recuperou energia em 21 dias</div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="testimonial">
-                      <div class="testimonial-text">
-                          Pensei que nunca mais teria tempo para mim. O app me mostrou que 15 minutos por dia podem transformar completamente minha vida. Estou mais equilibrada e feliz.
-                      </div>
-                      <div class="testimonial-author">
-                          <div class="author-avatar">A</div>
-                          <div class="author-info">
-                              <div class="author-name">Ana Costa</div>
-                              <div class="author-result">Encontrou equilíbrio em 1 mês</div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="testimonial">
-                      <div class="testimonial-text">
-                          Depois de anos me sentindo perdida, o programa me ajudou a reconectar comigo mesma. Agora sei quem eu sou além de mãe e esposa.
-                      </div>
-                      <div class="testimonial-author">
-                          <div class="author-avatar">C</div>
-                          <div class="author-info">
-                              <div class="author-name">Carla Mendes</div>
-                              <div class="author-result">Reconectou-se em 45 dias</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+     <!-- PROVAS SOCIAIS -->
+     <div class="sales-section">
+         <div class="social-proof">
+             <div class="section-title">O Que Nossas Usuárias Dizem</div>
+             <div class="testimonials-grid">
+                 <div class="testimonial">
+                     <div class="testimonial-text">
+                         Em 3 semanas usando o app, recuperei minha energia e voltei a me sentir eu mesma. Finalmente consegui estabelecer limites saudáveis com minha família.
+                     </div>
+                     <div class="testimonial-author">
+                         <div class="author-avatar">M</div>
+                         <div class="author-info">
+                             <div class="author-name">Maria Silva</div>
+                             <div class="author-result">Recuperou energia em 21 dias</div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="testimonial">
+                     <div class="testimonial-text">
+                         Pensei que nunca mais teria tempo para mim. O app me mostrou que 15 minutos por dia podem transformar completamente minha vida. Estou mais equilibrada e feliz.
+                     </div>
+                     <div class="testimonial-author">
+                         <div class="author-avatar">A</div>
+                         <div class="author-info">
+                             <div class="author-name">Ana Costa</div>
+                             <div class="author-result">Encontrou equilíbrio em 1 mês</div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="testimonial">
+                     <div class="testimonial-text">
+                         Depois de anos me sentindo perdida, o programa me ajudou a reconectar comigo mesma. Agora sei quem eu sou além de mãe e esposa.
+                     </div>
+                     <div class="testimonial-author">
+                         <div class="author-avatar">C</div>
+                         <div class="author-info">
+                             <div class="author-name">Carla Mendes</div>
+                             <div class="author-result">Reconectou-se em 45 dias</div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
 
-      <!-- BÔNUS -->
-      <div class="sales-section">
-          <div class="bonus-section">
-              <div class="section-title">Bônus Exclusivos Inclusos</div>
-              <div class="bonus-grid">
-                  <div class="bonus-item">
-                      <div class="bonus-icon">📚</div>
-                      <div class="bonus-content">
-                          <div class="bonus-title">E-book: Mulheres Exaustas - Caminhos para um Dia a Dia Equilibrado</div>
-                          <div class="bonus-description">Estratégias práticas para manter o equilíbrio no dia a dia</div>
-                          <div class="bonus-value">Valor: R$ 27</div>
-                      </div>
-                  </div>
-                  <div class="bonus-item">
-                      <div class="bonus-icon">🎧</div>
-                      <div class="bonus-content">
-                          <div class="bonus-title">Áudios de Meditação Guiada</div>
-                          <div class="bonus-description">10 meditações exclusivas para diferentes momentos do seu dia</div>
-                          <div class="bonus-value">Valor: R$ 97</div>
-                      </div>
-                  </div>
-                  <div class="bonus-item">
-                      <div class="bonus-icon">👥</div>
-                      <div class="bonus-content">
-                          <div class="bonus-title">Acesso ao Grupo VIP</div>
-                          <div class="bonus-description">Comunidade exclusiva com outras mulheres em transformação</div>
-                          <div class="bonus-value">Valor: R$ 25</div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+     <!-- BÔNUS -->
+     <div class="sales-section">
+         <div class="bonus-section">
+             <div class="section-title">Bônus Exclusivos Inclusos</div>
+             <div class="bonus-grid">
+                 <div class="bonus-item">
+                     <div class="bonus-icon">📚</div>
+                     <div class="bonus-content">
+                         <div class="bonus-title">E-book: Mulheres Exaustas - Caminhos para um Dia a Dia Equilibrado</div>
+                         <div class="bonus-description">Estratégias práticas para manter o equilíbrio no dia a dia</div>
+                         <div class="bonus-value">Valor: R$ 27</div>
+                     </div>
+                 </div>
+                 <div class="bonus-item">
+                     <div class="bonus-icon">🎧</div>
+                     <div class="bonus-content">
+                         <div class="bonus-title">Áudios de Meditação Guiada</div>
+                         <div class="bonus-description">10 meditações exclusivas para diferentes momentos do seu dia</div>
+                         <div class="bonus-value">Valor: R$ 97</div>
+                     </div>
+                 </div>
+                 <div class="bonus-item">
+                     <div class="bonus-icon">👥</div>
+                     <div class="bonus-content">
+                         <div class="bonus-title">Acesso ao Grupo VIP</div>
+                         <div class="bonus-description">Comunidade exclusiva com outras mulheres em transformação</div>
+                         <div class="bonus-value">Valor: R$ 25</div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
 
-      <!-- PREÇO E DESCONTO -->
-      <div class="sales-section">
-          <div class="pricing-section">
-              <div class="pricing-badge">🔥 OFERTA ESPECIAL</div>
-              <div class="original-price">De R$ 79,90 por apenas:</div>
-              <div class="current-price">R$ 37,95</div>
-              <div class="price-description">Ou 8x de R$ 5,52</div>
-          </div>
-      </div>
+     <!-- PREÇO E DESCONTO -->
+     <div class="sales-section">
+         <div class="pricing-section">
+             <div class="pricing-badge">🔥 OFERTA ESPECIAL</div>
+             <div class="original-price">De R$ 79,90 por apenas:</div>
+             <div class="current-price">R$ 37,95</div>
+             <div class="price-description">Ou 8x de R$ 5,52</div>
+         </div>
+     </div>
 
-      <!-- CTA PRINCIPAL -->
-      <div class="sales-section">
-          <div class="main-cta-section">
-              <button class="main-cta-button" onclick="irParaCheckout()">
-                  QUERO TRANSFORMAR MINHA VIDA AGORA
-                  <span class="arrow">→</span>
-              </button>
-              <div class="cta-guarantee">🔒 Compra 100% Segura e Protegida</div>
-          </div>
-      </div>
+     <!-- CTA PRINCIPAL -->
+     <div class="sales-section">
+         <div class="main-cta-section">
+             <button class="main-cta-button" onclick="irParaCheckout()">
+                 QUERO TRANSFORMAR MINHA VIDA AGORA
+                 <span class="arrow">→</span>
+             </button>
+             <div class="cta-guarantee">🔒 Compra 100% Segura e Protegida</div>
+         </div>
+     </div>
 
-      <!-- GARANTIA -->
-      <div class="sales-section">
-          <div class="guarantee-section">
-              <div class="guarantee-icon">🛡️</div>
-              <div class="guarantee-title">Garantia Incondicional de 7 Dias</div>
-              <div class="guarantee-description">
-                  Se em 7 dias você não sentir uma transformação significativa na sua energia e bem-estar, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.
-              </div>
-          </div>
-      </div>
+     <!-- GARANTIA -->
+     <div class="sales-section">
+         <div class="guarantee-section">
+             <div class="guarantee-icon">🛡️</div>
+             <div class="guarantee-title">Garantia Incondicional de 7 Dias</div>
+             <div class="guarantee-description">
+                 Se em 7 dias você não sentir uma transformação significativa na sua energia e bem-estar, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.
+             </div>
+         </div>
+     </div>
 
-      <!-- FAQ -->
-      <div class="sales-section">
-          <div class="faq-section">
-              <div class="section-title">Perguntas Frequentes</div>
-              
-              <div class="faq-item">
-                  <button class="faq-question" onclick="toggleFaq(this)">
-                      Quanto tempo por dia preciso dedicar ao programa?
-                      <span class="faq-icon">▼</span>
-                  </button>
-                  <div class="faq-answer">
-                      Apenas 15-20 minutos 1 ou 2 vezes por semana. O programa foi desenvolvido para se adaptar à rotina de mulheres ocupadas.
-                  </div>
-              </div>
+     <!-- FAQ -->
+     <div class="sales-section">
+         <div class="faq-section">
+             <div class="section-title">Perguntas Frequentes</div>
+             
+             <div class="faq-item">
+                 <button class="faq-question" onclick="toggleFaq(this)">
+                     Quanto tempo por dia preciso dedicar ao programa?
+                     <span class="faq-icon">▼</span>
+                 </button>
+                 <div class="faq-answer">
+                     Apenas 15-20 minutos 1 ou 2 vezes por semana. O programa foi desenvolvido para se adaptar à rotina de mulheres ocupadas.
+                 </div>
+             </div>
 
-              <div class="faq-item">
-                  <button class="faq-question" onclick="toggleFaq(this)">
-                      O app funciona em qualquer celular?
-                      <span class="faq-icon">▼</span>
-                  </button>
-                  <div class="faq-answer">
-                      Sim! O app funciona em Android e iOS, e também pode ser acessado pelo computador através do navegador.
-                  </div>
-              </div>
+             <div class="faq-item">
+                 <button class="faq-question" onclick="toggleFaq(this)">
+                     O app funciona em qualquer celular?
+                     <span class="faq-icon">▼</span>
+                 </button>
+                 <div class="faq-answer">
+                     Sim! O app funciona em Android e iOS, e também pode ser acessado pelo computador através do navegador.
+                 </div>
+             </div>
 
-              <div class="faq-item">
-                  <button class="faq-question" onclick="toggleFaq(this)">
-                      Em quanto tempo vou ver resultados?
-                      <span class="faq-icon">▼</span>
-                  </button>
-                  <div class="faq-answer">
-                      A maioria das usuárias relata melhorias já na primeira semana. Resultados mais profundos aparecem entre 21-30 dias.
-                  </div>
-              </div>
+             <div class="faq-item">
+                 <button class="faq-question" onclick="toggleFaq(this)">
+                     Em quanto tempo vou ver resultados?
+                     <span class="faq-icon">▼</span>
+                 </button>
+                 <div class="faq-answer">
+                     A maioria das usuárias relata melhorias já na primeira semana. Resultados mais profundos aparecem entre 21-30 dias.
+                 </div>
+             </div>
 
-              <div class="faq-item">
-                  <button class="faq-question" onclick="toggleFaq(this)">
-                      Preciso de experiência prévia com terapia?
-                      <span class="faq-icon">▼</span>
-                  </button>
-                  <div class="faq-answer">
-                      Não! O programa foi desenvolvido para ser acessível a qualquer pessoa, independente de experiência anterior com terapia ou autoconhecimento.
-                  </div>
-              </div>
+             <div class="faq-item">
+                 <button class="faq-question" onclick="toggleFaq(this)">
+                     Preciso de experiência prévia com terapia?
+                     <span class="faq-icon">▼</span>
+                 </button>
+                 <div class="faq-answer">
+                     Não! O programa foi desenvolvido para ser acessível a qualquer pessoa, independente de experiência anterior com terapia ou autoconhecimento.
+                 </div>
+             </div>
 
-              <div class="faq-item">
-                  <button class="faq-question" onclick="toggleFaq(this)">
-                      Como funciona a garantia?
-                      <span class="faq-icon">▼</span>
-                  </button>
-                  <div class="faq-answer">
-                      Você tem 7 dias para testar o programa. Se não ficar satisfeita, basta solicitar o reembolso no site: https://reembolso.kiwify.com.br/login e devolvemos 100% do valor investido.
-                  </div>
-              </div>
-          </div>
-      </div>
+             <div class="faq-item">
+                 <button class="faq-question" onclick="toggleFaq(this)">
+                     Como funciona a garantia?
+                     <span class="faq-icon">▼</span>
+                 </button>
+                 <div class="faq-answer">
+                     Você tem 7 dias para testar o programa. Se não ficar satisfeita, basta solicitar o reembolso no site: https://reembolso.kiwify.com.br/login e devolvemos 100% do valor investido.
+                 </div>
+             </div>
+         </div>
+     </div>
 
-      <!-- CTA FINAL -->
-      <div class="sales-section">
-          <div class="main-cta-section">
-              <button class="main-cta-button" onclick="irParaCheckout()">
-                  SIM, QUERO COMEÇAR MINHA TRANSFORMAÇÃO
-                  <span class="arrow">→</span>
-              </button>
-              <div class="cta-guarantee">🔒 Acesso Imediato + Garantia de 7 Dias</div>
-          </div>
-      </div>
-  </div>
+     <!-- CTA FINAL -->
+     <div class="sales-section">
+         <div class="main-cta-section">
+             <button class="main-cta-button" onclick="irParaCheckout()">
+                 SIM, QUERO COMEÇAR MINHA TRANSFORMAÇÃO
+                 <span class="arrow">→</span>
+             </button>
+             <div class="cta-guarantee">🔒 Acesso Imediato + Garantia de 7 Dias</div>
+         </div>
+     </div>
+ </div>
 
-  <script>
-      // Algoritmo de Diagnóstico Integrado
-      class DiagnosticoMulherExausta {
-          constructor() {
-              this.perguntas = [
-                  {
-                      id: 1,
-                      texto: "Como você se sente na maior parte dos seus dias?",
-                      opcoes: [
-                          { texto: "Exausta, como se estivesse carregando o mundo nas costas", peso: { emocional: 3, fisico: 2, mental: 2 } },
-                          { texto: "Cansada, mas ainda consigo dar conta de tudo", peso: { emocional: 2, fisico: 2, mental: 1 } },
-                          { texto: "Energizada e motivada na maioria dos dias", peso: { emocional: 0, fisico: 0, mental: 0 } },
-                          { texto: "Varia muito, alguns dias bem, outros péssima", peso: { emocional: 2, fisico: 1, mental: 2 } }
-                      ]
-                  },
-                  {
-                      id: 2,
-                      texto: "Quando foi a última vez que você fez algo só para você?",
-                      opcoes: [
-                          { texto: "Não consigo nem lembrar... sempre tem alguém precisando de mim", peso: { pessoal: 3, emocional: 2, social: 1 } },
-                          { texto: "Faz algumas semanas, mas me sinto culpada quando faço", peso: { pessoal: 2, emocional: 2, social: 1 } },
-                          { texto: "Ontem ou anteontem, procuro me cuidar regularmente", peso: { pessoal: 0, emocional: 0, social: 0 } },
-                          { texto: "Tento, mas sempre acabo cancelando por outras prioridades", peso: { pessoal: 2, emocional: 1, mental: 2 } }
-                      ]
-                  },
-                  {
-                      id: 3,
-                      texto: "Como está seu sono ultimamente?",
-                      opcoes: [
-                          { texto: "Acordo mais cansada do que quando fui dormir", peso: { fisico: 3, mental: 2, emocional: 1 } },
-                          { texto: "Durmo pouco, minha mente não para de funcionar", peso: { mental: 3, fisico: 2, emocional: 2 } },
-                          { texto: "Durmo bem e acordo descansada", peso: { fisico: 0, mental: 0, emocional: 0 } },
-                          { texto: "Varia, mas geralmente acordo várias vezes durante a noite", peso: { fisico: 2, mental: 2, emocional: 1 } }
-                      ]
-                  },
-                  {
-                      id: 4,
-                      texto: "Como você se sente em relação às suas responsabilidades?",
-                      opcoes: [
-                          { texto: "Completamente sobrecarregada, como se fosse impossível dar conta", peso: { mental: 3, emocional: 2, fisico: 1 } },
-                          { texto: "Estressada, mas ainda consigo gerenciar", peso: { mental: 2, emocional: 1, fisico: 1 } },
-                          { texto: "Organizada e no controle das minhas tarefas", peso: { mental: 0, emocional: 0, fisico: 0 } },
-                          { texto: "Sinto que nunca é suficiente, sempre tem mais para fazer", peso: { mental: 2, emocional: 2, pessoal: 1 } }
-                      ]
-                  },
-                  {
-                      id: 5,
-                      texto: "Quando alguém te pergunta 'como você está?', qual é sua resposta mais honesta?",
-                      opcoes: [
-                          { texto: "'Estou bem' (mas por dentro estou gritando por ajuda)", peso: { emocional: 3, social: 2, pessoal: 2 } },
-                          { texto: "'Cansada, mas vamos levando'", peso: { emocional: 2, fisico: 2, social: 1 } },
-                          { texto: "Falo a verdade sobre como realmente estou me sentindo", peso: { emocional: 0, social: 0, pessoal: 0 } },
-                          { texto: "Evito o assunto ou mudo de conversa rapidamente", peso: { social: 3, emocional: 2, pessoal: 1 } }
-                      ]
-                  },
-                  {
-                      id: 6,
-                      texto: "O que mais te preocupa sobre sua situação atual?",
-                      opcoes: [
-                          { texto: "Que eu vou 'quebrar' e não conseguir cuidar de quem precisa de mim", peso: { emocional: 3, mental: 2, pessoal: 2 } },
-                          { texto: "Que estou perdendo a melhor fase da minha vida sendo só responsabilidades", peso: { pessoal: 3, emocional: 2, social: 1 } },
-                          { texto: "Não tenho grandes preocupações, estou bem comigo mesma", peso: { emocional: 0, mental: 0, pessoal: 0 } },
-                          { texto: "Que ninguém entende pelo que estou passando", peso: { social: 3, emocional: 2, pessoal: 1 } }
-                      ]
-                  }
-              ];
+ <script>
+     // Algoritmo de Diagnóstico Integrado
+     class DiagnosticoMulherExausta {
+         constructor() {
+             this.perguntas = [
+                 {
+                     id: 1,
+                     texto: "Como você se sente na maior parte dos seus dias?",
+                     opcoes: [
+                         { texto: "Exausta, como se estivesse carregando o mundo nas costas", peso: { emocional: 3, fisico: 2, mental: 2 } },
+                         { texto: "Cansada, mas ainda consigo dar conta de tudo", peso: { emocional: 2, fisico: 2, mental: 1 } },
+                         { texto: "Energizada e motivada na maioria dos dias", peso: { emocional: 0, fisico: 0, mental: 0 } },
+                         { texto: "Varia muito, alguns dias bem, outros péssima", peso: { emocional: 2, fisico: 1, mental: 2 } }
+                     ]
+                 },
+                 {
+                     id: 2,
+                     texto: "Quando foi a última vez que você fez algo só para você?",
+                     opcoes: [
+                         { texto: "Não consigo nem lembrar... sempre tem alguém precisando de mim", peso: { pessoal: 3, emocional: 2, social: 1 } },
+                         { texto: "Faz algumas semanas, mas me sinto culpada quando faço", peso: { pessoal: 2, emocional: 2, social: 1 } },
+                         { texto: "Ontem ou anteontem, procuro me cuidar regularmente", peso: { pessoal: 0, emocional: 0, social: 0 } },
+                         { texto: "Tento, mas sempre acabo cancelando por outras prioridades", peso: { pessoal: 2, emocional: 1, mental: 2 } }
+                     ]
+                 },
+                 {
+                     id: 3,
+                     texto: "Como está seu sono ultimamente?",
+                     opcoes: [
+                         { texto: "Acordo mais cansada do que quando fui dormir", peso: { fisico: 3, mental: 2, emocional: 1 } },
+                         { texto: "Durmo pouco, minha mente não para de funcionar", peso: { mental: 3, fisico: 2, emocional: 2 } },
+                         { texto: "Durmo bem e acordo descansada", peso: { fisico: 0, mental: 0, emocional: 0 } },
+                         { texto: "Varia, mas geralmente acordo várias vezes durante a noite", peso: { fisico: 2, mental: 2, emocional: 1 } }
+                     ]
+                 },
+                 {
+                     id: 4,
+                     texto: "Como você se sente em relação às suas responsabilidades?",
+                     opcoes: [
+                         { texto: "Completamente sobrecarregada, como se fosse impossível dar conta", peso: { mental: 3, emocional: 2, fisico: 1 } },
+                         { texto: "Estressada, mas ainda consigo gerenciar", peso: { mental: 2, emocional: 1, fisico: 1 } },
+                         { texto: "Organizada e no controle das minhas tarefas", peso: { mental: 0, emocional: 0, fisico: 0 } },
+                         { texto: "Sinto que nunca é suficiente, sempre tem mais para fazer", peso: { mental: 2, emocional: 2, pessoal: 1 } }
+                     ]
+                 },
+                 {
+                     id: 5,
+                     texto: "Quando alguém te pergunta 'como você está?', qual é sua resposta mais honesta?",
+                     opcoes: [
+                         { texto: "'Estou bem' (mas por dentro estou gritando por ajuda)", peso: { emocional: 3, social: 2, pessoal: 2 } },
+                         { texto: "'Cansada, mas vamos levando'", peso: { emocional: 2, fisico: 2, social: 1 } },
+                        { texto: "Falo a verdade sobre como realmente estou me sentindo", peso: { emocional: 0, social: 0, pessoal: 0 } },
+                         { texto: "Evito o assunto ou mudo de conversa rapidamente", peso: { social: 3, emocional: 2, pessoal: 1 } }
+                     ]
+                 },
+                 {
+                     id: 6,
+                     texto: "O que mais te preocupa sobre sua situação atual?",
+                     opcoes: [
+                         { texto: "Que eu vou 'quebrar' e não conseguir cuidar de quem precisa de mim", peso: { emocional: 3, mental: 2, pessoal: 2 } },
+                         { texto: "Que estou perdendo a melhor fase da minha vida sendo só responsabilidades", peso: { pessoal: 3, emocional: 2, social: 1 } },
+                         { texto: "Não tenho grandes preocupações, estou bem comigo mesma", peso: { emocional: 0, mental: 0, pessoal: 0 } },
+                         { texto: "Que ninguém entende pelo que estou passando", peso: { social: 3, emocional: 2, pessoal: 1 } }
+                     ]
+                 }
+             ];
 
-              this.perfis = {
-                  emocional: {
-                      nome: "Exaustão Emocional Crítica",
-                      nivel: "CRÍTICO",
-                      cor: "#dc2626",
-                      icone: "💔",
-                      descricao: "Você está em um estado de exaustão emocional severa",
-                      diagnostico: "Sua capacidade emocional está no limite. Você tem dado tanto de si para os outros que esqueceu completamente de si mesma. Isso não é normal e precisa ser tratado URGENTEMENTE.",
-                      consequencias: [
-                          "Risco de burnout emocional completo",
-                          "Possível desenvolvimento de ansiedade e depressão",
-                          "Perda total da sua identidade pessoal",
-                          "Relacionamentos podem começar a se deteriorar"
-                      ],
-                      solucao: "Programa de Reconstrução Emocional Intensiva",
-                      urgencia: "Sua situação requer intervenção imediata. Cada dia que passa sem cuidado adequado, você se afasta mais de quem você realmente é."
-                  },
-                  fisico: {
-                      nome: "Burnout Físico Severo",
-                      nivel: "SEVERO",
-                      cor: "#ea580c",
-                      icone: "⚡",
-                      descricao: "Seu corpo está enviando sinais claros de sobrecarga",
-                      diagnostico: "Você está forçando seu corpo além dos limites saudáveis. O cansaço que você sente não é normal - é seu corpo pedindo socorro.",
-                      consequencias: [
-                          "Problemas de saúde podem se manifestar",
-                          "Sistema imunológico comprometido",
-                          "Envelhecimento acelerado pelo estresse",
-                          "Risco de colapso físico"
-                      ],
-                      solucao: "Programa de Restauração Energética Completa",
-                      urgencia: "Seu corpo está mandando sinais que não podem ser ignorados. É hora de ouvir antes que seja tarde demais."
-                  },
-                  mental: {
-                      nome: "Sobrecarga Mental Extrema",
-                      nivel: "EXTREMO",
-                      cor: "#7c2d12",
-                      icone: "🧠",
-                      descricao: "Sua mente está operando em modo de sobrevivência",
-                      diagnostico: "Você está mentalmente sobrecarregada ao ponto onde sua capacidade de tomar decisões e processar informações está comprometida.",
-                      consequencias: [
-                          "Dificuldade crescente para tomar decisões",
-                          "Lapsos de memória e concentração",
-                          "Ansiedade e pensamentos acelerados",
-                          "Perda da clareza mental"
-                      ],
-                      solucao: "Programa de Reorganização Mental Estratégica",
-                      urgencia: "Sua mente precisa de uma pausa urgente. Continuar nesse ritmo pode levar a consequências irreversíveis."
-                  },
-                  pessoal: {
-                      nome: "Desconexão Pessoal Profunda",
-                      nivel: "PROFUNDO",
-                      cor: "#be185d",
-                      icone: "🎭",
-                      descricao: "Você perdeu completamente a conexão consigo mesma",
-                      diagnostico: "Você se tornou uma estranha para si mesma. Vive tanto para os outros que não sabe mais quem é quando está sozinha.",
-                      consequencias: [
-                          "Perda total da identidade pessoal",
-                          "Sentimento de vazio existencial",
-                          "Incapacidade de tomar decisões para si",
-                          "Relacionamento tóxico consigo mesma"
-                      ],
-                      solucao: "Programa de Reconexão e Redescoberta Pessoal",
-                      urgencia: "Você está se perdendo completamente. É urgente reconectar-se com quem você realmente é antes que seja tarde demais."
-                  },
-                  social: {
-                      nome: "Isolamento Social Perigoso",
-                      nivel: "PERIGOSO",
-                      cor: "#1e40af",
-                      icone: "🏝️",
-                      descricao: "Você está se isolando emocionalmente das pessoas",
-                      diagnostico: "Mesmo cercada de pessoas, você se sente completamente sozinha. Construiu muros emocionais que estão te isolando do mundo.",
-                      consequencias: [
-                          "Solidão emocional profunda",
-                          "Perda de conexões significativas",
-                          "Dificuldade para pedir ajuda",
-                          "Sentimento de incompreensão total"
-                      ],
-                      solucao: "Programa de Reconexão Social e Comunicação Autêntica",
-                      urgencia: "O isolamento emocional pode levar a consequências graves. É hora de quebrar essas barreiras."
-                  }
-              };
-          }
+             this.perfis = {
+                 emocional: {
+                     nome: "Exaustão Emocional Crítica",
+                     nivel: "CRÍTICO",
+                     cor: "#dc2626",
+                     icone: "💔",
+                     descricao: "Você está em um estado de exaustão emocional severa",
+                     diagnostico: "Sua capacidade emocional está no limite. Você tem dado tanto de si para os outros que esqueceu completamente de si mesma. Isso não é normal e precisa ser tratado URGENTEMENTE.",
+                     consequencias: [
+                         "Risco de burnout emocional completo",
+                         "Possível desenvolvimento de ansiedade e depressão",
+                         "Perda total da sua identidade pessoal",
+                         "Relacionamentos podem começar a se deteriorar"
+                     ],
+                     solucao: "Programa de Reconstrução Emocional Intensiva",
+                     urgencia: "Sua situação requer intervenção imediata. Cada dia que passa sem cuidado adequado, você se afasta mais de quem você realmente é."
+                 },
+                 fisico: {
+                     nome: "Burnout Físico Severo",
+                     nivel: "SEVERO",
+                     cor: "#ea580c",
+                     icone: "⚡",
+                     descricao: "Seu corpo está enviando sinais claros de sobrecarga",
+                     diagnostico: "Você está forçando seu corpo além dos limites saudáveis. O cansaço que você sente não é normal - é seu corpo pedindo socorro.",
+                     consequencias: [
+                         "Problemas de saúde podem se manifestar",
+                         "Sistema imunológico comprometido",
+                         "Envelhecimento acelerado pelo estresse",
+                         "Risco de colapso físico"
+                     ],
+                     solucao: "Programa de Restauração Energética Completa",
+                     urgencia: "Seu corpo está mandando sinais que não podem ser ignorados. É hora de ouvir antes que seja tarde demais."
+                 },
+                 mental: {
+                     nome: "Sobrecarga Mental Extrema",
+                     nivel: "EXTREMO",
+                     cor: "#7c2d12",
+                     icone: "🧠",
+                     descricao: "Sua mente está operando em modo de sobrevivência",
+                     diagnostico: "Você está mentalmente sobrecarregada ao ponto onde sua capacidade de tomar decisões e processar informações está comprometida.",
+                     consequencias: [
+                         "Dificuldade crescente para tomar decisões",
+                         "Lapsos de memória e concentração",
+                         "Ansiedade e pensamentos acelerados",
+                         "Perda da clareza mental"
+                     ],
+                     solucao: "Programa de Reorganização Mental Estratégica",
+                     urgencia: "Sua mente precisa de uma pausa urgente. Continuar nesse ritmo pode levar a consequências irreversíveis."
+                 },
+                 pessoal: {
+                     nome: "Desconexão Pessoal Profunda",
+                     nivel: "PROFUNDO",
+                     cor: "#be185d",
+                     icone: "🎭",
+                     descricao: "Você perdeu completamente a conexão consigo mesma",
+                     diagnostico: "Você se tornou uma estranha para si mesma. Vive tanto para os outros que não sabe mais quem é quando está sozinha.",
+                     consequencias: [
+                         "Perda total da identidade pessoal",
+                         "Sentimento de vazio existencial",
+                         "Incapacidade de tomar decisões para si",
+                         "Relacionamento tóxico consigo mesma"
+                     ],
+                     solucao: "Programa de Reconexão e Redescoberta Pessoal",
+                     urgencia: "Você está se perdendo completamente. É urgente reconectar-se com quem você realmente é antes que seja tarde demais."
+                 },
+                 social: {
+                     nome: "Isolamento Social Perigoso",
+                     nivel: "PERIGOSO",
+                     cor: "#1e40af",
+                     icone: "🏝️",
+                     descricao: "Você está se isolando emocionalmente das pessoas",
+                     diagnostico: "Mesmo cercada de pessoas, você se sente completamente sozinha. Construiu muros emocionais que estão te isolando do mundo.",
+                     consequencias: [
+                         "Solidão emocional profunda",
+                         "Perda de conexões significativas",
+                         "Dificuldade para pedir ajuda",
+                         "Sentimento de incompreensão total"
+                     ],
+                     solucao: "Programa de Reconexão Social e Comunicação Autêntica",
+                     urgencia: "O isolamento emocional pode levar a consequências graves. É hora de quebrar essas barreiras."
+                 }
+             };
+         }
 
-          calcularDiagnostico(respostas) {
-              const pontuacao = {
-                  emocional: 0,
-                  fisico: 0,
-                  mental: 0,
-                  pessoal: 0,
-                  social: 0
-              };
+         calcularDiagnostico(respostas) {
+             const pontuacao = {
+                 emocional: 0,
+                 fisico: 0,
+                 mental: 0,
+                 pessoal: 0,
+                 social: 0
+             };
 
-              respostas.forEach((resposta, index) => {
-                  const pergunta = this.perguntas[index];
-                  const opcao = pergunta.opcoes[resposta];
-                  
-                  Object.keys(opcao.peso).forEach(categoria => {
-                      if (pontuacao.hasOwnProperty(categoria)) {
-                          pontuacao[categoria] += opcao.peso[categoria];
-                      }
-                  });
-              });
+             respostas.forEach((resposta, index) => {
+                 const pergunta = this.perguntas[index];
+                 const opcao = pergunta.opcoes[resposta];
+                 
+                 Object.keys(opcao.peso).forEach(categoria => {
+                     if (pontuacao.hasOwnProperty(categoria)) {
+                         pontuacao[categoria] += opcao.peso[categoria];
+                     }
+                 });
+             });
 
-              const categoriaDominante = Object.keys(pontuacao).reduce((a, b) => 
-                  pontuacao[a] > pontuacao[b] ? a : b
-              );
+             const categoriaDominante = Object.keys(pontuacao).reduce((a, b) => 
+                 pontuacao[a] > pontuacao[b] ? a : b
+             );
 
-              const perfil = this.perfis[categoriaDominante];
-              const intensidade = pontuacao[categoriaDominante];
+             const perfil = this.perfis[categoriaDominante];
+             const intensidade = pontuacao[categoriaDominante];
 
-              return {
-                  perfil: perfil,
-                  intensidade: intensidade,
-                  pontuacao: pontuacao,
-                  recomendacao: this.gerarRecomendacao(perfil, intensidade),
-                  chamadaAcao: this.gerarChamadaAcao(perfil, intensidade),
-                  insight: this.gerarInsightPersonalizado(categoriaDominante, intensidade)
-              };
-          }
+             return {
+                 perfil: perfil,
+                 intensidade: intensidade,
+                 pontuacao: pontuacao,
+                 recomendacao: this.gerarRecomendacao(perfil, intensidade),
+                 chamadaAcao: this.gerarChamadaAcao(perfil, intensidade),
+                 insight: this.gerarInsightPersonalizado(categoriaDominante, intensidade)
+             };
+         }
 
-          gerarRecomendacao(perfil, intensidade) {
-              const recomendacoes = {
-                  baixa: "Você ainda tem tempo para reverter essa situação antes que se torne crítica.",
-                  media: "Sua situação requer atenção imediata para evitar consequências mais graves.",
-                  alta: "Você está em uma situação crítica que demanda intervenção urgente e especializada."
-              };
+         gerarRecomendacao(perfil, intensidade) {
+             const recomendacoes = {
+                 baixa: "Você ainda tem tempo para reverter essa situação antes que se torne crítica.",
+                 media: "Sua situação requer atenção imediata para evitar consequências mais graves.",
+                 alta: "Você está em uma situação crítica que demanda intervenção urgente e especializada."
+             };
 
-              let nivel = 'baixa';
-              if (intensidade >= 8) nivel = 'alta';
-              else if (intensidade >= 5) nivel = 'media';
+             let nivel = 'baixa';
+             if (intensidade >= 8) nivel = 'alta';
+             else if (intensidade >= 5) nivel = 'media';
 
-              return {
-                  nivel: nivel,
-                  texto: recomendacoes[nivel],
-                  acao: nivel === 'alta' ? 'URGENTE' : nivel === 'media' ? 'IMPORTANTE' : 'PREVENTIVO'
-              };
-          }
+             return {
+                 nivel: nivel,
+                 texto: recomendacoes[nivel],
+                 acao: nivel === 'alta' ? 'URGENTE' : nivel === 'media' ? 'IMPORTANTE' : 'PREVENTIVO'
+             };
+         }
 
-          gerarChamadaAcao(perfil, intensidade) {
-              if (intensidade >= 8) {
-                  return {
-                      principal: "QUERO CONHECER ESSA TERAPIA",
-                      secundario: "Não posso mais esperar",
-                      urgencia: "⚠️ SITUAÇÃO CRÍTICA - AÇÃO IMEDIATA NECESSÁRIA"
-                  };
-              } else if (intensidade >= 5) {
-                  return {
-                      principal: "QUERO CONHECER ESSA TERAPIA",
-                      secundario: "Começar minha mudança hoje",
-                      urgencia: "🚨 SITUAÇÃO SÉRIA - AGIR ANTES QUE PIORE"
-                  };
-              } else {
-                  return {
-                      principal: "QUERO PREVENIR O PIOR",
-                      secundario: "Cuidar de mim antes da crise",
-                      urgencia: "💡 MOMENTO IDEAL PARA MUDANÇA"
-                  };
-              }
-          }
+         gerarChamadaAcao(perfil, intensidade) {
+             if (intensidade >= 8) {
+                 return {
+                     principal: "QUERO CONHECER ESSA TERAPIA",
+                     secundario: "Não posso mais esperar",
+                     urgencia: "⚠️ SITUAÇÃO CRÍTICA - AÇÃO IMEDIATA NECESSÁRIA"
+                 };
+             } else if (intensidade >= 5) {
+                 return {
+                     principal: "QUERO CONHECER ESSA TERAPIA",
+                     secundario: "Começar minha mudança hoje",
+                     urgencia: "🚨 SITUAÇÃO SÉRIA - AGIR ANTES QUE PIORE"
+                 };
+             } else {
+                 return {
+                     principal: "QUERO PREVENIR O PIOR",
+                     secundario: "Cuidar de mim antes da crise",
+                     urgencia: "💡 MOMENTO IDEAL PARA MUDANÇA"
+                 };
+             }
+         }
 
-          gerarInsightPersonalizado(categoria, intensidade) {
-              const insights = {
-                  emocional: [
-                      "Você não é dramática - sua dor emocional é real e válida",
-                      "Cuidar dos outros não deveria custar sua própria sanidade mental",
-                      "Você merece o mesmo amor e cuidado que oferece aos outros"
-                  ],
-                  fisico: [
-                      "Seu cansaço não é preguiça - é seu corpo pedindo socorro",
-                      "Você não pode cuidar de ninguém se não cuidar de si primeiro",
-                      "Descansar não é luxo, é necessidade básica para sobreviver"
-                  ],
-                  mental: [
-                      "Sua mente não foi feita para carregar o peso do mundo inteiro",
-                      "Você não precisa ter todas as respostas o tempo todo",
-                      "Está tudo bem não conseguir fazer tudo - você é humana"
-                  ],
-                  pessoal: [
-                      "Você existe além dos papéis que desempenha para os outros",
-                      "Sua identidade não deveria depender do quanto você serve aos outros",
-                      "Você tem o direito de ter desejos e sonhos próprios"
-                  ],
-                  social: [
-                      "Você não precisa carregar os problemas de todo mundo sozinha",
-                      "Pedir ajuda não é fraqueza - é coragem e inteligência",
-                      "Você merece relacionamentos onde também é cuidada"
-                  ]
-              };
+         gerarInsightPersonalizado(categoria, intensidade) {
+             const insights = {
+                 emocional: [
+                     "Você não é dramática - sua dor emocional é real e válida",
+                     "Cuidar dos outros não deveria custar sua própria sanidade mental",
+                     "Você merece o mesmo amor e cuidado que oferece aos outros"
+                 ],
+                 fisico: [
+                     "Seu cansaço não é preguiça - é seu corpo pedindo socorro",
+                     "Você não pode cuidar de ninguém se não cuidar de si primeiro",
+                     "Descansar não é luxo, é necessidade básica para sobreviver"
+                 ],
+                 mental: [
+                     "Sua mente não foi feita para carregar o peso do mundo inteiro",
+                     "Você não precisa ter todas as respostas o tempo todo",
+                     "Está tudo bem não conseguir fazer tudo - você é humana"
+                 ],
+                 pessoal: [
+                     "Você existe além dos papéis que desempenha para os outros",
+                     "Sua identidade não deveria depender do quanto você serve aos outros",
+                     "Você tem o direito de ter desejos e sonhos próprios"
+                 ],
+                 social: [
+                     "Você não precisa carregar os problemas de todo mundo sozinha",
+                     "Pedir ajuda não é fraqueza - é coragem e inteligência",
+                     "Você merece relacionamentos onde também é cuidada"
+                 ]
+             };
 
-              return insights[categoria][Math.floor(Math.random() * insights[categoria].length)];
-          }
-      }
+             return insights[categoria][Math.floor(Math.random() * insights[categoria].length)];
+         }
+     }
 
-      // Variáveis globais
-      let diagnostico = new DiagnosticoMulherExausta();
-      let perguntaAtual = 0;
-      let respostas = [];
-      let totalPerguntas = diagnostico.perguntas.length;
-      let resultadoDiagnostico = null;
+     // Variáveis globais
+     let diagnostico = new DiagnosticoMulherExausta();
+     let perguntaAtual = 0;
+     let respostas = [];
+     let totalPerguntas = diagnostico.perguntas.length;
+     let resultadoDiagnostico = null;
 
-      // Funções do Quiz
-      function iniciarQuiz() {
-          fbq('track', 'InitiateCheckout');
-          
-          document.getElementById('startScreen').classList.remove('active');
-          document.getElementById('quizScreen').classList.add('active');
-          document.getElementById('totalQuestions').textContent = totalPerguntas;
-          mostrarPergunta();
-      }
+     // Funções do Quiz
+     function iniciarQuiz() {
+         fbq('track', 'InitiateCheckout');
+         
+         document.getElementById('startScreen').classList.remove('active');
+         document.getElementById('quizScreen').classList.add('active');
+         document.getElementById('totalQuestions').textContent = totalPerguntas;
+         mostrarPergunta();
+     }
 
-      function mostrarPergunta() {
-          const pergunta = diagnostico.perguntas[perguntaAtual];
-          
-          document.getElementById('currentQuestion').textContent = perguntaAtual + 1;
-          document.getElementById('questionNumber').textContent = perguntaAtual + 1;
-          document.getElementById('questionText').textContent = pergunta.texto;
-          
-          const answersContainer = document.getElementById('answersContainer');
-          answersContainer.innerHTML = '';
-          
-          pergunta.opcoes.forEach((opcao, index) => {
-              const button = document.createElement('button');
-              button.className = 'answer-btn';
-              button.textContent = opcao.texto;
-              button.onclick = () => selecionarResposta(index);
-              answersContainer.appendChild(button);
-          });
-          
-          atualizarProgresso();
-      }
+     function mostrarPergunta() {
+         const pergunta = diagnostico.perguntas[perguntaAtual];
+         
+         document.getElementById('currentQuestion').textContent = perguntaAtual + 1;
+         document.getElementById('questionNumber').textContent = perguntaAtual + 1;
+         document.getElementById('questionText').textContent = pergunta.texto;
+         
+         const answersContainer = document.getElementById('answersContainer');
+         answersContainer.innerHTML = '';
+         
+         pergunta.opcoes.forEach((opcao, index) => {
+             const button = document.createElement('button');
+             button.className = 'answer-btn';
+             button.textContent = opcao.texto;
+             button.onclick = () => selecionarResposta(index);
+             answersContainer.appendChild(button);
+         });
+         
+         atualizarProgresso();
+     }
 
-      function selecionarResposta(index) {
-          fbq('track', 'AddToCart', {
-              content_name: `Pergunta ${perguntaAtual + 1}`,
-              content_category: 'Quiz Response'
-          });
-          
-          respostas[perguntaAtual] = index;
-          
-          const buttons = document.querySelectorAll('.answer-btn');
-          buttons.forEach(btn => btn.classList.remove('selected'));
-          buttons[index].classList.add('selected');
-          
-          setTimeout(() => {
-              if (perguntaAtual < totalPerguntas - 1) {
-                  window.scrollTo({
-                      top: 0,
-                      behavior: 'smooth'
-                  });
-              }
-          }, 500);
-          
-          setTimeout(() => {
-              perguntaAtual++;
-              if (perguntaAtual < totalPerguntas) {
-                  mostrarPergunta();
-              } else {
-                  finalizarQuiz();
-              }
-          }, 1500);
-      }
+     function selecionarResposta(index) {
+         fbq('track', 'AddToCart', {
+             content_name: `Pergunta ${perguntaAtual + 1}`,
+             content_category: 'Quiz Response'
+         });
+         
+         respostas[perguntaAtual] = index;
+         
+         const buttons = document.querySelectorAll('.answer-btn');
+         buttons.forEach(btn => btn.classList.remove('selected'));
+         buttons[index].classList.add('selected');
+         
+         setTimeout(() => {
+             if (perguntaAtual < totalPerguntas - 1) {
+                 window.scrollTo({
+                     top: 0,
+                     behavior: 'smooth'
+                 });
+             }
+         }, 500);
+         
+         setTimeout(() => {
+             perguntaAtual++;
+             if (perguntaAtual < totalPerguntas) {
+                 mostrarPergunta();
+             } else {
+                 finalizarQuiz();
+             }
+         }, 1500);
+     }
 
-      function atualizarProgresso() {
-          const progresso = ((perguntaAtual + 1) / totalPerguntas) * 100;
-          document.getElementById('progressBar').style.width = progresso + '%';
-      }
+     function atualizarProgresso() {
+         const progresso = ((perguntaAtual + 1) / totalPerguntas) * 100;
+         document.getElementById('progressBar').style.width = progresso + '%';
+     }
 
-      function finalizarQuiz() {
-          fbq('track', 'CompleteRegistration');
-          
-          document.getElementById('quizScreen').classList.remove('active');
-          document.getElementById('loadingScreen').classList.add('active');
-          
-          setTimeout(() => {
-              mostrarResultado();
-          }, 3000);
-      }
+     function finalizarQuiz() {
+         fbq('track', 'CompleteRegistration');
+         
+         document.getElementById('quizScreen').classList.remove('active');
+         document.getElementById('loadingScreen').classList.add('active');
+         
+         setTimeout(() => {
+             mostrarResultado();
+         }, 3000);
+     }
 
-      function mostrarResultado() {
-          resultadoDiagnostico = diagnostico.calcularDiagnostico(respostas);
-          
-          document.getElementById('loadingScreen').classList.remove('active');
-          document.getElementById('resultScreen').classList.add('active');
-          
-          const resultCard = document.getElementById('resultCard');
-          resultCard.innerHTML = `
-              <div class="result-badge">${resultadoDiagnostico.perfil.nivel}</div>
-              <div class="result-icon">${resultadoDiagnostico.perfil.icone}</div>
-              <h2 class="result-title">${resultadoDiagnostico.perfil.nome}</h2>
-              <p class="result-description">${resultadoDiagnostico.perfil.diagnostico}</p>
-              
-              <div class="critical-insight">
-                  <div class="insight-title">💡 Insight Personalizado:</div>
-                  <div class="insight-text">"${resultadoDiagnostico.insight}"</div>
-              </div>
-              
-              <div class="consequences-list">
-                  <div class="consequences-title">⚠️ Consequências se não agir:</div>
-                  ${resultadoDiagnostico.perfil.consequencias.map(consequencia => `
-                      <div class="consequence-item">
-                          <span class="consequence-icon">•</span>
-                          <span>${consequencia}</span>
-                      </div>
-                  `).join('')}
-              </div>
-              
-              <div class="excuses-section">
-                  <div class="excuses-intro">
-                      🔍 Você vai se reconhecer nessas desculpas...
-                  </div>
-                  
-                  <div class="excuse-item">
-                      <div class="excuse-quote">• "Não tenho tempo."</div>
-                      <div class="excuse-response">Mas se você continuar sem tempo... até que o seu corpo te pare à força?</div>
-                  </div>
-                  
-                  <div class="excuse-item">
-                      <div class="excuse-quote">• "Não é prioridade agora."</div>
-                      <div class="excuse-response">E quando vai ser? Quando tudo desabar? Quando você já não souber mais quem é?</div>
-                  </div>
-                  
-                  <div class="excuse-item">
-                      <div class="excuse-quote">• "Já aguentei até aqui."</div>
-                      <div class="excuse-response">Sim, você é forte. Mas ser forte não é se destruir em silêncio.</div>
-                  </div>
-                  
-                  <div class="excuse-item">
-                      <div class="excuse-quote">• "Vai dar mais trabalho ainda."</div>
-                      <div class="excuse-response">Se você tentar resolver tudo sozinha sim. Mas, e se você tiver um método terapêutico que facilita?</div>
-                  </div>
-                  
-                  <div class="final-message">
-                      <div class="final-message-text">
-                          📌 <strong>📌 Você já sabe qual parte da sua vida precisa de atenção. Agora é hora de cuidar disso com leveza e direção. Quer dar esse primeiro passo com o apoio de ferramentas terapêuticas? Clique no botão abaixo.</strong>
-                      </div>
-                  </div>
-              </div>
-              
-              <div class="action-buttons">
-                  <button class="btn-primary" onclick="irParaPaginaVendas()">
-                      ${resultadoDiagnostico.chamadaAcao.principal}
-                      <span class="arrow">→</span>
-                  </button>
-                  <div class="urgency-text">${resultadoDiagnostico.chamadaAcao.urgencia}</div>
-              </div>
-          `;
-          
-          fbq('track', 'ViewContent', {
-              content_name: resultadoDiagnostico.perfil.nome,
-              content_category: 'Diagnostic Result'
-          });
-      }
+     function mostrarResultado() {
+         resultadoDiagnostico = diagnostico.calcularDiagnostico(respostas);
+         
+         document.getElementById('loadingScreen').classList.remove('active');
+         document.getElementById('resultScreen').classList.add('active');
+         
+         const resultCard = document.getElementById('resultCard');
+         resultCard.innerHTML = `
+             <div class="result-badge">${resultadoDiagnostico.perfil.nivel}</div>
+             <div class="result-icon">${resultadoDiagnostico.perfil.icone}</div>
+             <h2 class="result-title">${resultadoDiagnostico.perfil.nome}</h2>
+             <p class="result-description">${resultadoDiagnostico.perfil.diagnostico}</p>
+             
+             <div class="critical-insight">
+                 <div class="insight-title">💡 Insight Personalizado:</div>
+                 <div class="insight-text">"${resultadoDiagnostico.insight}"</div>
+             </div>
+             
+             <div class="consequences-list">
+                 <div class="consequences-title">⚠️ Consequências se não agir:</div>
+                 ${resultadoDiagnostico.perfil.consequencias.map(consequencia => `
+                     <div class="consequence-item">
+                         <span class="consequence-icon">•</span>
+                         <span>${consequencia}</span>
+                     </div>
+                 `).join('')}
+             </div>
+             
+             <div class="excuses-section">
+                 <div class="excuses-intro">
+                     🔍 Você vai se reconhecer nessas desculpas...
+                 </div>
+                 
+                 <div class="excuse-item">
+                     <div class="excuse-quote">• "Não tenho tempo."</div>
+                     <div class="excuse-response">Mas se você continuar sem tempo... até que o seu corpo te pare à força?</div>
+                 </div>
+                 
+                 <div class="excuse-item">
+                     <div class="excuse-quote">• "Não é prioridade agora."</div>
+                     <div class="excuse-response">E quando vai ser? Quando tudo desabar? Quando você já não souber mais quem é?</div>
+                 </div>
+                 
+                 <div class="excuse-item">
+                     <div class="excuse-quote">• "Já aguentei até aqui."</div>
+                     <div class="excuse-response">Sim, você é forte. Mas ser forte não é se destruir em silêncio.</div>
+                 </div>
+                 
+                 <div class="excuse-item">
+                     <div class="excuse-quote">• "Vai dar mais trabalho ainda."</div>
+                     <div class="excuse-response">Se você tentar resolver tudo sozinha sim. Mas, e se você tiver um método terapêutico que facilita?</div>
+                 </div>
+                 
+                 <div class="final-message">
+                     <div class="final-message-text">
+                         📌 <strong>Você já sabe qual parte da sua vida precisa de atenção. Agora é hora de cuidar disso com leveza e direção. Quer dar esse primeiro passo com o apoio de ferramentas terapêuticas? Clique no botão abaixo.</strong>
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="action-buttons">
+                 <button class="btn-primary" onclick="irParaPaginaVendas()">
+                     ${resultadoDiagnostico.chamadaAcao.principal}
+                     <span class="arrow">→</span>
+                 </button>
+                 <div class="urgency-text">${resultadoDiagnostico.chamadaAcao.urgencia}</div>
+             </div>
+         `;
+         
+         fbq('track', 'ViewContent', {
+             content_name: resultadoDiagnostico.perfil.nome,
+             content_category: 'Diagnostic Result'
+         });
+     }
 
-      function irParaPaginaVendas() {
-          fbq('track', 'AddToCart', {
-              content_name: 'Sales Page View',
-              content_category: 'Sales Funnel'
-          });
-          
-          document.getElementById('resultScreen').classList.remove('active');
-          document.getElementById('salesScreen').classList.add('active');
-          
-          // Scroll para o topo
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+     function irParaPaginaVendas() {
+         fbq('track', 'AddToCart', {
+             content_name: 'Sales Page View',
+             content_category: 'Sales Funnel'
+         });
+         
+         document.getElementById('resultScreen').classList.remove('active');
+         document.getElementById('salesScreen').classList.add('active');
+         
+         // Scroll para o topo
+         window.scrollTo({ top: 0, behavior: 'smooth' });
+     }
 
-      function irParaCheckout() {
-          fbq('track', 'Purchase', {
-              value: 37.95,
-              currency: 'BRL'
-          });
-          
-          const urlParams = new URLSearchParams(window.location.search);
-          const utmSource = urlParams.get('utm_source') || '';
-          const utmMedium = urlParams.get('utm_medium') || '';
-          const utmCampaign = urlParams.get('utm_campaign') || '';
-          const utmContent = urlParams.get('utm_content') || '';
-          const utmTerm = urlParams.get('utm_term') || '';
-          
-          let checkoutUrl = 'https://pay.kiwify.com.br/nAeTa0z';
-          const params = new URLSearchParams();
-          
-          if (utmSource) params.append('utm_source', utmSource);
-          if (utmMedium) params.append('utm_medium', utmMedium);
-          if (utmCampaign) params.append('utm_campaign', utmCampaign);
-          if (utmContent) params.append('utm_content', utmContent);
-          if (utmTerm) params.append('utm_term', utmTerm);
-          
-          if (params.toString()) {
-              checkoutUrl += '?' + params.toString();
-          }
-          
-          window.open(checkoutUrl, '_blank');
-      }
+     function irParaCheckout() {
+         fbq('track', 'Purchase', {
+             value: 37.95,
+             currency: 'BRL'
+         });
+         
+         const urlParams = new URLSearchParams(window.location.search);
+         const utmSource = urlParams.get('utm_source') || '';
+         const utmMedium = urlParams.get('utm_medium') || '';
+         const utmCampaign = urlParams.get('utm_campaign') || '';
+         const utmContent = urlParams.get('utm_content') || '';
+         const utmTerm = urlParams.get('utm_term') || '';
+         
+         let checkoutUrl = 'https://pay.kiwify.com.br/nAeTa0z';
+         const params = new URLSearchParams();
+         
+         if (utmSource) params.append('utm_source', utmSource);
+         if (utmMedium) params.append('utm_medium', utmMedium);
+         if (utmCampaign) params.append('utm_campaign', utmCampaign);
+         if (utmContent) params.append('utm_content', utmContent);
+         if (utmTerm) params.append('utm_term', utmTerm);
+         
+         if (params.toString()) {
+             checkoutUrl += '?' + params.toString();
+         }
+         
+         window.open(checkoutUrl, '_blank');
+     }
 
-      // FAQ Toggle
-      function toggleFaq(element) {
-          const faqItem = element.parentElement;
-          const answer = faqItem.querySelector('.faq-answer');
-          
-          faqItem.classList.toggle('active');
-          answer.classList.toggle('active');
-      }
+     // FAQ Toggle
+     function toggleFaq(element) {
+         const faqItem = element.parentElement;
+         const answer = faqItem.querySelector('.faq-answer');
+         
+         faqItem.classList.toggle('active');
+         answer.classList.toggle('active');
+     }
 
-      // Inicialização
-      document.addEventListener('DOMContentLoaded', function() {
-          fbq('track', 'PageView');
-      });
-  </script>
+     // Inicialização
+     document.addEventListener('DOMContentLoaded', function() {
+         fbq('track', 'PageView');
+     });
+ </script>
 </body>
 </html>
