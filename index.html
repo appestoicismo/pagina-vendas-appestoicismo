@@ -1315,50 +1315,489 @@
     </div>
 </div>
 
-   <!-- PROVAS SOCIAIS -->
-     <div class="sales-section">
-         <div class="social-proof">
-             <div class="section-title">O Que Nossas Usuárias Dizem</div>
-             <div class="testimonials-grid">
-                 <div class="testimonial">
-                     <div class="testimonial-text">
-                         Em 1 semana realizando as ferramentas, recuperei minha energia e voltei a me sentir eu mesma. Finalmente consegui estabelecer limites saudáveis com minha vida.
-                     </div>
-                     <div class="testimonial-author">
-                         <div class="author-avatar">M</div>
-                         <div class="author-info">
-                             <div class="author-name">Marina S. Morales</div>
-                             <div class="author-result">Recuperou energia em 1 semana</div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="testimonial">
-                     <div class="testimonial-text">
-                         Pensei que nunca mais teria tempo para mim. A ferramenta de organização do tempo me mostrou que era falta de organização e prioridade. Estou mais equilibrada e feliz.
-                     </div>
-                     <div class="testimonial-author">
-                         <div class="author-avatar">A</div>
-                         <div class="author-info">
-                             <div class="author-name">Ana Aparecida Costa</div>
-                             <div class="author-result">Encontrou equilíbrio em poucos dias</div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="testimonial">
-                     <div class="testimonial-text">
-                         Depois de anos me sentindo perdida, o programa me ajudou a reconectar comigo mesma. Agora sei quem eu sou além de mãe e esposa.
-                     </div>
-                     <div class="testimonial-author">
-                         <div class="author-avatar">C</div>
-                         <div class="author-info">
-                             <div class="author-name">Carla Mendes Fonseca</div>
-                             <div class="author-result">Reconectou-se em 10 dias</div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
+   <!-- Seção Instagram Comments - Desafio Reconexão -->
+<section class="instagram-comments-section">
+    <style>
+        .instagram-comments-section * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .instagram-comments-section {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            width: 100%;
+            max-width: 375px;
+            margin: 0 auto;
+            position: relative;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .instagram-comments-section .header {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #dbdbdb;
+            background-color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .instagram-comments-section .header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .instagram-comments-section .comments-section {
+    padding-bottom: 0px;  /* SEM padding na parte inferior */
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+        .instagram-comments-section .comment {
+            display: flex;
+            padding: 12px 16px;
+            align-items: flex-start;
+        }
+
+        .instagram-comments-section .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .instagram-comments-section .comment-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .instagram-comments-section .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            gap: 8px;
+        }
+
+        .instagram-comments-section .username {
+            font-weight: 600;
+            color: #000;
+            font-size: 13px;
+        }
+
+        .instagram-comments-section .timestamp {
+            color: #8e8e8e;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .instagram-comments-section .comment-text {
+            color: #000;
+            font-size: 13px;
+            line-height: 18px;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+        }
+
+        .instagram-comments-section .comment-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 4px;
+        }
+
+        .instagram-comments-section .reply-btn {
+            color: #8e8e8e;
+            font-size: 12px;
+            font-weight: 400;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .instagram-comments-section .like-section {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .instagram-comments-section .like-btn {
+            width: 12px;
+            height: 12px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .instagram-comments-section .heart-icon {
+            width: 12px;
+            height: 12px;
+            color: #8e8e8e;
+        }
+
+        .instagram-comments-section .liked .heart-icon {
+            color: #ed4956;
+        }
+
+        .instagram-comments-section .likes-count {
+            color: #8e8e8e;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .instagram-comments-section .view-replies {
+            color: #8e8e8e;
+            font-size: 12px;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        .instagram-comments-section .emoji-reactions {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 12px 16px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .instagram-comments-section .emoji-btn {
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .instagram-comments-section .emoji-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .instagram-comments-section .comment-input-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border-top: 1px solid #dbdbdb;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .instagram-comments-section .comment-input-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .instagram-comments-section .comment-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #000;
+            font-size: 14px;
+            outline: none;
+            padding: 8px 0;
+        }
+
+        .instagram-comments-section .comment-input::placeholder {
+            color: #8e8e8e;
+        }
+
+        .instagram-comments-section .input-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .instagram-comments-section .sticker-btn, 
+        .instagram-comments-section .gift-btn {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #8e8e8e;
+        }
+
+        .instagram-comments-section .emoji {
+            font-size: 13px;
+        }
+    </style>
+
+    <div class="instagram-container">
+        <!-- Header -->
+        <div class="header">
+            <span class="header-title">Comentários</span>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            
+            <!-- Comentário 1 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">marina_morales</span>
+                        <span class="timestamp">1 semana</span>
+                    </div>
+                    <p class="comment-text">Em 1 semana realizando os ferramentas, recuperei minha energia e voltei a me sentir eu mesma. Finalmente consegui estabelecer limites saudáveis com minha vida.</p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">87</span>
+                </div>
+            </div>
+
+            <!-- Comentário 2 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">ana_aparecida</span>
+                        <span class="timestamp">poucos dias</span>
+                    </div>
+                    <p class="comment-text">Pensei que nunca mais teria tempo para mim. A ferramenta de organização do tempo me mostrou que era falta de organização e prioridade. Estou mais equilibrada e feliz.</p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">134</span>
+                </div>
+            </div>
+
+            <!-- Comentário 3 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">carla_fonseca</span>
+                        <span class="timestamp">10 dias</span>
+                    </div>
+                    <p class="comment-text">Depois de anos me sentindo perdida, o programa me ajudou a reconectar comigo mesma. Agora sei quem eu sou além de mãe e esposa.</p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn liked">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">89</span>
+                </div>
+            </div>
+
+            <!-- Comentário 4 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">marcia_fernanda_</span>
+                        <span class="timestamp">1 sem</span>
+                    </div>
+                    <p class="comment-text">meninas depois que comecei a fazer essas ferramentas guiadas minha energia mudou completamente! consigo dar conta de tudo sem me sentir esgotada <span class="emoji">✨</span></p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.89 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">156</span>
+                </div>
+            </div>
+
+            <!-- Comentário 5 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">rosangela_ap</span>
+                        <span class="timestamp">10d</span>
+                    </div>
+                    <p class="comment-text">meu casamento tava numa fase difícil mas depois que comecei a me conhecer melhor tudo mudou... hoje estamos mais unidos que nunca <span class="emoji">💕</span></p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                    <div class="view-replies">Ver mais 1 resposta</div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn liked">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">203</span>
+                </div>
+            </div>
+
+            <!-- Comentário 6 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">adriana_cristina</span>
+                        <span class="timestamp">2 sem</span>
+                    </div>
+                    <p class="comment-text">sempre fui muito ansiosa mas aprendi a focar no que realmente importa <span class="emoji">🙏</span> parei de me estressar com bobagens</p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">98</span>
+                </div>
+            </div>
+
+            <!-- Comentário 7 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">simone_rodrigues</span>
+                        <span class="timestamp">2 sem</span>
+                    </div>
+                    <p class="comment-text">depois do divórcio tava perdida, não sabia quem eu era... hoje me redescobri e me sinto uma mulher completa graças a esse app <span class="emoji">💪</span></p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">145</span>
+                </div>
+            </div>
+
+            <!-- Comentário 8 -->
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop&crop=face" alt="Avatar" class="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">valeria_regina</span>
+                        <span class="timestamp">3 sem</span>
+                    </div>
+                    <p class="comment-text">sempre tive dificuldade de fazer amizades mas hoje consigo me abrir mais e ser autêntica <span class="emoji">❤️</span> me sinto acolhida</p>
+                    <div class="comment-actions">
+                        <button class="reply-btn">Responder</button>
+                    </div>
+                </div>
+                <div class="like-section">
+                    <button class="like-btn">
+                        <svg class="heart-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/>
+                        </svg>
+                    </button>
+                    <span class="likes-count">76</span>
+                </div>
+            </div>
+
+        </div>
+
+        
+   <script>
+      // Funcionalidade de like
+      document.querySelectorAll('.instagram-comments-section .like-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+              this.classList.toggle('liked');
+              const likesSpan = this.parentElement.querySelector('.likes-count');
+              let currentLikes = parseInt(likesSpan.textContent);
+              
+              if (this.classList.contains('liked')) {
+                  likesSpan.textContent = currentLikes + 1;
+              } else {
+                  likesSpan.textContent = currentLikes - 1;
+              }
+          });
+      });
+
+      // Funcionalidade do input
+      const input = document.querySelector('.instagram-comments-section .comment-input');
+
+      if (input) {
+          input.addEventListener('input', function() {
+              console.log('Digitando comentário...');
+          });
+      }
+
+      // Funcionalidade dos emojis
+      document.querySelectorAll('.instagram-comments-section .emoji-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+              console.log('Emoji clicado:', this.textContent);
+          });
+      });
+
+      // Funcionalidade dos botões de responder
+      document.querySelectorAll('.instagram-comments-section .reply-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+              const input = document.querySelector('.instagram-comments-section .comment-input');
+              const username = this.closest('.comment').querySelector('.username').textContent;
+              if (input) {
+                  input.focus();
+                  input.placeholder = `Respondendo @${username}...`;
+              }
+          });
+      });
+
+      // Limpar placeholder quando clicar no input
+      const commentInput = document.querySelector('.instagram-comments-section .comment-input');
+      if (commentInput) {
+          commentInput.addEventListener('focus', function() {
+              if (this.placeholder.includes('Respondendo')) {
+                  setTimeout(() => {
+                      this.placeholder = 'Inicie a conversa...';
+                  }, 3000);
+              }
+          });
+      }
+  </script>
+</section>
 
      <!-- BÔNUS -->
      <div class="sales-section">
@@ -1981,6 +2420,5 @@
  </script>
 </body>
 </html>
-
 
 
