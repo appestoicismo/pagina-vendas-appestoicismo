@@ -587,33 +587,38 @@
        }
 
        .sales-header {
-           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-           color: white;
-           padding: 40px 20px;
-           text-align: center;
-       }
+    background: #fff9ed;
+    color: #2d3748;
+    padding: 40px 20px;
+    text-align: center;
+}
 
        .sales-headline {
-           font-size: 32px;
-           font-weight: 700;
-           margin-bottom: 15px;
-           line-height: 1.2;
-       }
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    color: #2d3748;
+}
 
        .sales-subheadline {
-           font-size: 18px;
-           opacity: 0.9;
-           margin-bottom: 20px;
-       }
+    font-size: 18px;
+    color: #4a5568;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
 
        .connection-badge {
-           background: rgba(255, 255, 255, 0.2);
-           padding: 8px 20px;
-           border-radius: 25px;
-           font-size: 14px;
-           font-weight: 600;
-           display: inline-block;
-       }
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 1px solid #667eea;
+}
 
        .sales-section {
            padding: 40px 20px;
@@ -635,54 +640,6 @@
            margin-bottom: 30px;
            text-align: center;
            line-height: 1.6;
-       }
-
-       /* VÍDEO VSL - CÓDIGO LIMPO SEM CAIXAS VAZIAS */
-       .video-section {
-           padding: 40px 20px;
-           max-width: 800px;
-           margin: 0 auto;
-       }
-
-       .video-title {
-           font-size: 24px;
-           font-weight: 700;
-           color: #1a202c;
-           margin-bottom: 15px;
-           text-align: center;
-           line-height: 1.3;
-       }
-
-       .video-cta {
-           font-size: 16px;
-           color: #4a5568;
-           margin-bottom: 30px;
-           text-align: center;
-           line-height: 1.6;
-       }
-
-       .video-container {
-           margin: 30px 0;
-           text-align: center;
-       }
-
-       .video-wrapper {
-           position: relative;
-           padding-bottom: 56.25%; /* 16:9 aspect ratio */
-           height: 0;
-           overflow: hidden;
-           border-radius: 15px;
-           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-       }
-
-       .video-wrapper iframe {
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           border: none;
-           border-radius: 15px;
        }
 
        /* BOTÃO CHECKOUT PÓS VÍDEO */
@@ -709,35 +666,6 @@
        .checkout-button:hover {
            transform: translateY(-3px) scale(1.05);
            box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
-       }
-
-       /* PRODUTO */
-       .product-showcase {
-           background: linear-gradient(135deg, #f7fafc, #edf2f7);
-           border-radius: 20px;
-           padding: 40px 30px;
-           margin: 30px 0;
-           text-align: center;
-       }
-
-       .product-icon {
-           font-size: 64px;
-           margin-bottom: 20px;
-           display: block;
-       }
-
-       .product-name {
-           font-size: 24px;
-           font-weight: 700;
-           color: #1a202c;
-           margin-bottom: 15px;
-       }
-
-       .product-description {
-           font-size: 16px;
-           color: #4a5568;
-           line-height: 1.6;
-           margin-bottom: 30px;
        }
 
        /* BENEFÍCIOS */
@@ -988,7 +916,8 @@
            color: #ea580c;
            font-weight: 600;
            margin-top: 5px;
-       }
+         text-decoration: line-through;
+     }
 
        /* PREÇO E DESCONTO */
       .pricing-section {
@@ -1309,178 +1238,109 @@
  <div id="salesScreen" class="screen sales-page">
      <!-- HEADER DA PÁGINA DE VENDAS -->
      <div class="sales-header">
-         <div class="sales-container">
-             <div class="connection-badge" id="connectionBadge">Baseado no seu diagnóstico</div>
-             <h1 class="sales-headline">DESAFIO RECONEXÃO EM 7 DIAS</h1>
-             <p class="sales-subheadline">Assista ao vídeo abaixo e veja como o aplicativo funciona.</p>
-         </div>
-     </div>
-
-     <!-- VÍDEO VSL COM TÍTULO E CTA -->
-     <div class="video-section">
-         
-         <p class="video-cta">Com apenas 15 minutos por semana, elas começaram a se sentir mais vivas, presentes e no controle de si mesmas. Veja como, assistindo o vídeo:</p>
-         
-         <div class="video-container">
-             <div class="video-wrapper">
-                 <iframe src="https://www.youtube.com/embed/sLnAFjkuM8k" allowfullscreen></iframe>
-             </div>
-         </div>
-         
-         <!-- BOTÃO CHECKOUT PÓS VÍDEO -->
-         <div style="text-align: center;">
-             <button class="checkout-button" onclick="irParaCheckout()">
-                 QUERO TRANSFORMAR MINHA VIDA AGORA
-                 <span class="arrow">→</span>
-             </button>
-         </div>
-     </div>
-
-     <!-- PRODUTO -->
-     <div class="sales-section">
-         <div class="product-showcase">
-             <div class="product-icon">📱</div>
-             <div class="product-name">APLICATIVO TERAPÊUTICO DE AUTOCONHECIMENTO</div>
-             <div class="product-description">
-                 O primeiro aplicativo desenvolvido especificamente para mulheres que querem recuperar sua energia, identidade e bem-estar de forma prática e rápida.
-             </div>
-         </div>
-     </div>
+    <div class="sales-container">
+        <div class="connection-badge" id="connectionBadge">Baseado no seu diagnóstico</div>
+        <h1 class="sales-headline">DESAFIO RECONEXÃO<br>EM 7 DIAS</h1>
+        <p class="sales-subheadline">Você só precisa dispor de 10 a 15 minutos por dia</p>
+    </div>
+</div>
 
      <!-- BENEFÍCIOS -->
      <div class="sales-section">
-         <div class="section-title">💖 O Que Vai Mudar na Sua Vida</div>
-         <div class="benefits-grid">
-             <div class="benefit-item">
-                 <div class="benefit-icon">⚡</div>
-                 <div class="benefit-content">
-                     <div class="benefit-title">Energia pra viver, não só sobreviver</div>
-                     <div class="benefit-description">Acorde com disposição real — sem peso no peito, sem culpa por existir.</div>
-                 </div>
-             </div>
-             <div class="benefit-item">
-                 <div class="benefit-icon">🎯</div>
-                 <div class="benefit-content">
-                     <div class="benefit-title">Clareza pra pensar e decidir sem travar</div>
-                     <div class="benefit-description">Organize sua mente e volte a confiar nas suas escolhas, sem se sentir perdida.</div>
-                 </div>
-             </div>
-             <div class="benefit-item">
-                 <div class="benefit-icon">💝</div>
-                 <div class="benefit-content">
-                     <div class="benefit-title">Reencontro com quem você era antes de se apagar</div>
-                     <div class="benefit-description">Lembre de quem você é de verdade — além de mãe, esposa, profissional e "a forte da casa".</div>
-                 </div>
-             </div>
-             <div class="benefit-item">
-                 <div class="benefit-icon">🌸</div>
-                 <div class="benefit-content">
-                     <div class="benefit-title">Equilíbrio emocional que você sente no corpo</div>
-                     <div class="benefit-description">Chega de reprimir o que sente ou explodir sozinha no banheiro. Aprenda a se cuidar de dentro pra fora.</div>
-                 </div>
-             </div>
-             <div class="benefit-item">
-                 <div class="benefit-icon">🏠</div>
-                 <div class="benefit-content">
-                     <div class="benefit-title">Relacionamentos mais leves, sem se anular</div>
-                     <div class="benefit-description">Estabeleça limites com quem você ama, sem culpa. E seja respeitada sem ter que brigar por isso.</div>
-                 </div>
-             </div>
-         </div>
-     </div>
+    <div class="section-title">💖 O Que Vai Mudar na Sua Vida</div>
+    <div class="section-subtitle">Imagine acordar todos os dias sabendo exatamente quem você é e o que realmente importa para você...</div>
+    
+    <p style="margin-bottom: 25px; font-size: 16px; color: #4a5568; line-height: 1.6;">
+        Eu sei como é essa sensação de estar sempre correndo, sempre cansada, sempre sentindo que não está dando conta de tudo. Eu vivia assim também - trabalhando, pagando contas, educando filhos, cuidando da casa... e me perdendo completamente no meio de tudo isso.
+    </p>
+    
+    <p style="margin-bottom: 25px; font-size: 16px; color: #1a202c; font-weight: 600;">
+        <strong>Até que eu decidi dar uma pausa. Apenas 15 minutos por dia para me reconectar comigo mesma.</strong>
+    </p>
+    
+    <p style="margin-bottom: 30px; font-size: 16px; color: #4a5568; line-height: 1.6;">
+        E sabe o que aconteceu? Minha vida mudou completamente:
+    </p>
+    
+    <div class="benefits-grid">
+        <div class="benefit-item">
+            <div class="benefit-icon">⚡</div>
+            <div class="benefit-content">
+                <div class="benefit-title">Encontrei clareza sobre o que realmente importa</div>
+                <div class="benefit-description">Parei de correr atrás de mil coisas e comecei a focar no essencial, sem mais culpa ou ansiedade</div>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-icon">🎯</div>
+            <div class="benefit-content">
+                <div class="benefit-title">Me conectei de verdade com meus filhos</div>
+                <div class="benefit-description">Agora quando estou com eles, estou REALMENTE presente. Nossas conversas ficaram mais profundas e genuínas</div>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-icon">💝</div>
+            <div class="benefit-content">
+                <div class="benefit-title">Parei de ser minha pior inimiga</div>
+                <div class="benefit-description">Troquei a autocrítica constante por autocompaixão. Finalmente entendi que fazer meu melhor já é suficiente</div>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-icon">🌸</div>
+            <div class="benefit-content">
+                <div class="benefit-title">Descobri uma fonte inesgotável de energia</div>
+                <div class="benefit-description">Sim, parando 15 minutos por dia eu ganhei MAIS energia para tudo que preciso fazer</div>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-icon">🏠</div>
+            <div class="benefit-content">
+                <div class="benefit-title">Meus relacionamentos se transformaram</div>
+                <div class="benefit-description">Quando você se conhece de verdade, consegue se relacionar de forma mais autêntica com todo mundo</div>
+            </div>
+        </div>
+    </div>
+    
+    <p style="margin: 25px 0; font-size: 16px; color: #1a202c; font-weight: 600; text-align: center;">
+        <strong>Esses 15 minutos diários se tornaram sagrados para mim. Era meu momento de voltar para casa - para mim mesma.</strong>
+    </p>
+    
+    <p style="margin-bottom: 30px; font-size: 18px; color: #667eea; font-weight: 600; text-align: center; font-style: italic;">
+        <em>E se eu te dissesse que você também pode ter essa transformação, começando hoje mesmo?</em>
+    </p>
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <img src="https://raw.githubusercontent.com/appestoicismo/app-autoconhecimento-images/main/checkout.jpg" 
+             alt="Desafio Reconexão em 7 Dias" 
+             style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+    </div>
+</div>
 
-     <!-- COMO FUNCIONA -->
-     <div class="sales-section">
-         <div class="how-it-works">
-             <div class="section-title">💡 Como o Programa Te Ajuda Na Prática</div>
-             <div class="steps-grid">
-                 <div class="step-item">
-                     <div class="step-number">1</div>
-                     <div class="step-content">
-                         <div class="step-title">🔍 Diagnóstico Rápido e Profundo</div>
-                         <div class="step-description">Em poucos cliques, o app entende o que tá drenando sua energia — e monta um plano só seu, sem enrolação.</div>
-                     </div>
-                 </div>
-                 <div class="step-item">
-                     <div class="step-number">2</div>
-                     <div class="step-content">
-                         <div class="step-title">🧘‍♀️ Sessões Leves e Terapêuticas</div>
-                         <div class="step-description">Só 15 minutinhos 1 ou 2 vezes na semana, com reflexões guiadas e exercícios práticos que cabem na sua rotina — até no intervalo do trabalho.</div>
-                     </div>
-                 </div>
-                 <div class="step-item">
-                     <div class="step-number">3</div>
-                     <div class="step-content">
-                         <div class="step-title">📊 Acompanhamento que te entende</div>
-                         <div class="step-description">O app acompanha seu ritmo e ajusta as atividades conforme seu progresso. Você não precisa ser perfeita — só presente.</div>
-                     </div>
-                 </div>
-                 <div class="step-item">
-                     <div class="step-number">4</div>
-                     <div class="step-content">
-                         <div class="step-title">🌱 Transformação real e sustentável</div>
-                         <div class="step-description">Nada de efeito temporário. Aqui, você cria novos hábitos com base no que realmente funciona pra você. Sem pressão, sem culpa.</div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
-
-     <!-- PARA QUEM É -->
-     <div class="sales-section">
-         <div class="target-audience">
-             <div class="section-title">Este Programa é Para Você Se:</div>
-             <div class="audience-list">
-                 <div class="audience-item">
-                     <div class="audience-icon">✅</div>
-                     <div class="audience-text">Você se sente exausta mesmo após uma noite de sono</div>
-                 </div>
-                 <div class="audience-item">
-                     <div class="audience-icon">✅</div>
-                     <div class="audience-text">Cuida de todos, mas esqueceu de cuidar de si mesma</div>
-                 </div>
-                 <div class="audience-item">
-                     <div class="audience-icon">✅</div>
-                     <div class="audience-text">Sente que perdeu sua identidade no meio de tantas responsabilidades</div>
-                 </div>
-                 <div class="audience-item">
-                     <div class="audience-icon">✅</div>
-                     <div class="audience-text">Quer uma solução prática que se adapte à sua rotina corrida</div>
-                 </div>
-                 <div class="audience-item">
-                     <div class="audience-icon">✅</div>
-                     <div class="audience-text">Está cansada de soluções superficiais e quer resultados reais</div>
-                 </div>
-             </div>
-         </div>
-     </div>
-
-     <!-- PROVAS SOCIAIS -->
+   <!-- PROVAS SOCIAIS -->
      <div class="sales-section">
          <div class="social-proof">
              <div class="section-title">O Que Nossas Usuárias Dizem</div>
              <div class="testimonials-grid">
                  <div class="testimonial">
                      <div class="testimonial-text">
-                         Em 3 semanas usando o app, recuperei minha energia e voltei a me sentir eu mesma. Finalmente consegui estabelecer limites saudáveis com minha família.
+                         Em 1 semana realizando as ferramentas, recuperei minha energia e voltei a me sentir eu mesma. Finalmente consegui estabelecer limites saudáveis com minha vida.
                      </div>
                      <div class="testimonial-author">
                          <div class="author-avatar">M</div>
                          <div class="author-info">
-                             <div class="author-name">Maria Silva</div>
-                             <div class="author-result">Recuperou energia em 21 dias</div>
+                             <div class="author-name">Marina S. Morales</div>
+                             <div class="author-result">Recuperou energia em 1 semana</div>
                          </div>
                      </div>
                  </div>
                  <div class="testimonial">
                      <div class="testimonial-text">
-                         Pensei que nunca mais teria tempo para mim. O app me mostrou que 15 minutos por dia podem transformar completamente minha vida. Estou mais equilibrada e feliz.
+                         Pensei que nunca mais teria tempo para mim. A ferramenta de organização do tempo me mostrou que era falta de organização e prioridade. Estou mais equilibrada e feliz.
                      </div>
                      <div class="testimonial-author">
                          <div class="author-avatar">A</div>
                          <div class="author-info">
-                             <div class="author-name">Ana Costa</div>
-                             <div class="author-result">Encontrou equilíbrio em 1 mês</div>
+                             <div class="author-name">Ana Aparecida Costa</div>
+                             <div class="author-result">Encontrou equilíbrio em poucos dias</div>
                          </div>
                      </div>
                  </div>
@@ -1491,8 +1351,8 @@
                      <div class="testimonial-author">
                          <div class="author-avatar">C</div>
                          <div class="author-info">
-                             <div class="author-name">Carla Mendes</div>
-                             <div class="author-result">Reconectou-se em 45 dias</div>
+                             <div class="author-name">Carla Mendes Fonseca</div>
+                             <div class="author-result">Reconectou-se em 10 dias</div>
                          </div>
                      </div>
                  </div>
@@ -1517,18 +1377,26 @@
                      <div class="bonus-icon">🎧</div>
                      <div class="bonus-content">
                          <div class="bonus-title">Áudios de Meditação Guiada</div>
-                         <div class="bonus-description">10 meditações exclusivas para diferentes momentos do seu dia</div>
+                         <div class="bonus-description">3 meditações exclusivas para diferentes momentos do seu dia</div>
                          <div class="bonus-value">Valor: R$ 97</div>
                      </div>
                  </div>
                  <div class="bonus-item">
                      <div class="bonus-icon">👥</div>
                      <div class="bonus-content">
-                         <div class="bonus-title">Acesso ao Grupo VIP</div>
-                         <div class="bonus-description">Comunidade exclusiva com outras mulheres em transformação</div>
-                         <div class="bonus-value">Valor: R$ 25</div>
+                         <div class="bonus-title">Ensinamentos e treinos diretamente no celular</div>
+                         <div class="bonus-description">Toda semana novos ensinamentos, instruções e desafios</div>
+                         <div class="bonus-value">Valor: R$ 45</div>
                      </div>
                  </div>
+               <div class="bonus-item">
+    <div class="bonus-icon">🔓</div>
+    <div class="bonus-content">
+        <div class="bonus-title">Acesso por 1 ano</div>
+        <div class="bonus-description">Acesso completo ao aplicativo por 12 meses</div>
+        <div class="bonus-value" style="text-decoration: line-through;">Valor: Incalculável</div>
+    </div>
+</div>
              </div>
          </div>
      </div>
@@ -1537,7 +1405,7 @@
      <div class="sales-section">
          <div class="pricing-section">
              <div class="pricing-badge">🔥 OFERTA ESPECIAL</div>
-             <div class="original-price">De R$ 79,90 por apenas:</div>
+             <div class="original-price">De R$ 169 por apenas:</div>
              <div class="current-price">R$ 29,00</div>
              <div class="price-description">Ou 6x de R$ 5,44</div>
          </div>
@@ -1547,7 +1415,7 @@
      <div class="sales-section">
          <div class="main-cta-section">
              <button class="main-cta-button" onclick="irParaCheckout()">
-                 QUERO TRANSFORMAR MINHA VIDA AGORA
+                 QUERO RECONECTAR MINHA VIDA AGORA
                  <span class="arrow">→</span>
              </button>
              <div class="cta-guarantee">🔒 Compra 100% Segura e Protegida</div>
@@ -1560,7 +1428,7 @@
              <div class="guarantee-icon">🛡️</div>
              <div class="guarantee-title">Garantia Incondicional de 7 Dias</div>
              <div class="guarantee-description">
-                 Se em 7 dias você não sentir uma transformação significativa na sua energia e bem-estar, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.
+                 Se em 7 dias, por um milagre, você não sentir uma transformação significativa na sua energia e bem-estar, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.
              </div>
          </div>
      </div>
@@ -1576,7 +1444,7 @@
                      <span class="faq-icon">▼</span>
                  </button>
                  <div class="faq-answer">
-                     Apenas 15-20 minutos 1 ou 2 vezes por semana. O programa foi desenvolvido para se adaptar à rotina de mulheres ocupadas.
+                     Apenas 10-15 minutos por dia ou no seu tempo. O programa foi desenvolvido para se adaptar à rotina de mulheres ocupadas.
                  </div>
              </div>
 
@@ -1626,7 +1494,7 @@
      <div class="sales-section">
          <div class="main-cta-section">
              <button class="main-cta-button" onclick="irParaCheckout()">
-                 SIM, QUERO COMEÇAR MINHA TRANSFORMAÇÃO
+                 SIM, QUERO COMEÇAR MINHA RECONEXÃO
                  <span class="arrow">→</span>
              </button>
              <div class="cta-guarantee">🔒 Acesso Imediato + Garantia de 7 Dias</div>
